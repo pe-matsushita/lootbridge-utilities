@@ -1,12 +1,12 @@
 import { BigNumber } from 'ethers';
 
 export type GeneralStakeUIData = {
-  stkAaveData: {
+  stkLootBridgeData: {
     stakedTokenTotalSupply: BigNumber;
     stakedTokenTotalRedeemableAmount: BigNumber;
     stakeCooldownSeconds: BigNumber;
     stakeUnstakeWindow: BigNumber;
-    rewardTokenPriceEth: BigNumber;
+    rewardTokenPriceBnb: BigNumber;
     distributionEnd: BigNumber;
     distributionPerSecond: BigNumber;
     stakedTokenPriceEth: BigNumber;
@@ -17,17 +17,17 @@ export type GeneralStakeUIData = {
     stakedTokenTotalRedeemableAmount: BigNumber;
     stakeCooldownSeconds: BigNumber;
     stakeUnstakeWindow: BigNumber;
-    rewardTokenPriceEth: BigNumber;
+    rewardTokenPriceBnb: BigNumber;
     distributionEnd: BigNumber;
     distributionPerSecond: BigNumber;
     stakedTokenPriceEth: BigNumber;
     stakeApy: BigNumber;
   };
-  ethPrice: BigNumber;
+  bnbPrice: BigNumber;
 };
 
 export type GetUserStakeUIData = {
-  stkAaveData: {
+  stkLootBridgeData: {
     stakedTokenUserBalance: BigNumber;
     underlyingTokenUserBalance: BigNumber;
     stakedTokenRedeemableAmount: BigNumber;
@@ -43,17 +43,17 @@ export type GetUserStakeUIData = {
     userCooldownTimestamp: number;
     rewardsToClaim: BigNumber;
   };
-  ethPrice: BigNumber;
+  bnbPrice: BigNumber;
 };
 
 export type GeneralStakeUIDataHumanized = {
-  aave: {
+  lootbridge: {
     stakeTokenTotalSupply: string;
     stakeTokenTotalRedeemableAmount: string;
     stakeCooldownSeconds: number;
     stakeUnstakeWindow: number;
-    stakeTokenPriceEth: string;
-    rewardTokenPriceEth: string;
+    stakeTokenPriceBnb: string;
+    rewardTokenPriceBnb: string;
     stakeApy: string;
     distributionPerSecond: string;
     distributionEnd: string;
@@ -63,23 +63,26 @@ export type GeneralStakeUIDataHumanized = {
     stakeTokenTotalRedeemableAmount: string;
     stakeCooldownSeconds: number;
     stakeUnstakeWindow: number;
-    stakeTokenPriceEth: string;
-    rewardTokenPriceEth: string;
+    stakeTokenPriceBnb: string;
+    rewardTokenPriceBnb: string;
     stakeApy: string;
     distributionPerSecond: string;
     distributionEnd: string;
   };
-  ethPriceUsd: string;
+  // bnbPriceUsd: string;
+  usdPriceBnb: string;
 };
 
 export type GetUserStakeUIDataHumanized = {
-  aave: {
+  lootbridge: {
     stakeTokenUserBalance: string;
     underlyingTokenUserBalance: string;
     stakeTokenRedeemableAmount: string;
     userCooldownAmount: string;
     userCooldownTimestamp: number;
     userIncentivesToClaim: string;
+    userCooldown: number;
+    userPermitNonce: string;
   };
   bpt: {
     stakeTokenUserBalance: string;
@@ -88,6 +91,9 @@ export type GetUserStakeUIDataHumanized = {
     userCooldownAmount: string;
     userCooldownTimestamp: number;
     userIncentivesToClaim: string;
+    userCooldown: number;
+    userPermitNonce: string;
   };
-  ethPriceUsd: string;
+  // bnbPriceUsd: string;
+  usdPriceBnb: string;
 };

@@ -53,7 +53,7 @@ export type LPRepayWithPermitParamsType = {
   permitS: BytesLike;
 };
 
-export type LPRepayWithATokensType = {
+export type LPRepayWithLBTokensType = {
   user: string;
   reserve: string;
   amount: string;
@@ -78,5 +78,5 @@ export type LPLiquidationCall = {
   debtReserve: tEthereumAddress;
   collateralReserve: tEthereumAddress;
   debtToCover: string;
-  getAToken?: boolean;
+  getLBToken?: boolean;
 };

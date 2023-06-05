@@ -37,13 +37,13 @@ describe('ChainlinkFeedsRegistry', () => {
 
     it('Should throw error if token address is wrong', async () => {
       await expect(
-        registry.decimals(mockInvalidEthereumAddress, Denominations.eth),
+        registry.decimals(mockInvalidEthereumAddress, Denominations.bnb),
       ).rejects.toThrow('tokenAddress is not valid');
     });
     it('Should get the decimals', async () => {
       const decimals = await registry.decimals(
         mockValidEthereumAddress,
-        Denominations.eth,
+        Denominations.bnb,
       );
 
       expect(decimals).toEqual(1);
@@ -66,13 +66,13 @@ describe('ChainlinkFeedsRegistry', () => {
     };
     it('Should throw error if token address is wrong', async () => {
       await expect(
-        registry.latestRoundData(mockInvalidEthereumAddress, Denominations.eth),
+        registry.latestRoundData(mockInvalidEthereumAddress, Denominations.bnb),
       ).rejects.toThrow('tokenAddress is not valid');
     });
     it('Should get the decimals', async () => {
       const latestAnswer = await registry.latestRoundData(
         mockValidEthereumAddress,
-        Denominations.eth,
+        Denominations.bnb,
       );
 
       expect(latestAnswer).toEqual({
@@ -102,13 +102,13 @@ describe('ChainlinkFeedsRegistry', () => {
     };
     it('Should throw error if token address is wrong', async () => {
       await expect(
-        registry.getPriceFeed(mockInvalidEthereumAddress, Denominations.eth),
+        registry.getPriceFeed(mockInvalidEthereumAddress, Denominations.bnb),
       ).rejects.toThrow('tokenAddress is not valid');
     });
     it('Should get the decimals', async () => {
       const priceFeed = await registry.getPriceFeed(
         mockValidEthereumAddress,
-        Denominations.eth,
+        Denominations.bnb,
       );
 
       expect(priceFeed).toEqual({

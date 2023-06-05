@@ -18,7 +18,7 @@ export class IGovernanceStrategy__factory {
 const _abi = [
   {
     inputs: [],
-    name: 'AAVE',
+    name: 'LOOTBRIDGE',
     outputs: [
       {
         internalType: 'address',
@@ -31,7 +31,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'STK_AAVE',
+    name: 'STK_LOOTBRIDGE',
     outputs: [
       {
         internalType: 'address',

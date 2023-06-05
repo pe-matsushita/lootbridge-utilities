@@ -10,7 +10,7 @@ import {
 } from '../commons/types';
 import { LiquiditySwapValidator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
 } from '../commons/validators/paramValidators';
 import { IParaSwapLiquiditySwapAdapter } from './typechain/IParaSwapLiquiditySwapAdapter';
@@ -83,10 +83,10 @@ export class LiquiditySwapAdapterService
 
   @LiquiditySwapValidator
   public swapAndDeposit(
-    @isEthAddress('user')
-    @isEthAddress('assetToSwapFrom')
-    @isEthAddress('assetToSwapTo')
-    @isEthAddress('augustus')
+    @isBnbAddress('user')
+    @isBnbAddress('assetToSwapFrom')
+    @isBnbAddress('assetToSwapTo')
+    @isBnbAddress('augustus')
     @isPositiveAmount('amountToSwap')
     @isPositiveAmount('minAmountToReceive')
     {

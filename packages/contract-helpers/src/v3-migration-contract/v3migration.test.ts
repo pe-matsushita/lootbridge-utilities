@@ -13,7 +13,7 @@ import { V3MigrationHelperService } from './index';
 
 const getPool = (provider: providers.Provider) => {
   const POOL = '0x0000000000000000000000000000000000000001';
-  const WETH_GATEWAY = '0x0000000000000000000000000000000000000002';
+  const WBNB_GATEWAY = '0x0000000000000000000000000000000000000002';
   const FLASH_LIQUIDATION_ADAPTER =
     '0x0000000000000000000000000000000000000003';
   const REPAY_WITH_COLLATERAL_ADAPTER =
@@ -25,7 +25,7 @@ const getPool = (provider: providers.Provider) => {
     FLASH_LIQUIDATION_ADAPTER,
     REPAY_WITH_COLLATERAL_ADAPTER,
     SWAP_COLLATERAL_ADAPTER,
-    WETH_GATEWAY,
+    WBNB_GATEWAY,
     L2_ENCODER,
   };
 
@@ -73,7 +73,7 @@ describe('V3MigrationService', () => {
   describe('migrate', () => {
     const supplyAssets = [
       {
-        aToken: '0x0000000000000000000000000000000000000003',
+        lbToken: '0x0000000000000000000000000000000000000003',
         underlyingAsset: '0x0000000000000000000000000000000000000004',
         deadline: 123,
         amount: '123400000000',
@@ -100,7 +100,7 @@ describe('V3MigrationService', () => {
     const signedSupplyPermits = [
       {
         deadline: 1234,
-        aToken: '0x0000000000000000000000000000000000000003',
+        lbToken: '0x0000000000000000000000000000000000000003',
         value: '112300000',
         signedPermit:
           '0x532f8df4e2502bd869fb35e9301156f9b307380afdcc25cfbc87b2e939f16f7e47c326dc26eb918d327358797ee67ad7415d871ef7eaf0d4f6352d3ad021fbb41c',
@@ -346,7 +346,7 @@ describe('V3MigrationService', () => {
       expect(gasPrice?.gasLimit).toEqual('1');
       expect(gasPrice?.gasPrice).toEqual('1');
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const spy = jest
         .spyOn(IMigrationHelper__factory, 'connect')
         .mockReturnValue({

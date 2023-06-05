@@ -232,7 +232,7 @@ describe('ERC20Service', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects to return true if token is eth mock address', async () => {
+    it('Expects to return true if token is bnb mock address', async () => {
       const erc20Service: IERC20ServiceInterface = new ERC20Service(provider);
       const token = API_ETH_MOCK_ADDRESS;
       const isApproved: boolean = await erc20Service.isApproved({
@@ -424,11 +424,11 @@ describe('ERC20Service', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects 18 if mocked eth address', async () => {
+    it('Expects 18 if mocked bnb address', async () => {
       const decimals = await erc20Service.decimalsOf(API_ETH_MOCK_ADDRESS);
       expect(decimals).toEqual(18);
     });
-    it('Expect to get the decimals from the contract if not eth mock and not called previously with same address', async () => {
+    it('Expect to get the decimals from the contract if not bnb mock and not called previously with same address', async () => {
       jest.spyOn(IERC20Detailed__factory, 'connect').mockReturnValue({
         decimals: async () => Promise.resolve(6),
       } as unknown as IERC20Detailed);
@@ -437,7 +437,7 @@ describe('ERC20Service', () => {
 
       expect(decimals).toEqual(6);
     });
-    it('Expects to return already saved decimals if not eth mock', async () => {
+    it('Expects to return already saved decimals if not bnb mock', async () => {
       const spy = jest
         .spyOn(IERC20Detailed__factory, 'connect')
         .mockReturnValue({
@@ -522,7 +522,7 @@ describe('ERC20Service', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects to return max uint256 if token is eth mock address', async () => {
+    it('Expects to return max uint256 if token is bnb mock address', async () => {
       const erc20Service: IERC20ServiceInterface = new ERC20Service(provider);
       const token = API_ETH_MOCK_ADDRESS;
       const approvedAmount: number = await erc20Service.approvedAmount({

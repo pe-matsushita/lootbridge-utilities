@@ -1,12 +1,12 @@
 import { BigNumber } from 'ethers';
 
 export enum Denominations {
-  eth = 'eth',
+  bnb = 'bnb',
   usd = 'usd',
 }
 
 export enum DenominationAddresses {
-  eth = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+  bnb = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
   usd = '0x0000000000000000000000000000000000000348',
 }
 

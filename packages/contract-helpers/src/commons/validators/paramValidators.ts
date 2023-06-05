@@ -3,16 +3,16 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import 'reflect-metadata';
 
-export const isEthAddressMetadataKey = Symbol('ethAddress');
+export const isBnbAddressMetadataKey = Symbol('bnbAddress');
 export const isPermitDeadline32Bytes = Symbol('deadline32Bytes');
-export const isEthAddressArrayMetadataKey = Symbol('ethAddressArray');
-export const isEthAddressOrENSMetadataKey = Symbol('ethOrENSAddress');
+export const isBnbAddressArrayMetadataKey = Symbol('bnbAddressArray');
+export const isBnbAddressOrENSMetadataKey = Symbol('ethOrENSAddress');
 export const isPositiveMetadataKey = Symbol('isPositive');
 export const isPositiveOrMinusOneMetadataKey = Symbol('isPositiveOrMinusOne');
 export const is0OrPositiveMetadataKey = Symbol('is0OrPositiveMetadataKey');
 export const optionalMetadataKey = Symbol('Optional');
-export const isEthAddressArrayMetadataKeyNotEmpty = Symbol(
-  'isEthAddressArrayMetadataKeyNotEmpty',
+export const isBnbAddressArrayMetadataKeyNotEmpty = Symbol(
+  'isBnbAddressArrayMetadataKeyNotEmpty',
 );
 
 export type paramsType = {
@@ -44,14 +44,14 @@ export function isDeadline32Bytes(field?: string) {
   };
 }
 
-export function isEthAddress(field?: string) {
+export function isBnbAddress(field?: string) {
   return function (
     target: any,
     propertyKey: string | symbol,
     parameterIndex: number,
   ): void {
     const existingPossibleAddresses: paramsType[] =
-      Reflect.getOwnMetadata(isEthAddressMetadataKey, target, propertyKey) ||
+      Reflect.getOwnMetadata(isBnbAddressMetadataKey, target, propertyKey) ||
       [];
 
     existingPossibleAddresses.push({
@@ -60,7 +60,7 @@ export function isEthAddress(field?: string) {
     });
 
     Reflect.defineMetadata(
-      isEthAddressMetadataKey,
+      isBnbAddressMetadataKey,
       existingPossibleAddresses,
       target,
       propertyKey,
@@ -68,7 +68,7 @@ export function isEthAddress(field?: string) {
   };
 }
 
-export function isEthAddressArray(field?: string) {
+export function isBnbAddressArray(field?: string) {
   return function (
     target: any,
     propertyKey: string | symbol,
@@ -76,7 +76,7 @@ export function isEthAddressArray(field?: string) {
   ): void {
     const existingPossibleAddresses: paramsType[] =
       Reflect.getOwnMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         target,
         propertyKey,
       ) || [];
@@ -87,7 +87,7 @@ export function isEthAddressArray(field?: string) {
     });
 
     Reflect.defineMetadata(
-      isEthAddressArrayMetadataKey,
+      isBnbAddressArrayMetadataKey,
       existingPossibleAddresses,
       target,
       propertyKey,
@@ -103,7 +103,7 @@ export function isEthAddressArray(field?: string) {
 //   ): void {
 //     const existingPossibleAddresses: paramsType[] =
 //       Reflect.getOwnMetadata(
-//         isEthAddressArrayMetadataKeyNotEmpty,
+//         isBnbAddressArrayMetadataKeyNotEmpty,
 //         target,
 //         propertyKey,
 //       ) || [];
@@ -114,7 +114,7 @@ export function isEthAddressArray(field?: string) {
 //     });
 
 //     Reflect.defineMetadata(
-//       isEthAddressArrayMetadataKeyNotEmpty,
+//       isBnbAddressArrayMetadataKeyNotEmpty,
 //       existingPossibleAddresses,
 //       target,
 //       propertyKey,
@@ -122,7 +122,7 @@ export function isEthAddressArray(field?: string) {
 //   };
 // }
 
-export function isEthAddressOrENS(field?: string) {
+export function isBnbAddressOrENS(field?: string) {
   return function (
     target: any,
     propertyKey: string | symbol,
@@ -130,7 +130,7 @@ export function isEthAddressOrENS(field?: string) {
   ): void {
     const existingPossibleAddresses: paramsType[] =
       Reflect.getOwnMetadata(
-        isEthAddressOrENSMetadataKey,
+        isBnbAddressOrENSMetadataKey,
         target,
         propertyKey,
       ) || [];
@@ -141,7 +141,7 @@ export function isEthAddressOrENS(field?: string) {
     });
 
     Reflect.defineMetadata(
-      isEthAddressOrENSMetadataKey,
+      isBnbAddressOrENSMetadataKey,
       existingPossibleAddresses,
       target,
       propertyKey,

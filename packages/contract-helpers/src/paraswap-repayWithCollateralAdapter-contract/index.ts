@@ -11,7 +11,7 @@ import {
 import { augustusToAmountOffsetFromCalldata } from '../commons/utils';
 import { RepayWithCollateralValidator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
 } from '../commons/validators/paramValidators';
 import { ParaSwapRepayAdapter } from './typechain/ParaSwapRepayAdapter';
@@ -56,12 +56,12 @@ export class ParaswapRepayWithCollateral
 
   @RepayWithCollateralValidator
   public swapAndRepay(
-    @isEthAddress('user')
-    @isEthAddress('collateralAsset')
-    @isEthAddress('debtAsset')
+    @isBnbAddress('user')
+    @isBnbAddress('collateralAsset')
+    @isBnbAddress('debtAsset')
     @isPositiveAmount('collateralAmount')
     @isPositiveAmount('debtRepayAmount')
-    @isEthAddress('augustus')
+    @isBnbAddress('augustus')
     {
       collateralAsset,
       debtAsset,

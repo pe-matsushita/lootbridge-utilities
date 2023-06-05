@@ -50,7 +50,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'cacheATokens',
+    name: 'cacheLBTokens',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -151,7 +151,7 @@ const _abi = [
         components: [
           {
             internalType: 'contract IERC20WithPermit',
-            name: 'aToken',
+            name: 'lbToken',
             type: 'address',
           },
           {

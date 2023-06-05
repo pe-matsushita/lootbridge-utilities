@@ -13,15 +13,15 @@ import {
 } from '../commons/validators/methodValidators';
 import {
   is0OrPositiveAmount,
-  isEthAddress,
-  isEthAddressArray,
+  isBnbAddress,
+  isBnbAddressArray,
 } from '../commons/validators/paramValidators';
-import { IAaveGovernanceV2 } from './typechain/IAaveGovernanceV2';
-import { IAaveGovernanceV2__factory } from './typechain/IAaveGovernanceV2__factory';
 import { IGovernanceStrategy } from './typechain/IGovernanceStrategy';
 import { IGovernanceStrategy__factory } from './typechain/IGovernanceStrategy__factory';
 import { IGovernanceV2Helper } from './typechain/IGovernanceV2Helper';
 import { IGovernanceV2Helper__factory } from './typechain/IGovernanceV2Helper__factory';
+import { ILootBridgeGovernanceV2 } from './typechain/ILootBridgeGovernanceV2';
+import { ILootBridgeGovernanceV2__factory } from './typechain/ILootBridgeGovernanceV2__factory';
 import {
   GovGetProposalsType,
   GovGetProposalType,
@@ -68,7 +68,7 @@ export const humanizeProposal = (rawProposal: ProposalRPC): Proposal => {
   };
 };
 
-export interface AaveGovernanceInterface {
+export interface LootBridgeGovernanceInterface {
   submitVote: (args: GovSubmitVoteType) => EthereumTransactionTypeExtended[];
   getProposal: (args: GovGetProposalType) => Promise<Proposal>;
   getProposals: (args: GovGetProposalsType) => Promise<Proposal[]>;
@@ -78,39 +78,40 @@ export interface AaveGovernanceInterface {
   getProposalsCount: () => Promise<number>;
 }
 
-type AaveGovernanceServiceConfig = {
+type LootBridgeGovernanceServiceConfig = {
   GOVERNANCE_ADDRESS: string;
   GOVERNANCE_HELPER_ADDRESS?: string;
   ipfsGateway?: string;
 };
 
-export class AaveGovernanceService
-  extends BaseService<IAaveGovernanceV2>
-  implements AaveGovernanceInterface
+export class LootBridgeGovernanceService
+  extends BaseService<ILootBridgeGovernanceV2>
+  implements LootBridgeGovernanceInterface
 {
-  readonly aaveGovernanceV2Address: string;
+  readonly lootbridgeGovernanceV2Address: string;
 
-  readonly aaveGovernanceV2HelperAddress: string;
+  readonly lootbridgeGovernanceV2HelperAddress: string;
 
   constructor(
     provider: providers.Provider,
-    config: AaveGovernanceServiceConfig,
+    config: LootBridgeGovernanceServiceConfig,
   ) {
-    super(provider, IAaveGovernanceV2__factory);
+    super(provider, ILootBridgeGovernanceV2__factory);
 
-    this.aaveGovernanceV2Address = config.GOVERNANCE_ADDRESS;
-    this.aaveGovernanceV2HelperAddress = config.GOVERNANCE_HELPER_ADDRESS ?? '';
+    this.lootbridgeGovernanceV2Address = config.GOVERNANCE_ADDRESS;
+    this.lootbridgeGovernanceV2HelperAddress =
+      config.GOVERNANCE_HELPER_ADDRESS ?? '';
   }
 
   @GovValidator
   public submitVote(
-    @isEthAddress('user')
+    @isBnbAddress('user')
     @is0OrPositiveAmount('proposalId')
     { user, proposalId, support }: GovSubmitVoteType,
   ): EthereumTransactionTypeExtended[] {
     const txs: EthereumTransactionTypeExtended[] = [];
-    const govContract: IAaveGovernanceV2 = this.getContractInstance(
-      this.aaveGovernanceV2Address,
+    const govContract: ILootBridgeGovernanceV2 = this.getContractInstance(
+      this.lootbridgeGovernanceV2Address,
     );
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
@@ -134,13 +135,13 @@ export class AaveGovernanceService
     limit,
   }: GovGetProposalsType): Promise<Proposal[]> {
     const helper: IGovernanceV2Helper = IGovernanceV2Helper__factory.connect(
-      this.aaveGovernanceV2HelperAddress,
+      this.lootbridgeGovernanceV2HelperAddress,
       this.provider,
     );
     const result = await helper.getProposals(
       skip.toString(),
       limit.toString(),
-      this.aaveGovernanceV2Address,
+      this.lootbridgeGovernanceV2Address,
     );
 
     return result.map(proposal => humanizeProposal(proposal));
@@ -152,12 +153,12 @@ export class AaveGovernanceService
     { proposalId }: GovGetProposalType,
   ) {
     const helper: IGovernanceV2Helper = IGovernanceV2Helper__factory.connect(
-      this.aaveGovernanceV2HelperAddress,
+      this.lootbridgeGovernanceV2HelperAddress,
       this.provider,
     );
     const result = await helper.getProposal(
       proposalId,
-      this.aaveGovernanceV2Address,
+      this.lootbridgeGovernanceV2Address,
     );
 
     return humanizeProposal(result);
@@ -165,7 +166,7 @@ export class AaveGovernanceService
 
   @GovValidator
   public async getVotingPowerAt(
-    @isEthAddress('user') { user, block, strategy }: GovGetVotingAtBlockType,
+    @isBnbAddress('user') { user, block, strategy }: GovGetVotingAtBlockType,
   ): Promise<string> {
     const proposalStrategy: IGovernanceStrategy =
       IGovernanceStrategy__factory.connect(strategy, this.provider);
@@ -179,12 +180,12 @@ export class AaveGovernanceService
 
   @GovHelperValidator
   public async getTokensPower(
-    @isEthAddress('user')
-    @isEthAddressArray('tokens')
+    @isBnbAddress('user')
+    @isBnbAddressArray('tokens')
     { user, tokens }: GovGetPower,
   ): Promise<Power[]> {
     const helper: IGovernanceV2Helper = IGovernanceV2Helper__factory.connect(
-      this.aaveGovernanceV2HelperAddress,
+      this.lootbridgeGovernanceV2HelperAddress,
       this.provider,
     );
 
@@ -193,20 +194,20 @@ export class AaveGovernanceService
 
   @GovValidator
   public async getVoteOnProposal(
-    @isEthAddress('user')
+    @isBnbAddress('user')
     @is0OrPositiveAmount('proposalId')
     { proposalId, user }: GovGetVoteOnProposal,
   ): Promise<Vote> {
-    const govContract: IAaveGovernanceV2 = this.getContractInstance(
-      this.aaveGovernanceV2Address,
+    const govContract: ILootBridgeGovernanceV2 = this.getContractInstance(
+      this.lootbridgeGovernanceV2Address,
     );
     return govContract.getVoteOnProposal(proposalId, user);
   }
 
   @GovValidator
   public async getProposalsCount() {
-    const govContract: IAaveGovernanceV2 = this.getContractInstance(
-      this.aaveGovernanceV2Address,
+    const govContract: ILootBridgeGovernanceV2 = this.getContractInstance(
+      this.lootbridgeGovernanceV2Address,
     );
 
     return (await govContract.getProposalsCount()).toNumber();
@@ -214,12 +215,12 @@ export class AaveGovernanceService
 
   @GovHelperValidator
   public async delegateTokensBySig(
-    @isEthAddress('user')
-    @isEthAddressArray('tokens')
+    @isBnbAddress('user')
+    @isBnbAddressArray('tokens')
     { user, tokens, data }: GovDelegateTokensBySig,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const helper = IGovernanceV2Helper__factory.connect(
-      this.aaveGovernanceV2HelperAddress,
+      this.lootbridgeGovernanceV2HelperAddress,
       this.provider,
     );
 
@@ -239,12 +240,12 @@ export class AaveGovernanceService
 
   @GovHelperValidator
   public async delegateTokensByTypeBySig(
-    @isEthAddress('user')
-    @isEthAddressArray('tokens')
+    @isBnbAddress('user')
+    @isBnbAddressArray('tokens')
     { user, tokens, data }: GovDelegateTokensByTypeBySig,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const helper = IGovernanceV2Helper__factory.connect(
-      this.aaveGovernanceV2HelperAddress,
+      this.lootbridgeGovernanceV2HelperAddress,
       this.provider,
     );
 

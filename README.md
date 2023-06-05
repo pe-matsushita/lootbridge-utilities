@@ -1,6 +1,6 @@
 <p align="center"> <a href="https://aave.com/" rel="noopener" target="_blank"><img width="300" src="https://aave.com/governanceGhosts.svg" alt="Aave logo"></a></p>
 
-<h1 align="center">Aave Utilities</h1>
+<h1 align="center">LootBridge Utilities Forked from Aave Utilities</h1>
 
 The Aave Protocol is a decentralized non-custodial liquidity protocol where
 users can participate as suppliers or borrowers.
@@ -525,7 +525,7 @@ import { PoolBundle } from '@aave/contract-helpers';
 
 const poolBundle = new PoolBundle(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -560,7 +560,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -607,7 +607,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -648,7 +648,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -687,7 +687,7 @@ import { Pool, InterestRate } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -730,7 +730,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -772,7 +772,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -814,7 +814,7 @@ import { Pool, InterestRate } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -849,7 +849,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -887,7 +887,7 @@ import { Pool, InterestRate } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -921,7 +921,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -954,7 +954,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -994,14 +994,14 @@ import { Pool } from '@aave/contract-helpers';
 const pool = new Pool(provider, {
   POOL: poolAddress,
   SWAP_COLLATERAL_ADAPTER: swapCollateralAdapterAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
 - @param `user` The ethereum address that will liquidate the position 
 - @param @optional `flash` If the transaction will be executed through a flashloan(true) or will be done directly through the adapters(false). Defaults to false 
 - @param `fromAsset` The ethereum address of the asset you want to swap 
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to swap 
+- @param `fromLBToken` The ethereum address of the aToken of the asset you want to swap 
 - @param `toAsset` The ethereum address of the asset you want to swap to (get) 
 - @param `fromAmount` The amount you want to swap 
 - @param `toAmount` The amount you want to get after the swap 
@@ -1017,7 +1017,7 @@ const txs: EthereumTransactionTypeExtended[] = await lendingPool.swapCollateral(
     user,
     flash,
     fromAsset,
-    fromAToken,
+    fromLBToken,
     toAsset,
     fromAmount,
     toAmount,
@@ -1050,13 +1050,13 @@ import { Pool } from '@aave/contract-helpers';
 const pool = new Pool(provider, {
   POOL: poolAddress,
   REPAY_WITH_COLLATERAL_ADAPTER: repayWithCollateralAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
 - @param `user` The ethereum address that will liquidate the position 
 - @param `fromAsset` The ethereum address of the asset you want to repay with (collateral) 
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to repay with (collateral) 
+- @param `fromLBToken` The ethereum address of the aToken of the asset you want to repay with (collateral) 
 - @param `assetToRepay` The ethereum address of the asset you want to repay 
 - @param `repayWithAmount` The amount of collateral you want to repay the debt with
 - @param `repayAmount` The amount of debt you want to repay 
@@ -1072,7 +1072,7 @@ const txs: EthereumTransactionTypeExtended[] =
   await lendingPool.repayWithCollateral({
     user,
     fromAsset,
-    fromAToken,
+    fromLBToken,
     assetToRepay,
     repayWithAmount,
     repayAmount,
@@ -1109,7 +1109,7 @@ import { Pool } from '@aave/contract-helpers';
 
 const pool = new Pool(provider, {
   POOL: poolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -1150,7 +1150,7 @@ import { LendingPoolBundle } from '@aave/contract-helpers';
 
 const lendingPoolBundle = new LendingPoolBundle(provider, {
   LENDING_POOL: lendingPoolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -1185,7 +1185,7 @@ import { LendingPool } from '@aave/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -1224,7 +1224,7 @@ import { LendingPool, InterestRate } from '@aave/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -1269,7 +1269,7 @@ import { LendingPool, InterestRate } from '@aave/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -1306,7 +1306,7 @@ import { LendingPool } from '@aave/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -1412,7 +1412,7 @@ import { LendingPool } from '@aave/contract-helpers';
 
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
@@ -1456,14 +1456,14 @@ import {
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
   SWAP_COLLATERAL_ADAPTER: swapCollateralAdapterAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
 - @param `user` The ethereum address that will liquidate the position 
 - @param @optional `flash` If the transaction will be executed through a flashloan(true) or will be done directly through the adapters(false). Defaults to false 
 - @param `fromAsset` The ethereum address of the asset you want to swap 
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to swap
+- @param `fromLBToken` The ethereum address of the aToken of the asset you want to swap
 - @param `toAsset` The ethereum address of the asset you want to swap to (get) 
 - @param `fromAmount` The amount you want to swap 
 - @param `toAmount` The amount you want to get after the swap 
@@ -1479,7 +1479,7 @@ const txs: EthereumTransactionTypeExtended[] = await lendingPool.swapCollateral(
     user,
     flash,
     fromAsset,
-    fromAToken,
+    fromLBToken,
     toAsset,
     fromAmount,
     toAmount,
@@ -1516,13 +1516,13 @@ import {
 const lendingPool = new LendingPool(provider, {
   LENDING_POOL: lendingPoolAddress,
   REPAY_WITH_COLLATERAL_ADAPTER: repayWithCollateralAddress,
-  WETH_GATEWAY: wethGatewayAddress,
+  WBNB_GATEWAY: wbnbGatewayAddress,
 });
 
 /*
 - @param `user` The ethereum address that will liquidate the position 
 - @param `fromAsset` The ethereum address of the asset you want to repay with (collateral)
-- @param `fromAToken` The ethereum address of the aToken of the asset you want to repay with (collateral)
+- @param `fromLBToken` The ethereum address of the aToken of the asset you want to repay with (collateral)
 - @param `assetToRepay` The ethereum address of the asset you want to repay 
 - @param `repayWithAmount` The amount of collateral you want to repay the debt with
 - @param `repayAmount` The amount of debt you want to repay 
@@ -1538,7 +1538,7 @@ const txs: EthereumTransactionTypeExtended[] =
   await lendingPool.repayWithCollateral({
     user,
     fromAsset,
-    fromAToken,
+    fromLBToken,
     assetToRepay,
     repayWithAmount,
     repayAmount,
@@ -1907,12 +1907,12 @@ function getPoolBundle(v2, marketKey) {
   if (v2) {
     return new LendingPoolBundle(provider, {
       LENDING_POOL: markets[marketKey].POOL,
-      WETH_GATEWAY: markets[marketKey].WETH_GATEWAY,
+      WBNB_GATEWAY: markets[marketKey].WBNB_GATEWAY,
     });
   } else {
     return new PoolBundle(provider, {
       POOL: markets[marketKey].POOL,
-      WETH_GATEWAY: markets[marketKey].WETH_GATEWAY,
+      WBNB_GATEWAY: markets[marketKey].WBNB_GATEWAY,
     });
   }
 }
@@ -2105,12 +2105,12 @@ function getPoolBundle(v2, marketKey) {
   if (v2) {
     return new LendingPoolBundle(provider, {
       LENDING_POOL: markets[marketKey].POOL,
-      WETH_GATEWAY: markets[marketKey].WETH_GATEWAY,
+      WBNB_GATEWAY: markets[marketKey].WBNB_GATEWAY,
     });
   } else {
     return new PoolBundle(provider, {
       POOL: markets[marketKey].POOL,
-      WETH_GATEWAY: markets[marketKey].WETH_GATEWAY,
+      WBNB_GATEWAY: markets[marketKey].WBNB_GATEWAY,
     });
   }
 }

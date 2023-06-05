@@ -13,7 +13,7 @@ import {
   valueToWei,
 } from '../commons/utils';
 import { FaucetValidator } from '../commons/validators/methodValidators';
-import { isEthAddress } from '../commons/validators/paramValidators';
+import { isBnbAddress } from '../commons/validators/paramValidators';
 import { IFaucet } from './typechain/IFaucet';
 import { IFaucet__factory } from './typechain/IFaucet__factory';
 
@@ -43,8 +43,8 @@ export class FaucetService
 
   @FaucetValidator
   public mint(
-    @isEthAddress('userAddress')
-    @isEthAddress('reserve')
+    @isBnbAddress('userAddress')
+    @isBnbAddress('reserve')
     { userAddress, reserve, tokenSymbol }: FaucetParamsType,
   ): EthereumTransactionTypeExtended[] {
     const defaultAmount = valueToWei('1000', 18);

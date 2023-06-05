@@ -17,7 +17,7 @@ import {
 } from '../commons/utils';
 import { ERC20Validator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
   isPositiveOrMinusOneAmount,
 } from '../commons/validators/paramValidators';
@@ -94,9 +94,9 @@ export class ERC20Service
    */
   @ERC20Validator
   public approve(
-    @isEthAddress('user')
-    @isEthAddress('token')
-    @isEthAddress('spender')
+    @isBnbAddress('user')
+    @isBnbAddress('token')
+    @isBnbAddress('spender')
     @isPositiveAmount('amount')
     { user, token, spender, amount }: ApproveType,
   ): EthereumTransactionTypeExtended {
@@ -125,9 +125,9 @@ export class ERC20Service
    */
   @ERC20Validator
   public approveTxData(
-    @isEthAddress('user')
-    @isEthAddress('token')
-    @isEthAddress('spender')
+    @isBnbAddress('user')
+    @isBnbAddress('token')
+    @isBnbAddress('spender')
     @isPositiveAmount('amount')
     { user, token, spender, amount }: ApproveType,
   ): PopulatedTransaction {
@@ -157,9 +157,9 @@ export class ERC20Service
    */
   @ERC20Validator
   public async isApproved(
-    @isEthAddress('user')
-    @isEthAddress('token')
-    @isEthAddress('spender')
+    @isBnbAddress('user')
+    @isBnbAddress('token')
+    @isBnbAddress('spender')
     @isPositiveOrMinusOneAmount('amount')
     {
       user,
@@ -194,9 +194,9 @@ export class ERC20Service
    */
   @ERC20Validator
   public async approvedAmount(
-    @isEthAddress('user')
-    @isEthAddress('token')
-    @isEthAddress('spender')
+    @isBnbAddress('user')
+    @isBnbAddress('token')
+    @isBnbAddress('spender')
     { user, token, spender }: AllowanceRequest,
   ): Promise<number> {
     if (token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) return -1;
@@ -217,7 +217,7 @@ export class ERC20Service
    */
   @ERC20Validator
   public async decimalsOf(
-    @isEthAddress() token: tEthereumAddress,
+    @isBnbAddress() token: tEthereumAddress,
   ): Promise<number> {
     if (token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) return 18;
     if (!this.tokenDecimals[token]) {
@@ -235,7 +235,7 @@ export class ERC20Service
    */
   @ERC20Validator
   public async getTokenData(
-    @isEthAddress() token: tEthereumAddress,
+    @isBnbAddress() token: tEthereumAddress,
   ): Promise<TokenMetadataType> {
     if (token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       return {

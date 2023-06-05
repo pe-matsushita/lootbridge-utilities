@@ -118,7 +118,7 @@ const _abi = [
           },
           {
             internalType: 'address',
-            name: 'aTokenAddress',
+            name: 'lbTokenAddress',
             type: 'address',
           },
           {
@@ -370,7 +370,7 @@ const _abi = [
           },
           {
             internalType: 'uint256',
-            name: 'scaledATokenBalance',
+            name: 'scaledLBTokenBalance',
             type: 'uint256',
           },
           {

@@ -19,13 +19,13 @@ describe('LendingPoolBundle', () => {
     .spyOn(provider, 'getGasPrice')
     .mockImplementation(async () => Promise.resolve(BigNumber.from(1)));
   const LENDING_POOL = '0x0000000000000000000000000000000000000001';
-  const WETH_GATEWAY = '0x0000000000000000000000000000000000000002';
+  const WBNB_GATEWAY = '0x0000000000000000000000000000000000000002';
   const USER = '0x0000000000000000000000000000000000000003';
   const TOKEN = '0x0000000000000000000000000000000000000004';
   describe('Initialization', () => {
     const config = {
       LENDING_POOL,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     };
     it('Expects to initialize correctly with all params', () => {
       const instance = new LendingPoolBundle(provider, config);
@@ -40,7 +40,7 @@ describe('LendingPoolBundle', () => {
   describe('SupplyTxBuilder', () => {
     const config = {
       LENDING_POOL,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     };
 
     const instance = new LendingPoolBundle(provider, config);
@@ -60,7 +60,7 @@ describe('LendingPoolBundle', () => {
       expect(result.user).toEqual(USER);
     });
 
-    it('gets approved amount for WETHGateway', async () => {
+    it('gets approved amount for WBNBGateway', async () => {
       jest
         .spyOn(instance.erc20Service, 'approvedAmount')
         .mockReturnValue(Promise.resolve(1));
@@ -70,7 +70,7 @@ describe('LendingPoolBundle', () => {
         token: API_ETH_MOCK_ADDRESS,
       });
       expect(result.amount).toEqual('1');
-      expect(result.spender).toEqual(WETH_GATEWAY);
+      expect(result.spender).toEqual(WBNB_GATEWAY);
       expect(result.token).toEqual(API_ETH_MOCK_ADDRESS);
       expect(result.user).toEqual(USER);
     });
@@ -123,7 +123,7 @@ describe('LendingPoolBundle', () => {
       );
     });
 
-    it('generates deposit tx for WETHGateway data with generateTxData', () => {
+    it('generates deposit tx for WBNBGateway data with generateTxData', () => {
       const result = instance.depositTxBuilder.generateTxData({
         user: USER,
         reserve: API_ETH_MOCK_ADDRESS.toLowerCase(),
@@ -131,7 +131,7 @@ describe('LendingPoolBundle', () => {
         onBehalfOf: USER,
         referralCode: '0',
       });
-      expect(result.to).toEqual(WETH_GATEWAY);
+      expect(result.to).toEqual(WBNB_GATEWAY);
       expect(result.from).toEqual(USER);
       expect(result.value).toEqual(BigNumber.from('1'));
       expect(result.data).toEqual(
@@ -143,7 +143,7 @@ describe('LendingPoolBundle', () => {
   describe('BorrowTxBuilder', () => {
     const config = {
       LENDING_POOL,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     };
 
     const instance = new LendingPoolBundle(provider, config);
@@ -206,7 +206,7 @@ describe('LendingPoolBundle', () => {
       expect(stableResult.data).toEqual(stableBorrowTxData);
     });
 
-    it('generates deposit tx for WETHGateway data with generateTxData', async () => {
+    it('generates deposit tx for WBNBGateway data with generateTxData', async () => {
       const result = instance.borrowTxBuilder.generateTxData({
         user: USER,
         reserve: API_ETH_MOCK_ADDRESS.toLowerCase(),
@@ -216,7 +216,7 @@ describe('LendingPoolBundle', () => {
         interestRateMode: InterestRate.Variable,
         debtTokenAddress: API_ETH_MOCK_ADDRESS.toLowerCase(),
       });
-      expect(result.to).toEqual(WETH_GATEWAY);
+      expect(result.to).toEqual(WBNB_GATEWAY);
       expect(result.from).toEqual(USER);
       expect(result.value).toEqual(undefined);
       expect(result.data).toEqual(
@@ -233,7 +233,7 @@ describe('LendingPoolBundle', () => {
           referralCode: '0',
         }),
       ).rejects.toThrowError(
-        `To borrow ETH you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+        `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
       );
     });
   });

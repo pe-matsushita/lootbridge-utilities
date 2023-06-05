@@ -28,9 +28,9 @@ import {
 import { ILendingPool__factory } from '../lendingPool-contract/typechain/ILendingPool__factory';
 import { SynthetixInterface, SynthetixService } from '../synthetix-contract';
 import {
-  WETHGatewayInterface,
-  WETHGatewayService,
-} from '../wethgateway-contract';
+  WBNBGatewayInterface,
+  WBNBGatewayService,
+} from '../wbnbgateway-contract';
 
 export type DepositTxBuilder = {
   generateTxData: ({
@@ -57,11 +57,11 @@ export class LendingPoolBundle
 
   readonly synthetixService: SynthetixInterface;
 
-  readonly wethGatewayService: WETHGatewayInterface;
+  readonly wbnbGatewayService: WBNBGatewayInterface;
 
   readonly contractInterface: ILendingPoolInterface;
 
-  readonly wethGatewayAddress: tEthereumAddress;
+  readonly wbnbGatewayAddress: tEthereumAddress;
 
   depositTxBuilder: DepositTxBuilder;
   borrowTxBuilder: Omit<BorrowTxBuilder, 'useOptimizedPath' | 'encodedTxData'>;
@@ -72,18 +72,18 @@ export class LendingPoolBundle
   ) {
     super(provider, ILendingPool__factory);
 
-    const { LENDING_POOL, WETH_GATEWAY } = lendingPoolConfig ?? {};
+    const { LENDING_POOL, WBNB_GATEWAY } = lendingPoolConfig ?? {};
 
     this.lendingPoolAddress = LENDING_POOL ?? '';
-    this.wethGatewayAddress = WETH_GATEWAY ?? '';
+    this.wbnbGatewayAddress = WBNB_GATEWAY ?? '';
 
     // initialize services
     this.erc20Service = new ERC20Service(provider);
     this.synthetixService = new SynthetixService(provider);
-    this.wethGatewayService = new WETHGatewayService(
+    this.wbnbGatewayService = new WBNBGatewayService(
       provider,
       this.erc20Service,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     );
 
     this.contractInterface = ILendingPool__factory.createInterface();
@@ -93,7 +93,7 @@ export class LendingPoolBundle
       getApprovedAmount: async (props: TokenOwner): Promise<ApproveType> => {
         const spender =
           props.token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()
-            ? this.wethGatewayAddress
+            ? this.wbnbGatewayAddress
             : this.lendingPoolAddress;
         const amount = await this.erc20Service.approvedAmount({
           ...props,
@@ -114,7 +114,7 @@ export class LendingPoolBundle
       }: LPDepositParamsType): PopulatedTransaction => {
         let actionTx: PopulatedTransaction = {};
         if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-          actionTx = this.wethGatewayService.generateDepositEthTxData({
+          actionTx = this.wbnbGatewayService.generateDepositEthTxData({
             lendingPool: this.lendingPoolAddress,
             user,
             amount,
@@ -160,11 +160,11 @@ export class LendingPoolBundle
         if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
           if (!debtTokenAddress) {
             throw new Error(
-              `To borrow ETH you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+              `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
             );
           }
 
-          actionTx = this.wethGatewayService.generateBorrowEthTxData({
+          actionTx = this.wbnbGatewayService.generateBorrowEthTxData({
             lendingPool: this.lendingPoolAddress,
             user,
             amount,

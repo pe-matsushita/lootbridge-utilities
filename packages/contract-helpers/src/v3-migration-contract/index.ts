@@ -14,7 +14,7 @@ import {
   transactionType,
 } from '../commons/types';
 import { V3MigratorValidator } from '../commons/validators/methodValidators';
-import { isEthAddress } from '../commons/validators/paramValidators';
+import { isBnbAddress } from '../commons/validators/paramValidators';
 import { ERC20Service } from '../erc20-contract';
 import { Pool } from '../v3-pool-contract';
 import { IMigrationHelper } from './typechain/IMigrationHelper';
@@ -57,7 +57,7 @@ export class V3MigrationHelperService
 
   @V3MigratorValidator
   public async getMigrationSupply(
-    @isEthAddress('asset') { asset, amount }: V3GetMigrationSupplyType,
+    @isBnbAddress('asset') { asset, amount }: V3GetMigrationSupplyType,
   ) {
     const migrator = this.getContractInstance(this.MIGRATOR_ADDRESS);
     return migrator.getMigrationSupply(asset, amount);
@@ -65,7 +65,7 @@ export class V3MigrationHelperService
 
   @V3MigratorValidator
   public async migrate(
-    @isEthAddress('user')
+    @isBnbAddress('user')
     {
       supplyAssets,
       user,
@@ -177,11 +177,11 @@ export class V3MigrationHelperService
     assets: MigrationSupplyAsset[],
   ): Promise<EthereumTransactionTypeExtended[]> {
     const assetsApproved = await Promise.all(
-      assets.map(async ({ amount, aToken }) => {
+      assets.map(async ({ amount, lbToken }) => {
         return this.erc20Service.isApproved({
           amount,
           spender: this.MIGRATOR_ADDRESS,
-          token: aToken,
+          token: lbToken,
           user,
           nativeDecimals: true,
         });
@@ -196,7 +196,7 @@ export class V3MigrationHelperService
         const asset = assets[index];
         return this.erc20Service.approve({
           user,
-          token: asset.aToken,
+          token: asset.lbToken,
           spender: this.MIGRATOR_ADDRESS,
           amount: constants.MaxUint256.toString(),
         });
@@ -206,10 +206,10 @@ export class V3MigrationHelperService
 
   private splitSignedPermits(signedPermits: V3MigrationHelperSignedPermit[]) {
     return signedPermits.map((permit): IMigrationHelper.PermitInputStruct => {
-      const { aToken, deadline, value, signedPermit } = permit;
+      const { lbToken, deadline, value, signedPermit } = permit;
       const signature = utils.splitSignature(signedPermit);
       return {
-        aToken,
+        lbToken,
         deadline,
         value,
         v: signature.v,

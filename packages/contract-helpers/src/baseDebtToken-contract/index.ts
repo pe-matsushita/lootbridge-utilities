@@ -10,7 +10,7 @@ import {
 import { gasLimitRecommendations, valueToWei } from '../commons/utils';
 import { DebtTokenValidator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
 } from '../commons/validators/paramValidators';
 import { IERC20ServiceInterface } from '../erc20-contract';
@@ -66,9 +66,9 @@ export class BaseDebtToken
 
   @DebtTokenValidator
   public approveDelegation(
-    @isEthAddress('user')
-    @isEthAddress('delegatee')
-    @isEthAddress('debtTokenAddress')
+    @isBnbAddress('user')
+    @isBnbAddress('delegatee')
+    @isBnbAddress('debtTokenAddress')
     @isPositiveAmount('amount')
     { user, delegatee, debtTokenAddress, amount }: ApproveDelegationType,
   ): EthereumTransactionTypeExtended {
@@ -92,9 +92,9 @@ export class BaseDebtToken
 
   @DebtTokenValidator
   public async approvedDelegationAmount(
-    @isEthAddress('user')
-    @isEthAddress('delegatee')
-    @isEthAddress('debtTokenAddress')
+    @isBnbAddress('user')
+    @isBnbAddress('delegatee')
+    @isBnbAddress('debtTokenAddress')
     {
       user,
       delegatee,
@@ -113,9 +113,9 @@ export class BaseDebtToken
 
   @DebtTokenValidator
   public generateApproveDelegationTxData(
-    @isEthAddress('user')
-    @isEthAddress('delegatee')
-    @isEthAddress('debtTokenAddress')
+    @isBnbAddress('user')
+    @isBnbAddress('delegatee')
+    @isBnbAddress('debtTokenAddress')
     @isPositiveAmount('amount')
     { user, delegatee, debtTokenAddress, amount }: ApproveDelegationType,
   ): PopulatedTransaction {
@@ -137,9 +137,9 @@ export class BaseDebtToken
 
   @DebtTokenValidator
   public async isDelegationApproved(
-    @isEthAddress('debtTokenAddress')
-    @isEthAddress('allowanceGiver')
-    @isEthAddress('allowanceReceiver')
+    @isBnbAddress('debtTokenAddress')
+    @isBnbAddress('allowanceGiver')
+    @isBnbAddress('allowanceReceiver')
     @isPositiveAmount('amount')
     {
       debtTokenAddress,

@@ -1,7 +1,7 @@
 import { BigNumber } from 'ethers';
 
 export const GeneralStakeUIDataRaw = {
-  stkAaveData: {
+  stkLootBridgeData: {
     stakedTokenTotalSupply: BigNumber.from({
       _hex: '0x0',
       _isBigNumber: true,
@@ -22,7 +22,7 @@ export const GeneralStakeUIDataRaw = {
       _hex: '0x0',
       _isBigNumber: true,
     }),
-    rewardTokenPriceEth: BigNumber.from({
+    rewardTokenPriceBnb: BigNumber.from({
       _hex: '0x0',
       _isBigNumber: true,
     }),
@@ -96,7 +96,7 @@ export const GeneralStakeUIDataRaw = {
       _hex: '0x0',
       _isBigNumber: true,
     }),
-    rewardTokenPriceEth: BigNumber.from({
+    rewardTokenPriceBnb: BigNumber.from({
       _hex: '0x0',
       _isBigNumber: true,
     }),
@@ -149,7 +149,7 @@ export const GeneralStakeUIDataRaw = {
       _isBigNumber: true,
     }),
   },
-  ethPrice: BigNumber.from({
+  bnbPrice: BigNumber.from({
     _hex: '0x0',
     _isBigNumber: true,
   }),
@@ -157,7 +157,7 @@ export const GeneralStakeUIDataRaw = {
 
 export const GetUserStakeUIDataRaw = {
   ...GeneralStakeUIDataRaw,
-  stkAaveUserData: {
+  stkLootBridgeUserData: {
     stakedTokenUserBalance: BigNumber.from({
       _hex: '0x0',
       _isBigNumber: true,
@@ -253,7 +253,7 @@ export const GetUserStakeUIDataRaw = {
       _isBigNumber: true,
     }),
   },
-  ethPrice: BigNumber.from({
+  bnbPrice: BigNumber.from({
     _hex: '0x0',
     _isBigNumber: true,
   }),
@@ -261,7 +261,7 @@ export const GetUserStakeUIDataRaw = {
 
 export const GetUserStakeTotalsRaw = {
   ...GeneralStakeUIDataRaw,
-  stkAaveUserData: {
+  stkLootBridgeUserData: {
     stakedTokenUserBalance: BigNumber.from({
       _hex: '0x0',
       _isBigNumber: true,
@@ -381,20 +381,20 @@ export const GetUserStakeTotalsRaw = {
       _isBigNumber: true,
     }),
   },
-  ethPrice: BigNumber.from({
+  bnbPrice: BigNumber.from({
     _hex: '0x0',
     _isBigNumber: true,
   }),
 };
 
 export const GeneralStakeUIDataHumanized = {
-  aave: {
+  lootbridge: {
     stakeTokenTotalSupply: '0',
     stakeTokenTotalRedeemableAmount: '0',
     stakeCooldownSeconds: 0,
     stakeUnstakeWindow: 0,
-    stakeTokenPriceEth: '0',
-    rewardTokenPriceEth: '0',
+    stakeTokenPriceBnb: '0',
+    rewardTokenPriceBnb: '0',
     stakeApy: '0',
     distributionPerSecond: '0',
     distributionEnd: '0',
@@ -404,17 +404,17 @@ export const GeneralStakeUIDataHumanized = {
     stakeTokenTotalRedeemableAmount: '0',
     stakeCooldownSeconds: 0,
     stakeUnstakeWindow: 0,
-    stakeTokenPriceEth: '0',
-    rewardTokenPriceEth: '0',
+    stakeTokenPriceBnb: '0',
+    rewardTokenPriceBnb: '0',
     stakeApy: '0',
     distributionPerSecond: '0',
     distributionEnd: '0',
   },
-  ethPriceUsd: '0',
+  bnbPriceUsd: '0',
 };
 
 export const GetUserStakeUIDataHumanized = {
-  aave: {
+  lootbridge: {
     stakeTokenUserBalance: '0',
     underlyingTokenUserBalance: '0',
     stakeTokenRedeemableAmount: '0',
@@ -430,5 +430,5 @@ export const GetUserStakeUIDataHumanized = {
     userCooldownAmount: '0',
     userIncentivesToClaim: '0',
   },
-  ethPriceUsd: '0',
+  bnbPriceUsd: '0',
 };

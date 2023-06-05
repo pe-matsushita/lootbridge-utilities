@@ -43,7 +43,7 @@ describe('calculateReserveIncentives', () => {
                 ...reserveIncentiveMock.reserveIncentive.sIncentiveData
                   .rewardsTokenInformation[0],
                 rewardTokenAddress:
-                  '0x4da27a545c0c5b758a6ba100e3a049001de870f5', // To check stkAave -> mapping for v2 price feed
+                  '0x4da27a545c0c5b758a6ba100e3a049001de870f5', // To check stkLootBridge -> mapping for v2 price feed
               },
             ],
           },

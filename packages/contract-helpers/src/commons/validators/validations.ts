@@ -8,14 +8,14 @@ import { canBeEnsAddress } from '../utils';
 // import 'reflect-metadata';
 import {
   is0OrPositiveMetadataKey,
-  isEthAddressArrayMetadataKey,
-  isEthAddressMetadataKey,
+  isBnbAddressArrayMetadataKey,
+  isBnbAddressMetadataKey,
   isPositiveMetadataKey,
   isPositiveOrMinusOneMetadataKey,
   // optionalMetadataKey,
   paramsType,
-  isEthAddressArrayMetadataKeyNotEmpty,
-  isEthAddressOrENSMetadataKey,
+  isBnbAddressArrayMetadataKeyNotEmpty,
+  isBnbAddressOrENSMetadataKey,
   isPermitDeadline32Bytes,
 } from './paramValidators';
 
@@ -85,14 +85,14 @@ export function isDeadline32BytesValidator(
   }
 }
 
-export function isEthAddressValidator(
+export function isBnbAddressValidator(
   target: any,
   propertyName: string,
   methodArguments: any,
   isParamOptional?: boolean[],
 ): void {
   const addressParameters: paramsType[] = Reflect.getOwnMetadata(
-    isEthAddressMetadataKey,
+    isBnbAddressMetadataKey,
     target,
     propertyName,
   );
@@ -128,14 +128,14 @@ export function isEthAddressValidator(
   }
 }
 
-export function isEthAddressArrayValidator(
+export function isBnbAddressArrayValidator(
   target: any,
   propertyName: string,
   methodArguments: any,
   isParamOptional?: boolean[],
 ): void {
   const addressParameters: paramsType[] = Reflect.getOwnMetadata(
-    isEthAddressArrayMetadataKey,
+    isBnbAddressArrayMetadataKey,
     target,
     propertyName,
   );
@@ -174,14 +174,14 @@ export function isEthAddressArrayValidator(
   }
 }
 
-export function isEthAddressArrayValidatorNotEmpty(
+export function isBnbAddressArrayValidatorNotEmpty(
   target: any,
   propertyName: string,
   methodArguments: any,
   isParamOptional?: boolean[],
 ): void {
   const addressParameters: paramsType[] = Reflect.getOwnMetadata(
-    isEthAddressArrayMetadataKeyNotEmpty,
+    isBnbAddressArrayMetadataKeyNotEmpty,
     target,
     propertyName,
   );
@@ -224,14 +224,14 @@ export function isEthAddressArrayValidatorNotEmpty(
   }
 }
 
-export function isEthAddressOrEnsValidator(
+export function isBnbAddressOrEnsValidator(
   target: any,
   propertyName: string,
   methodArguments: any,
   isParamOptional?: boolean[],
 ): void {
   const addressParameters: paramsType[] = Reflect.getOwnMetadata(
-    isEthAddressOrENSMetadataKey,
+    isBnbAddressOrENSMetadataKey,
     target,
     propertyName,
   );

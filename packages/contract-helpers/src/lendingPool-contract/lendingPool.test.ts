@@ -32,7 +32,7 @@ describe('LendingPool', () => {
     .spyOn(provider, 'getGasPrice')
     .mockImplementation(async () => Promise.resolve(BigNumber.from(1)));
   const LENDING_POOL = '0x0000000000000000000000000000000000000001';
-  const WETH_GATEWAY = '0x0000000000000000000000000000000000000002';
+  const WBNB_GATEWAY = '0x0000000000000000000000000000000000000002';
   const FLASH_LIQUIDATION_ADAPTER =
     '0x0000000000000000000000000000000000000003';
   const REPAY_WITH_COLLATERAL_ADAPTER =
@@ -45,7 +45,7 @@ describe('LendingPool', () => {
       FLASH_LIQUIDATION_ADAPTER,
       REPAY_WITH_COLLATERAL_ADAPTER,
       SWAP_COLLATERAL_ADAPTER,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     };
     it('Expects to initialize correctly with all params', () => {
       const instance = new LendingPool(provider, config);
@@ -69,11 +69,11 @@ describe('LendingPool', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects the tx object passing all parameters with eth deposit', async () => {
+    it('Expects the tx object passing all parameters with bnb deposit', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const lendingPoolInstance = new LendingPool(provider, config);
       const depositEthSpy = jest
-        .spyOn(lendingPoolInstance.wethGatewayService, 'depositETH')
+        .spyOn(lendingPoolInstance.wbnbGatewayService, 'depositBNB')
         .mockReturnValue([]);
       await lendingPoolInstance.deposit({
         user,
@@ -350,7 +350,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -365,7 +365,7 @@ describe('LendingPool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -380,7 +380,7 @@ describe('LendingPool', () => {
         `Address: ${reserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -426,7 +426,7 @@ describe('LendingPool', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const reserve = '0x0000000000000000000000000000000000000007';
     const onBehalfOf = '0x0000000000000000000000000000000000000008';
-    const aTokenAddress = '0x0000000000000000000000000000000000000009';
+    const lbTokenAddress = '0x0000000000000000000000000000000000000009';
     const amount = '123.456';
     const decimals = 18;
 
@@ -436,18 +436,18 @@ describe('LendingPool', () => {
       jest.clearAllMocks();
     });
 
-    it('Expects the tx object passing all parameters for eth withdraw', async () => {
+    it('Expects the tx object passing all parameters for bnb withdraw', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const lendingPoolInstance = new LendingPool(provider, config);
       const withdrawEthSpy = jest
-        .spyOn(lendingPoolInstance.wethGatewayService, 'withdrawETH')
+        .spyOn(lendingPoolInstance.wbnbGatewayService, 'withdrawBNB')
         .mockReturnValue(Promise.resolve([]));
       await lendingPoolInstance.withdraw({
         user,
         reserve,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        lbTokenAddress,
       });
       expect(withdrawEthSpy).toHaveBeenCalled();
     });
@@ -461,7 +461,7 @@ describe('LendingPool', () => {
         user,
         reserve,
         amount,
-        aTokenAddress,
+        lbTokenAddress,
       });
 
       expect(decimalsSpy).toHaveBeenCalled();
@@ -509,7 +509,7 @@ describe('LendingPool', () => {
         reserve,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        lbTokenAddress,
       });
 
       expect(decimalsSpy).toHaveBeenCalled();
@@ -546,7 +546,7 @@ describe('LendingPool', () => {
         gasLimitRecommendations[ProtocolAction.withdraw].recommended,
       );
     });
-    it('Expects to fail for eth withdraw if not aTokenAddress is passed', async () => {
+    it('Expects to fail for bnb withdraw if not lbTokenAddress is passed', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const lendingPoolInstance = new LendingPool(provider, config);
 
@@ -558,7 +558,7 @@ describe('LendingPool', () => {
           onBehalfOf,
         }),
       ).rejects.toThrowError(
-        'To withdraw ETH you need to pass the aWETH token address',
+        'To withdraw ETH you need to pass the aWBNB token address',
       );
     });
     it('Expects to fail when lendingPoolAddress not provided', async () => {
@@ -568,11 +568,11 @@ describe('LendingPool', () => {
         reserve,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        lbTokenAddress,
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -581,13 +581,13 @@ describe('LendingPool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          lbTokenAddress,
         }),
       ).rejects.toThrowError(
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -596,13 +596,13 @@ describe('LendingPool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          lbTokenAddress,
         }),
       ).rejects.toThrowError(
         `Address: ${reserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -611,25 +611,25 @@ describe('LendingPool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          lbTokenAddress,
         }),
       ).rejects.toThrowError(
         `Address: ${onBehalfOf} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when aTokenAddress not and eth address', async () => {
+    it('Expects to fail when lbTokenAddress not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
-      const aTokenAddress = 'asdf';
+      const lbTokenAddress = 'asdf';
       await expect(async () =>
         lendingPoolInstance.withdraw({
           user,
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          lbTokenAddress,
         }),
       ).rejects.toThrowError(
-        `Address: ${aTokenAddress} is not a valid ethereum Address`,
+        `Address: ${lbTokenAddress} is not a valid ethereum Address`,
       );
     });
     it('Expects to fail when amount not positive', async () => {
@@ -641,7 +641,7 @@ describe('LendingPool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          lbTokenAddress,
         }),
       ).rejects.toThrowError(`Amount: ${amount} needs to be greater than 0`);
     });
@@ -654,7 +654,7 @@ describe('LendingPool', () => {
           reserve,
           amount,
           onBehalfOf,
-          aTokenAddress,
+          lbTokenAddress,
         }),
       ).rejects.toThrowError(`Amount: ${amount} needs to be greater than 0`);
     });
@@ -674,11 +674,11 @@ describe('LendingPool', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects the tx object passing all parameters with borrow eth', async () => {
+    it('Expects the tx object passing all parameters with borrow bnb', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const lendingPoolInstance = new LendingPool(provider, config);
       const borrowEthSpy = jest
-        .spyOn(lendingPoolInstance.wethGatewayService, 'borrowETH')
+        .spyOn(lendingPoolInstance.wbnbGatewayService, 'borrowBNB')
         .mockReturnValue(Promise.resolve([]));
       await lendingPoolInstance.borrow({
         user,
@@ -840,7 +840,7 @@ describe('LendingPool', () => {
         gasLimitRecommendations[ProtocolAction.borrow].recommended,
       );
     });
-    it('Expects to fail when borrowing eth and not passing debtTokenAddress', async () => {
+    it('Expects to fail when borrowing bnb and not passing debtTokenAddress', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const lendingPoolInstance = new LendingPool(provider, config);
 
@@ -854,7 +854,7 @@ describe('LendingPool', () => {
           referralCode,
         }),
       ).rejects.toThrowError(
-        `To borrow ETH you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+        `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
       );
     });
     it('Expects to fail when lendingPoolAddress not provided', async () => {
@@ -871,7 +871,7 @@ describe('LendingPool', () => {
       });
       expect(txs).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -888,7 +888,7 @@ describe('LendingPool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -905,7 +905,7 @@ describe('LendingPool', () => {
         `Address: ${reserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -922,7 +922,7 @@ describe('LendingPool', () => {
         `Address: ${onBehalfOf} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when debtTokenAddress not and eth address', async () => {
+    it('Expects to fail when debtTokenAddress not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const debtTokenAddress = 'asdf';
       await expect(async () =>
@@ -983,11 +983,11 @@ describe('LendingPool', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects the tx object passing all params with repay eth', async () => {
+    it('Expects the tx object passing all params with repay bnb', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const lendingPoolInstance = new LendingPool(provider, config);
       const repayEthSpy = jest
-        .spyOn(lendingPoolInstance.wethGatewayService, 'repayETH')
+        .spyOn(lendingPoolInstance.wbnbGatewayService, 'repayBNB')
         .mockReturnValue([]);
       await lendingPoolInstance.repay({
         user,
@@ -1228,7 +1228,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -1243,7 +1243,7 @@ describe('LendingPool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -1258,7 +1258,7 @@ describe('LendingPool', () => {
         `Address: ${reserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -1418,7 +1418,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', () => {
+    it('Expects to fail when user not and bnb address', () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       expect(() =>
@@ -1429,7 +1429,7 @@ describe('LendingPool', () => {
         }),
       ).toThrowError(`Address: ${user} is not a valid ethereum Address`);
     });
-    it('Expects to fail when reserve not and eth address', () => {
+    it('Expects to fail when reserve not and bnb address', () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const reserve = 'asdf';
       expect(() =>
@@ -1529,7 +1529,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       expect(() =>
@@ -1540,7 +1540,7 @@ describe('LendingPool', () => {
         }),
       ).toThrowError(`Address: ${user} is not a valid ethereum Address`);
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const reserve = 'asdf';
       expect(() =>
@@ -1558,7 +1558,7 @@ describe('LendingPool', () => {
     const debtReserve = '0x0000000000000000000000000000000000000008';
     const collateralReserve = '0x0000000000000000000000000000000000000009';
     const purchaseAmount = '123.456';
-    const getAToken = true;
+    const getLBToken = true;
     const liquidateAll = true;
     const decimals = 18;
 
@@ -1579,7 +1579,7 @@ describe('LendingPool', () => {
         debtReserve,
         collateralReserve,
         purchaseAmount,
-        getAToken,
+        getLBToken,
         liquidateAll,
       });
 
@@ -1604,7 +1604,7 @@ describe('LendingPool', () => {
       expect(decoded[1]).toEqual(debtReserve);
       expect(decoded[2]).toEqual(liquidatedUser);
       expect(decoded[3]).toEqual(constants.MaxUint256);
-      expect(decoded[4]).toEqual(getAToken);
+      expect(decoded[4]).toEqual(getLBToken);
 
       // gas price
       const gasPrice: GasType | null = await txObj.gas();
@@ -1612,7 +1612,7 @@ describe('LendingPool', () => {
       expect(gasPrice?.gasLimit).toEqual('1');
       expect(gasPrice?.gasPrice).toEqual('1');
     });
-    it('Expects the tx object passing all params but not passing getAToken and no approval needed', async () => {
+    it('Expects the tx object passing all params but not passing getLBToken and no approval needed', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const isApprovedSpy = jest
         .spyOn(lendingPoolInstance.erc20Service, 'isApproved')
@@ -1681,7 +1681,7 @@ describe('LendingPool', () => {
         debtReserve,
         collateralReserve,
         purchaseAmount,
-        getAToken,
+        getLBToken,
       });
 
       expect(approveSpy).toHaveBeenCalled();
@@ -1709,7 +1709,7 @@ describe('LendingPool', () => {
       expect(decoded[3]).toEqual(
         BigNumber.from(valueToWei(purchaseAmount, decimals)),
       );
-      expect(decoded[4]).toEqual(getAToken);
+      expect(decoded[4]).toEqual(getLBToken);
 
       // gas price
       const gasPrice: GasType | null = await txObj.gas();
@@ -1727,12 +1727,12 @@ describe('LendingPool', () => {
         debtReserve,
         collateralReserve,
         purchaseAmount,
-        getAToken,
+        getLBToken,
         liquidateAll,
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when liquidator not and eth address', async () => {
+    it('Expects to fail when liquidator not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const liquidator = 'asdf';
       await expect(async () =>
@@ -1742,14 +1742,14 @@ describe('LendingPool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getLBToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
         `Address: ${liquidator} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when liquidatedUser not and eth address', async () => {
+    it('Expects to fail when liquidatedUser not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const liquidatedUser = 'asdf';
       await expect(async () =>
@@ -1759,14 +1759,14 @@ describe('LendingPool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getLBToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
         `Address: ${liquidatedUser} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when debtReserve not and eth address', async () => {
+    it('Expects to fail when debtReserve not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const debtReserve = 'asdf';
       await expect(async () =>
@@ -1776,14 +1776,14 @@ describe('LendingPool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getLBToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
         `Address: ${debtReserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when collateralReserve not and eth address', async () => {
+    it('Expects to fail when collateralReserve not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const collateralReserve = 'asdf';
       await expect(async () =>
@@ -1793,7 +1793,7 @@ describe('LendingPool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getLBToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -1810,7 +1810,7 @@ describe('LendingPool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getLBToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -1827,7 +1827,7 @@ describe('LendingPool', () => {
           debtReserve,
           collateralReserve,
           purchaseAmount,
-          getAToken,
+          getLBToken,
           liquidateAll,
         }),
       ).rejects.toThrowError(
@@ -1838,7 +1838,7 @@ describe('LendingPool', () => {
   describe('swapCollateral', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const fromAsset = '0x0000000000000000000000000000000000000007';
-    const fromAToken = '0x0000000000000000000000000000000000000008';
+    const fromLBToken = '0x0000000000000000000000000000000000000008';
     const toAsset = '0x0000000000000000000000000000000000000009';
     const onBehalfOf = '0x0000000000000000000000000000000000000010';
     const augustus = '0x0000000000000000000000000000000000000011';
@@ -1890,7 +1890,7 @@ describe('LendingPool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -1991,7 +1991,7 @@ describe('LendingPool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -2089,7 +2089,7 @@ describe('LendingPool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -2188,7 +2188,7 @@ describe('LendingPool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -2293,7 +2293,7 @@ describe('LendingPool', () => {
         user,
         // flash,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -2316,7 +2316,7 @@ describe('LendingPool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -2335,7 +2335,7 @@ describe('LendingPool', () => {
         user,
         flash,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         toAsset,
         fromAmount,
         minToAmount,
@@ -2356,7 +2356,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2379,7 +2379,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2394,15 +2394,15 @@ describe('LendingPool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and eth address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
-      const fromAToken = 'asdf';
+      const fromLBToken = 'asdf';
       await expect(async () =>
         lendingPoolInstance.swapCollateral({
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2414,7 +2414,7 @@ describe('LendingPool', () => {
           swapCallData,
         }),
       ).rejects.toThrowError(
-        `Address: ${fromAToken} is not a valid ethereum Address`,
+        `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
     it('Expects to fail when toAsset not and eth address', async () => {
@@ -2425,7 +2425,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2448,7 +2448,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2471,7 +2471,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2494,7 +2494,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2517,7 +2517,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2540,7 +2540,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2563,7 +2563,7 @@ describe('LendingPool', () => {
           user,
           flash,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           toAsset,
           fromAmount,
           minToAmount,
@@ -2582,7 +2582,7 @@ describe('LendingPool', () => {
   describe('repayWithCollateral', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const fromAsset = '0x0000000000000000000000000000000000000007';
-    const fromAToken = '0x0000000000000000000000000000000000000008';
+    const fromLBToken = '0x0000000000000000000000000000000000000008';
     const assetToRepay = '0x0000000000000000000000000000000000000009';
     const onBehalfOf = '0x0000000000000000000000000000000000000010';
     const repayWithAmount = '12.34';
@@ -2635,7 +2635,7 @@ describe('LendingPool', () => {
         await lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -2738,7 +2738,7 @@ describe('LendingPool', () => {
         await lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -2838,7 +2838,7 @@ describe('LendingPool', () => {
         await lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -2937,7 +2937,7 @@ describe('LendingPool', () => {
         await lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3036,7 +3036,7 @@ describe('LendingPool', () => {
         await lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3135,7 +3135,7 @@ describe('LendingPool', () => {
         await lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3234,7 +3234,7 @@ describe('LendingPool', () => {
         await lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3339,7 +3339,7 @@ describe('LendingPool', () => {
       await lendingPoolInstance.repayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -3361,7 +3361,7 @@ describe('LendingPool', () => {
       const txObj = await lendingPoolInstance.repayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -3380,7 +3380,7 @@ describe('LendingPool', () => {
       const txObj = await lendingPoolInstance.repayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -3401,7 +3401,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3424,7 +3424,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3440,14 +3440,14 @@ describe('LendingPool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and eth address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
-      const fromAToken = 'asdf';
+      const fromLBToken = 'asdf';
       await expect(async () =>
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3460,7 +3460,7 @@ describe('LendingPool', () => {
           useEthPath,
         }),
       ).rejects.toThrowError(
-        `Address: ${fromAToken} is not a valid ethereum Address`,
+        `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
     it('Expects to fail when assetToRepay not and eth address', async () => {
@@ -3470,7 +3470,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3493,7 +3493,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3516,7 +3516,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3539,7 +3539,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3562,7 +3562,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3585,7 +3585,7 @@ describe('LendingPool', () => {
         lendingPoolInstance.repayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -3961,7 +3961,7 @@ describe('LendingPool', () => {
   describe('paraswapRepayWithCollateral', () => {
     const user = '0x0000000000000000000000000000000000000006';
     const fromAsset = '0x0000000000000000000000000000000000000007';
-    const fromAToken = '0x0000000000000000000000000000000000000008';
+    const fromLBToken = '0x0000000000000000000000000000000000000008';
     const assetToRepay = '0x0000000000000000000000000000000000000009';
     const onBehalfOf = '0x0000000000000000000000000000000000000010';
     const augustus = '0x0000000000000000000000000000000000000011';
@@ -4021,7 +4021,7 @@ describe('LendingPool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4125,7 +4125,7 @@ describe('LendingPool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4228,7 +4228,7 @@ describe('LendingPool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4330,7 +4330,7 @@ describe('LendingPool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4432,7 +4432,7 @@ describe('LendingPool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4534,7 +4534,7 @@ describe('LendingPool', () => {
         await poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4642,7 +4642,7 @@ describe('LendingPool', () => {
       await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4679,7 +4679,7 @@ describe('LendingPool', () => {
       await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4702,7 +4702,7 @@ describe('LendingPool', () => {
       const txObj = await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4722,7 +4722,7 @@ describe('LendingPool', () => {
       const txObj = await poolInstance.paraswapRepayWithCollateral({
         user,
         fromAsset,
-        fromAToken,
+        fromLBToken,
         assetToRepay,
         repayWithAmount,
         repayAmount,
@@ -4744,7 +4744,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4768,7 +4768,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4792,7 +4792,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4809,14 +4809,14 @@ describe('LendingPool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and eth address', async () => {
       const poolInstance = new LendingPool(provider, config);
-      const fromAToken = 'asdf';
+      const fromLBToken = 'asdf';
       await expect(async () =>
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4830,7 +4830,7 @@ describe('LendingPool', () => {
           augustus,
         }),
       ).rejects.toThrowError(
-        `Address: ${fromAToken} is not a valid ethereum Address`,
+        `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
     it('Expects to fail when assetToRepay not and eth address', async () => {
@@ -4840,7 +4840,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4864,7 +4864,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4888,7 +4888,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4912,7 +4912,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4936,7 +4936,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,
@@ -4960,7 +4960,7 @@ describe('LendingPool', () => {
         poolInstance.paraswapRepayWithCollateral({
           user,
           fromAsset,
-          fromAToken,
+          fromLBToken,
           assetToRepay,
           repayWithAmount,
           repayAmount,

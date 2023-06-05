@@ -24,7 +24,7 @@ import {
   LPValidator,
 } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
   isPositiveOrMinusOneAmount,
 } from '../commons/validators/paramValidators';
@@ -44,9 +44,9 @@ import {
 } from '../repayWithCollateralAdapter-contract';
 import { SynthetixInterface, SynthetixService } from '../synthetix-contract';
 import {
-  WETHGatewayInterface,
-  WETHGatewayService,
-} from '../wethgateway-contract';
+  WBNBGatewayInterface,
+  WBNBGatewayService,
+} from '../wbnbgateway-contract';
 import {
   LPBorrowParamsType,
   LPDepositParamsType,
@@ -141,7 +141,7 @@ export class LendingPool
 
   readonly synthetixService: SynthetixInterface;
 
-  readonly wethGatewayService: WETHGatewayInterface;
+  readonly wbnbGatewayService: WBNBGatewayInterface;
 
   readonly liquiditySwapAdapterService: LiquiditySwapAdapterInterface;
 
@@ -166,7 +166,7 @@ export class LendingPool
       FLASH_LIQUIDATION_ADAPTER,
       REPAY_WITH_COLLATERAL_ADAPTER,
       SWAP_COLLATERAL_ADAPTER,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     } = lendingPoolConfig ?? {};
 
     this.lendingPoolAddress = LENDING_POOL ?? '';
@@ -177,10 +177,10 @@ export class LendingPool
     // initialize services
     this.erc20Service = new ERC20Service(provider);
     this.synthetixService = new SynthetixService(provider);
-    this.wethGatewayService = new WETHGatewayService(
+    this.wbnbGatewayService = new WBNBGatewayService(
       provider,
       this.erc20Service,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     );
     this.liquiditySwapAdapterService = new LiquiditySwapAdapterService(
       provider,
@@ -198,14 +198,14 @@ export class LendingPool
 
   @LPValidator
   public async deposit(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveAmount('amount')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('onBehalfOf')
     { user, reserve, amount, onBehalfOf, referralCode }: LPDepositParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      return this.wethGatewayService.depositETH({
+      return this.wbnbGatewayService.depositBNB({
         lendingPool: this.lendingPoolAddress,
         user,
         amount,
@@ -279,26 +279,26 @@ export class LendingPool
 
   @LPValidator
   public async withdraw(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('onBehalfOf')
-    @isEthAddress('aTokenAddress')
-    { user, reserve, amount, onBehalfOf, aTokenAddress }: LPWithdrawParamsType,
+    @isBnbAddress('onBehalfOf')
+    @isBnbAddress('lbTokenAddress')
+    { user, reserve, amount, onBehalfOf, lbTokenAddress }: LPWithdrawParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      if (!aTokenAddress) {
+      if (!lbTokenAddress) {
         throw new Error(
-          'To withdraw ETH you need to pass the aWETH token address',
+          'To withdraw ETH you need to pass the aWBNB token address',
         );
       }
 
-      return this.wethGatewayService.withdrawETH({
+      return this.wbnbGatewayService.withdrawBNB({
         lendingPool: this.lendingPoolAddress,
         user,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        lbTokenAddress,
       });
     }
 
@@ -340,11 +340,11 @@ export class LendingPool
 
   @LPValidator
   public async borrow(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveAmount('amount')
-    @isEthAddress('debtTokenAddress')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('debtTokenAddress')
+    @isBnbAddress('onBehalfOf')
     {
       user,
       reserve,
@@ -358,11 +358,11 @@ export class LendingPool
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       if (!debtTokenAddress) {
         throw new Error(
-          `To borrow ETH you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+          `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
         );
       }
 
-      return this.wethGatewayService.borrowETH({
+      return this.wbnbGatewayService.borrowBNB({
         lendingPool: this.lendingPoolAddress,
         user,
         amount,
@@ -410,14 +410,14 @@ export class LendingPool
 
   @LPValidator
   public async repay(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('onBehalfOf')
     { user, reserve, amount, interestRateMode, onBehalfOf }: LPRepayParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      return this.wethGatewayService.repayETH({
+      return this.wbnbGatewayService.repayBNB({
         lendingPool: this.lendingPoolAddress,
         user,
         amount,
@@ -499,8 +499,8 @@ export class LendingPool
 
   @LPValidator
   public swapBorrowRateMode(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     { user, reserve, interestRateMode }: LPSwapBorrowRateMode,
   ): EthereumTransactionTypeExtended[] {
     const numericRateMode = interestRateMode === InterestRate.Variable ? 2 : 1;
@@ -528,8 +528,8 @@ export class LendingPool
 
   @LPValidator
   public setUsageAsCollateral(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     { user, reserve, usageAsCollateral }: LPSetUsageAsCollateral,
   ): EthereumTransactionTypeExtended[] {
     const lendingPoolContract = this.getContractInstance(
@@ -556,10 +556,10 @@ export class LendingPool
 
   @LPValidator
   public async liquidationCall(
-    @isEthAddress('liquidator')
-    @isEthAddress('liquidatedUser')
-    @isEthAddress('debtReserve')
-    @isEthAddress('collateralReserve')
+    @isBnbAddress('liquidator')
+    @isBnbAddress('liquidatedUser')
+    @isBnbAddress('debtReserve')
+    @isBnbAddress('collateralReserve')
     @isPositiveAmount('purchaseAmount')
     {
       liquidator,
@@ -567,7 +567,7 @@ export class LendingPool
       debtReserve,
       collateralReserve,
       purchaseAmount,
-      getAToken,
+      getLBToken,
       liquidateAll,
     }: LPLiquidationCall,
   ): Promise<EthereumTransactionTypeExtended[]> {
@@ -610,7 +610,7 @@ export class LendingPool
           debtReserve,
           liquidatedUser,
           convertedAmount,
-          getAToken ?? false,
+          getLBToken ?? false,
         ),
       from: liquidator,
       value: getTxValue(debtReserve, convertedAmount),
@@ -631,19 +631,19 @@ export class LendingPool
 
   @LPSwapCollateralValidator
   public async swapCollateral(
-    @isEthAddress('user')
-    @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
-    @isEthAddress('toAsset')
-    @isEthAddress('onBehalfOf')
-    @isEthAddress('augustus')
+    @isBnbAddress('user')
+    @isBnbAddress('fromAsset')
+    @isBnbAddress('fromLBToken')
+    @isBnbAddress('toAsset')
+    @isBnbAddress('onBehalfOf')
+    @isBnbAddress('augustus')
     @isPositiveAmount('fromAmount')
     @isPositiveAmount('minToAmount')
     {
       user,
       flash,
       fromAsset,
-      fromAToken,
+      fromLBToken,
       toAsset,
       fromAmount,
       minToAmount,
@@ -666,7 +666,7 @@ export class LendingPool
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromLBToken,
       user,
       spender: this.swapCollateralAddress,
       amount: fromAmount,
@@ -676,7 +676,7 @@ export class LendingPool
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromLBToken,
           spender: this.swapCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -776,17 +776,17 @@ export class LendingPool
 
   @LPRepayWithCollateralValidator
   public async repayWithCollateral(
-    @isEthAddress('user')
-    @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
-    @isEthAddress('assetToRepay')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('user')
+    @isBnbAddress('fromAsset')
+    @isBnbAddress('fromLBToken')
+    @isBnbAddress('assetToRepay')
+    @isBnbAddress('onBehalfOf')
     @isPositiveAmount('repayWithAmount')
     @isPositiveAmount('repayAmount')
     {
       user,
       fromAsset,
-      fromAToken,
+      fromLBToken,
       assetToRepay,
       repayWithAmount,
       repayAmount,
@@ -810,7 +810,7 @@ export class LendingPool
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromLBToken,
       user,
       spender: this.repayWithCollateralAddress,
       amount: repayWithAmount,
@@ -820,7 +820,7 @@ export class LendingPool
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromLBToken,
           spender: this.repayWithCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -927,18 +927,18 @@ export class LendingPool
 
   @LPRepayWithCollateralValidator
   public async paraswapRepayWithCollateral(
-    @isEthAddress('user')
-    @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
-    @isEthAddress('assetToRepay')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('user')
+    @isBnbAddress('fromAsset')
+    @isBnbAddress('fromLBToken')
+    @isBnbAddress('assetToRepay')
+    @isBnbAddress('onBehalfOf')
     @isPositiveAmount('repayWithAmount')
     @isPositiveAmount('repayAmount')
-    @isEthAddress('augustus')
+    @isBnbAddress('augustus')
     {
       user,
       fromAsset,
-      fromAToken,
+      fromLBToken,
       assetToRepay,
       repayWithAmount,
       repayAmount,
@@ -963,7 +963,7 @@ export class LendingPool
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromLBToken,
       user,
       spender: this.repayWithCollateralAddress,
       amount: repayWithAmount,
@@ -973,7 +973,7 @@ export class LendingPool
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromLBToken,
           spender: this.repayWithCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -1094,11 +1094,11 @@ export class LendingPool
 
   @LPFlashLiquidationValidator
   public async flashLiquidation(
-    @isEthAddress('user')
-    @isEthAddress('collateralAsset')
-    @isEthAddress('borrowedAsset')
+    @isBnbAddress('user')
+    @isBnbAddress('collateralAsset')
+    @isBnbAddress('borrowedAsset')
     @isPositiveAmount('debtTokenCover')
-    @isEthAddress('initiator')
+    @isBnbAddress('initiator')
     {
       user,
       collateralAsset,

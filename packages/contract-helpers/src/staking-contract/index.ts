@@ -14,13 +14,13 @@ import {
 } from '../commons/validators/methodValidators';
 import {
   is0OrPositiveAmount,
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
   isPositiveOrMinusOneAmount,
 } from '../commons/validators/paramValidators';
 import { ERC20Service, IERC20ServiceInterface } from '../erc20-contract';
-import { IAaveStakingHelper } from './typechain/IAaveStakingHelper';
-import { IAaveStakingHelper__factory } from './typechain/IAaveStakingHelper__factory';
+import { ILootBridgeStakingHelper } from './typechain/ILootBridgeStakingHelper';
+import { ILootBridgeStakingHelper__factory } from './typechain/ILootBridgeStakingHelper__factory';
 import { IStakedToken } from './typechain/IStakedToken';
 import { IStakedToken__factory } from './typechain/IStakedToken__factory';
 
@@ -62,7 +62,7 @@ export class StakingService
   extends BaseService<IStakedToken>
   implements StakingInterface
 {
-  readonly stakingHelperContract: IAaveStakingHelper;
+  readonly stakingHelperContract: ILootBridgeStakingHelper;
 
   public readonly stakingContractAddress: tEthereumAddress;
 
@@ -83,7 +83,7 @@ export class StakingService
       stakingServiceConfig.STAKING_HELPER_ADDRESS ?? '';
 
     if (this.stakingHelperContractAddress !== '') {
-      this.stakingHelperContract = IAaveStakingHelper__factory.connect(
+      this.stakingHelperContract = ILootBridgeStakingHelper__factory.connect(
         this.stakingHelperContractAddress,
         provider,
       );
@@ -92,7 +92,7 @@ export class StakingService
 
   @SignStakingValidator
   public async signStaking(
-    @isEthAddress() user: tEthereumAddress,
+    @isBnbAddress() user: tEthereumAddress,
     @isPositiveAmount() amount: string,
     @is0OrPositiveAmount() nonce: string,
   ): Promise<string> {
@@ -143,7 +143,7 @@ export class StakingService
 
   @SignStakingValidator
   public async stakeWithPermit(
-    @isEthAddress() user: tEthereumAddress,
+    @isBnbAddress() user: tEthereumAddress,
     @isPositiveAmount() amount: string,
     signature: SignatureLike,
   ): Promise<EthereumTransactionTypeExtended[]> {
@@ -181,9 +181,9 @@ export class StakingService
 
   @StakingValidator
   public async stake(
-    @isEthAddress() user: tEthereumAddress,
+    @isBnbAddress() user: tEthereumAddress,
     @isPositiveAmount() amount: string,
-    @isEthAddress() onBehalfOf?: tEthereumAddress,
+    @isBnbAddress() onBehalfOf?: tEthereumAddress,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
     const { decimalsOf, isApproved, approve } = this.erc20Service;
@@ -231,7 +231,7 @@ export class StakingService
 
   @StakingValidator
   public async redeem(
-    @isEthAddress() user: tEthereumAddress,
+    @isBnbAddress() user: tEthereumAddress,
     @isPositiveOrMinusOneAmount() amount: string,
   ): Promise<EthereumTransactionTypeExtended[]> {
     let convertedAmount: string;
@@ -267,7 +267,7 @@ export class StakingService
 
   @StakingValidator
   public cooldown(
-    @isEthAddress() user: tEthereumAddress,
+    @isBnbAddress() user: tEthereumAddress,
   ): EthereumTransactionTypeExtended[] {
     const stakingContract: IStakedToken = this.getContractInstance(
       this.stakingContractAddress,
@@ -289,7 +289,7 @@ export class StakingService
 
   @StakingValidator
   public async claimRewards(
-    @isEthAddress() user: tEthereumAddress,
+    @isBnbAddress() user: tEthereumAddress,
     @isPositiveOrMinusOneAmount() amount: string,
   ): Promise<EthereumTransactionTypeExtended[]> {
     let convertedAmount: string;

@@ -106,7 +106,7 @@ describe('StakingService', () => {
       const signature: string = await instance.signStaking(user, amount, nonce);
       expect(signature).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new StakingService(provider, {
         TOKEN_STAKING_ADDRESS,
         STAKING_HELPER_ADDRESS,
@@ -233,7 +233,7 @@ describe('StakingService', () => {
       const stake = await instance.stakeWithPermit(user, amount, signature);
       expect(stake).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new StakingService(provider, {
         TOKEN_STAKING_ADDRESS,
         STAKING_HELPER_ADDRESS,
@@ -377,7 +377,7 @@ describe('StakingService', () => {
       const stake = await instance.stake(user, amount, onBehalfOf);
       expect(stake).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new StakingService(provider, { TOKEN_STAKING_ADDRESS });
       const user = 'asdf';
       await expect(async () =>
@@ -386,7 +386,7 @@ describe('StakingService', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not eth address', async () => {
+    it('Expects to fail when onBehalfOf not bnb address', async () => {
       const instance = new StakingService(provider, { TOKEN_STAKING_ADDRESS });
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -497,7 +497,7 @@ describe('StakingService', () => {
       const redeem = await instance.redeem(user, amount);
       expect(redeem).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new StakingService(provider, { TOKEN_STAKING_ADDRESS });
       const user = 'asdf';
       await expect(async () =>
@@ -562,7 +562,7 @@ describe('StakingService', () => {
       const cooldown = instance.cooldown(user);
       expect(cooldown).toEqual([]);
     });
-    it('Expects to fail when user not eth address', () => {
+    it('Expects to fail when user not bnb address', () => {
       const instance = new StakingService(provider, { TOKEN_STAKING_ADDRESS });
       const user = 'asdf';
       expect(() => instance.cooldown(user)).toThrowError(
@@ -651,7 +651,7 @@ describe('StakingService', () => {
       const claimRewards = instance.claimRewards(user, amount);
       expect(claimRewards).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new StakingService(provider, { TOKEN_STAKING_ADDRESS });
       const user = 'asdf';
       await expect(async () =>

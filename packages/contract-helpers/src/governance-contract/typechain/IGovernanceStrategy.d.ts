@@ -20,16 +20,22 @@ import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi';
 
 interface IGovernanceStrategyInterface extends ethers.utils.Interface {
   functions: {
-    'AAVE()': FunctionFragment;
-    'STK_AAVE()': FunctionFragment;
+    'LOOTBRIDGE()': FunctionFragment;
+    'STK_LOOTBRIDGE()': FunctionFragment;
     'getPropositionPowerAt(address,uint256)': FunctionFragment;
     'getTotalPropositionSupplyAt(uint256)': FunctionFragment;
     'getTotalVotingSupplyAt(uint256)': FunctionFragment;
     'getVotingPowerAt(address,uint256)': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'AAVE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'STK_AAVE', values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: 'LOOTBRIDGE',
+    values?: undefined,
+  ): string;
+  encodeFunctionData(
+    functionFragment: 'STK_LOOTBRIDGE',
+    values?: undefined,
+  ): string;
   encodeFunctionData(
     functionFragment: 'getPropositionPowerAt',
     values: [string, BigNumberish],
@@ -47,8 +53,11 @@ interface IGovernanceStrategyInterface extends ethers.utils.Interface {
     values: [string, BigNumberish],
   ): string;
 
-  decodeFunctionResult(functionFragment: 'AAVE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'STK_AAVE', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'LOOTBRIDGE', data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: 'STK_LOOTBRIDGE',
+    data: BytesLike,
+  ): Result;
   decodeFunctionResult(
     functionFragment: 'getPropositionPowerAt',
     data: BytesLike,
@@ -83,19 +92,19 @@ export class IGovernanceStrategy extends Contract {
   interface: IGovernanceStrategyInterface;
 
   functions: {
-    AAVE(overrides?: CallOverrides): Promise<{
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<{
       0: string;
     }>;
 
-    'AAVE()'(overrides?: CallOverrides): Promise<{
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<{
       0: string;
     }>;
 
-    STK_AAVE(overrides?: CallOverrides): Promise<{
+    STK_LOOTBRIDGE(overrides?: CallOverrides): Promise<{
       0: string;
     }>;
 
-    'STK_AAVE()'(overrides?: CallOverrides): Promise<{
+    'STK_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<{
       0: string;
     }>;
 
@@ -160,13 +169,13 @@ export class IGovernanceStrategy extends Contract {
     }>;
   };
 
-  AAVE(overrides?: CallOverrides): Promise<string>;
+  LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-  'AAVE()'(overrides?: CallOverrides): Promise<string>;
+  'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
-  STK_AAVE(overrides?: CallOverrides): Promise<string>;
+  STK_LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-  'STK_AAVE()'(overrides?: CallOverrides): Promise<string>;
+  'STK_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
   getPropositionPowerAt(
     user: string,
@@ -213,13 +222,13 @@ export class IGovernanceStrategy extends Contract {
   ): Promise<BigNumber>;
 
   callStatic: {
-    AAVE(overrides?: CallOverrides): Promise<string>;
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-    'AAVE()'(overrides?: CallOverrides): Promise<string>;
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
-    STK_AAVE(overrides?: CallOverrides): Promise<string>;
+    STK_LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-    'STK_AAVE()'(overrides?: CallOverrides): Promise<string>;
+    'STK_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
     getPropositionPowerAt(
       user: string,
@@ -269,13 +278,13 @@ export class IGovernanceStrategy extends Contract {
   filters: {};
 
   estimateGas: {
-    AAVE(overrides?: CallOverrides): Promise<BigNumber>;
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'AAVE()'(overrides?: CallOverrides): Promise<BigNumber>;
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<BigNumber>;
 
-    STK_AAVE(overrides?: CallOverrides): Promise<BigNumber>;
+    STK_LOOTBRIDGE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    'STK_AAVE()'(overrides?: CallOverrides): Promise<BigNumber>;
+    'STK_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPropositionPowerAt(
       user: string,
@@ -323,13 +332,15 @@ export class IGovernanceStrategy extends Contract {
   };
 
   populateTransaction: {
-    AAVE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'AAVE()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    STK_AAVE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    STK_LOOTBRIDGE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    'STK_AAVE()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    'STK_LOOTBRIDGE()'(
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
 
     getPropositionPowerAt(
       user: string,

@@ -19,7 +19,7 @@ describe('PoolBundle', () => {
     .spyOn(provider, 'getGasPrice')
     .mockImplementation(async () => Promise.resolve(BigNumber.from(1)));
   const POOL = '0x0000000000000000000000000000000000000001';
-  const WETH_GATEWAY = '0x0000000000000000000000000000000000000002';
+  const WBNB_GATEWAY = '0x0000000000000000000000000000000000000002';
   const USER = '0x0000000000000000000000000000000000000003';
   const TOKEN = '0x0000000000000000000000000000000000000004';
   const FLASH_LIQUIDATION_ADAPTER =
@@ -34,7 +34,7 @@ describe('PoolBundle', () => {
       FLASH_LIQUIDATION_ADAPTER,
       REPAY_WITH_COLLATERAL_ADAPTER,
       SWAP_COLLATERAL_ADAPTER,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
       L2_ENCODER,
     };
     it('Expects to initialize correctly with all params', () => {
@@ -53,7 +53,7 @@ describe('PoolBundle', () => {
       FLASH_LIQUIDATION_ADAPTER,
       REPAY_WITH_COLLATERAL_ADAPTER,
       SWAP_COLLATERAL_ADAPTER,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
       L2_ENCODER,
     };
 
@@ -74,7 +74,7 @@ describe('PoolBundle', () => {
       expect(result.user).toEqual(USER);
     });
 
-    it('gets approved amount for WETHGateway', async () => {
+    it('gets approved amount for WBNBGateway', async () => {
       jest
         .spyOn(instance.erc20Service, 'approvedAmount')
         .mockReturnValue(Promise.resolve(1));
@@ -84,7 +84,7 @@ describe('PoolBundle', () => {
         token: API_ETH_MOCK_ADDRESS,
       });
       expect(result.amount).toEqual('1');
-      expect(result.spender).toEqual(WETH_GATEWAY);
+      expect(result.spender).toEqual(WBNB_GATEWAY);
       expect(result.token).toEqual(API_ETH_MOCK_ADDRESS);
       expect(result.user).toEqual(USER);
     });
@@ -118,7 +118,7 @@ describe('PoolBundle', () => {
       );
     });
 
-    it('generates supply tx for WETHGateway data with generateTxData', () => {
+    it('generates supply tx for WBNBGateway data with generateTxData', () => {
       const result = instance.supplyTxBuilder.generateTxData({
         user: USER,
         reserve: API_ETH_MOCK_ADDRESS.toLowerCase(),
@@ -134,13 +134,13 @@ describe('PoolBundle', () => {
           amount: '1',
         },
       );
-      expect(result.to).toEqual(WETH_GATEWAY);
+      expect(result.to).toEqual(WBNB_GATEWAY);
       expect(result.from).toEqual(USER);
       expect(result.value).toEqual(BigNumber.from('1'));
       expect(result.data).toEqual(
         '0x474cf53d000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000',
       );
-      expect(differentParamsSameResult.to).toEqual(WETH_GATEWAY);
+      expect(differentParamsSameResult.to).toEqual(WBNB_GATEWAY);
       expect(differentParamsSameResult.from).toEqual(USER);
       expect(differentParamsSameResult.data).toEqual(
         '0x474cf53d000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000000',
@@ -334,7 +334,7 @@ describe('PoolBundle', () => {
       FLASH_LIQUIDATION_ADAPTER,
       REPAY_WITH_COLLATERAL_ADAPTER,
       SWAP_COLLATERAL_ADAPTER,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
       L2_ENCODER,
     };
 
@@ -384,7 +384,7 @@ describe('PoolBundle', () => {
       expect(stableBorrowResult.data).toEqual(stableBorrowTxData);
     });
 
-    it('generates borrow tx for WETHGateway data with generateTxData', async () => {
+    it('generates borrow tx for WBNBGateway data with generateTxData', async () => {
       await expect(async () =>
         instance.borrowTxBuilder.generateTxData({
           user: USER,
@@ -395,7 +395,7 @@ describe('PoolBundle', () => {
           referralCode: '0',
         }),
       ).rejects.toThrowError(
-        `To borrow ETH you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+        `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
       );
 
       const result = instance.borrowTxBuilder.generateTxData({
@@ -431,14 +431,14 @@ describe('PoolBundle', () => {
         '0x66514c970000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000';
       const stableTxData =
         '0x66514c970000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000';
-      expect(result.to).toEqual(WETH_GATEWAY);
+      expect(result.to).toEqual(WBNB_GATEWAY);
       expect(result.from).toEqual(USER);
       expect(result.value).toEqual(undefined);
       expect(result.data).toEqual(variableTxData);
-      expect(differentParamsSameResult.to).toEqual(WETH_GATEWAY);
+      expect(differentParamsSameResult.to).toEqual(WBNB_GATEWAY);
       expect(differentParamsSameResult.from).toEqual(USER);
       expect(differentParamsSameResult.data).toEqual(variableTxData);
-      expect(resultStable.to).toEqual(WETH_GATEWAY);
+      expect(resultStable.to).toEqual(WBNB_GATEWAY);
       expect(resultStable.from).toEqual(USER);
       expect(resultStable.value).toEqual(undefined);
       expect(resultStable.data).toEqual(stableTxData);

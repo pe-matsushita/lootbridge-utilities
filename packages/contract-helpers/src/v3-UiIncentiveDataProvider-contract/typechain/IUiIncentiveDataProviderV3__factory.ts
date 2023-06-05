@@ -343,7 +343,7 @@ const _abi = [
               },
             ],
             internalType: 'struct IUiIncentiveDataProviderV3.UserIncentiveData',
-            name: 'aTokenIncentivesUserData',
+            name: 'lbTokenIncentivesUserData',
             type: 'tuple',
           },
           {
@@ -834,7 +834,7 @@ const _abi = [
               },
             ],
             internalType: 'struct IUiIncentiveDataProviderV3.UserIncentiveData',
-            name: 'aTokenIncentivesUserData',
+            name: 'lbTokenIncentivesUserData',
             type: 'tuple',
           },
           {

@@ -21,7 +21,7 @@ export interface ReservesData {
     variableBorrowRate: BigNumber;
     stableBorrowRate: BigNumber;
     lastUpdateTimestamp: number;
-    aTokenAddress: string;
+    lbTokenAddress: string;
     stableDebtTokenAddress: string;
     variableDebtTokenAddress: string;
     interestRateStrategyAddress: string;
@@ -83,7 +83,7 @@ export interface ReservesData {
 
 export interface UserReserveData {
   underlyingAsset: string;
-  scaledATokenBalance: BigNumber;
+  scaledLBTokenBalance: BigNumber;
   usageAsCollateralEnabledOnUser: boolean;
   stableBorrowRate: BigNumber;
   scaledVariableDebt: BigNumber;
@@ -125,7 +125,7 @@ export interface ReserveDataHumanized {
   variableBorrowRate: string;
   stableBorrowRate: string;
   lastUpdateTimestamp: number;
-  aTokenAddress: string;
+  lbTokenAddress: string;
   stableDebtTokenAddress: string;
   variableDebtTokenAddress: string;
   interestRateStrategyAddress: string;
@@ -149,7 +149,7 @@ export interface ReservesDataHumanized {
 export interface UserReserveDataHumanized {
   id: string;
   underlyingAsset: string;
-  scaledATokenBalance: string;
+  scaledLBTokenBalance: string;
   usageAsCollateralEnabledOnUser: boolean;
   stableBorrowRate: string;
   scaledVariableDebt: string;

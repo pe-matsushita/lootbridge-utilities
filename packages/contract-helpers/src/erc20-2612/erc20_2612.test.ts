@@ -59,7 +59,7 @@ describe('ERC20_2612', () => {
       expect(nonce).toEqual(null);
       expect(nonceSpy).toHaveBeenCalledTimes(1);
     });
-    it('Expects to fail if token is not eth address', async () => {
+    it('Expects to fail if token is not bnb address', async () => {
       const instance: ERC20_2612Interface = new ERC20_2612Service(provider);
       const token = 'asdf';
       await expect(async () =>
@@ -68,7 +68,7 @@ describe('ERC20_2612', () => {
         new Error(`Address: ${token} is not a valid ethereum Address`),
       );
     });
-    it('Expects to fail if owner is not eth address', async () => {
+    it('Expects to fail if owner is not bnb address', async () => {
       const instance: ERC20_2612Interface = new ERC20_2612Service(provider);
       const owner = 'asdf';
       await expect(async () =>

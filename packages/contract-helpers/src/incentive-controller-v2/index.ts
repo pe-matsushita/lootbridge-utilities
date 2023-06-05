@@ -7,11 +7,11 @@ import {
 } from '../commons/types';
 import { IncentivesValidator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
-  isEthAddressArray,
+  isBnbAddress,
+  isBnbAddressArray,
 } from '../commons/validators/paramValidators';
-import { IAaveIncentivesControllerV2 } from './typechain/IAaveIncentivesControllerV2';
-import { IAaveIncentivesControllerV2__factory } from './typechain/IAaveIncentivesControllerV2__factory';
+import { ILootBridgeIncentivesControllerV2 } from './typechain/ILootBridgeIncentivesControllerV2';
+import { ILootBridgeIncentivesControllerV2__factory } from './typechain/ILootBridgeIncentivesControllerV2__factory';
 
 export type ClaimRewardsV2MethodType = {
   user: string;
@@ -38,20 +38,20 @@ export interface IncentivesControllerV2Interface {
 }
 
 export class IncentivesControllerV2
-  extends BaseService<IAaveIncentivesControllerV2>
+  extends BaseService<ILootBridgeIncentivesControllerV2>
   implements IncentivesControllerV2Interface
 {
   constructor(provider: providers.Provider) {
-    super(provider, IAaveIncentivesControllerV2__factory);
+    super(provider, ILootBridgeIncentivesControllerV2__factory);
   }
 
   @IncentivesValidator
   public claimRewards(
-    @isEthAddress('user')
-    @isEthAddress('incentivesControllerAddress')
-    @isEthAddress('to')
-    @isEthAddress('reward')
-    @isEthAddressArray('assets')
+    @isBnbAddress('user')
+    @isBnbAddress('incentivesControllerAddress')
+    @isBnbAddress('to')
+    @isBnbAddress('reward')
+    @isBnbAddressArray('assets')
     {
       user,
       assets,
@@ -60,7 +60,7 @@ export class IncentivesControllerV2
       reward,
     }: ClaimRewardsV2MethodType,
   ): EthereumTransactionTypeExtended[] {
-    const incentivesContract: IAaveIncentivesControllerV2 =
+    const incentivesContract: ILootBridgeIncentivesControllerV2 =
       this.getContractInstance(incentivesControllerAddress);
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
@@ -84,10 +84,10 @@ export class IncentivesControllerV2
 
   @IncentivesValidator
   public claimAllRewards(
-    @isEthAddress('user')
-    @isEthAddress('incentivesControllerAddress')
-    @isEthAddress('to')
-    @isEthAddressArray('assets')
+    @isBnbAddress('user')
+    @isBnbAddress('incentivesControllerAddress')
+    @isBnbAddress('to')
+    @isBnbAddressArray('assets')
     {
       user,
       assets,
@@ -95,7 +95,7 @@ export class IncentivesControllerV2
       incentivesControllerAddress,
     }: ClaimAllRewardsV2MethodType,
   ): EthereumTransactionTypeExtended[] {
-    const incentivesContract: IAaveIncentivesControllerV2 =
+    const incentivesContract: ILootBridgeIncentivesControllerV2 =
       this.getContractInstance(incentivesControllerAddress);
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>

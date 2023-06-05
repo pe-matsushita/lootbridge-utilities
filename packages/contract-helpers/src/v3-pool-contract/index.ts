@@ -31,10 +31,10 @@ import {
 } from '../commons/validators/methodValidators';
 import {
   is0OrPositiveAmount,
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
   isPositiveOrMinusOneAmount,
-  isEthAddressArray,
+  isBnbAddressArray,
 } from '../commons/validators/paramValidators';
 import { ERC20_2612Service, ERC20_2612Interface } from '../erc20-2612';
 import { ERC20Service, IERC20ServiceInterface } from '../erc20-contract';
@@ -51,9 +51,9 @@ import { SynthetixInterface, SynthetixService } from '../synthetix-contract';
 import { IMigrationHelper } from '../v3-migration-contract/typechain/IMigrationHelper';
 import { L2Pool, L2PoolInterface } from '../v3-pool-rollups';
 import {
-  WETHGatewayInterface,
-  WETHGatewayService,
-} from '../wethgateway-contract';
+  WBNBGatewayInterface,
+  WBNBGatewayService,
+} from '../wbnbgateway-contract';
 import {
   LPBorrowParamsType,
   LPSupplyParamsType,
@@ -61,7 +61,7 @@ import {
   LPLiquidationCall,
   LPParaswapRepayWithCollateral,
   LPRepayParamsType,
-  LPRepayWithATokensType,
+  LPRepayWithLBTokensType,
   LPRepayWithPermitParamsType,
   LPSetUsageAsCollateral,
   LPSetUserEModeType,
@@ -110,8 +110,8 @@ export interface PoolInterface {
   flashLiquidation: (
     args: LPFlashLiquidation,
   ) => Promise<EthereumTransactionTypeExtended[]>;
-  repayWithATokens: (
-    args: LPRepayWithATokensType,
+  repayWithLBTokens: (
+    args: LPRepayWithLBTokensType,
   ) => Promise<EthereumTransactionTypeExtended[]>;
   liquidationCall: (
     args: LPLiquidationCall,
@@ -124,7 +124,7 @@ export interface PoolInterface {
 
 export type LendingPoolMarketConfigV3 = {
   POOL: tEthereumAddress;
-  WETH_GATEWAY?: tEthereumAddress;
+  WBNB_GATEWAY?: tEthereumAddress;
   FLASH_LIQUIDATION_ADAPTER?: tEthereumAddress;
   REPAY_WITH_COLLATERAL_ADAPTER?: tEthereumAddress;
   SWAP_COLLATERAL_ADAPTER?: tEthereumAddress;
@@ -171,7 +171,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   readonly synthetixService: SynthetixInterface;
 
-  readonly wethGatewayService: WETHGatewayInterface;
+  readonly wbnbGatewayService: WBNBGatewayInterface;
 
   readonly liquiditySwapAdapterService: LiquiditySwapAdapterInterface;
 
@@ -202,7 +202,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       FLASH_LIQUIDATION_ADAPTER,
       REPAY_WITH_COLLATERAL_ADAPTER,
       SWAP_COLLATERAL_ADAPTER,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
       L2_ENCODER,
     } = lendingPoolConfig ?? {};
 
@@ -216,10 +216,10 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     this.erc20_2612Service = new ERC20_2612Service(provider);
     this.erc20Service = new ERC20Service(provider);
     this.synthetixService = new SynthetixService(provider);
-    this.wethGatewayService = new WETHGatewayService(
+    this.wbnbGatewayService = new WBNBGatewayService(
       provider,
       this.erc20Service,
-      WETH_GATEWAY,
+      WBNB_GATEWAY,
     );
     this.liquiditySwapAdapterService = new LiquiditySwapAdapterService(
       provider,
@@ -237,14 +237,14 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async deposit(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveAmount('amount')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('onBehalfOf')
     { user, reserve, amount, onBehalfOf, referralCode }: LPSupplyParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      return this.wethGatewayService.depositETH({
+      return this.wbnbGatewayService.depositBNB({
         lendingPool: this.poolAddress,
         user,
         amount,
@@ -318,10 +318,10 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async supply(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveAmount('amount')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('onBehalfOf')
     {
       user,
       reserve,
@@ -332,7 +332,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     }: LPSupplyParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      return this.wethGatewayService.depositETH({
+      return this.wbnbGatewayService.depositBNB({
         lendingPool: this.poolAddress,
         user,
         amount,
@@ -415,8 +415,8 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
   // Sign permit supply
   @LPValidatorV3
   public async signERC20Approval(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
     { user, reserve, amount, deadline }: LPSignERC20ApprovalType,
   ): Promise<string> {
@@ -486,9 +486,9 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async supplyWithPermit(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
+    @isBnbAddress('onBehalfOf')
     @isPositiveAmount('amount')
     @isPositiveAmount('referralCode')
     {
@@ -566,33 +566,33 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async withdraw(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('onBehalfOf')
-    @isEthAddress('aTokenAddress')
+    @isBnbAddress('onBehalfOf')
+    @isBnbAddress('lbTokenAddress')
     {
       user,
       reserve,
       amount,
       onBehalfOf,
-      aTokenAddress,
+      lbTokenAddress,
       useOptimizedPath,
     }: LPWithdrawParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      if (!aTokenAddress) {
+      if (!lbTokenAddress) {
         throw new Error(
-          'To withdraw ETH you need to pass the aWETH token address',
+          'To withdraw ETH you need to pass the aWBNB token address',
         );
       }
 
-      return this.wethGatewayService.withdrawETH({
+      return this.wbnbGatewayService.withdrawBNB({
         lendingPool: this.poolAddress,
         user,
         amount,
         onBehalfOf,
-        aTokenAddress,
+        lbTokenAddress,
       });
     }
 
@@ -640,11 +640,11 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async borrow(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveAmount('amount')
-    @isEthAddress('debtTokenAddress')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('debtTokenAddress')
+    @isBnbAddress('onBehalfOf')
     {
       user,
       reserve,
@@ -659,11 +659,11 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       if (!debtTokenAddress) {
         throw new Error(
-          `To borrow ETH you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+          `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
         );
       }
 
-      return this.wethGatewayService.borrowETH({
+      return this.wbnbGatewayService.borrowBNB({
         lendingPool: this.poolAddress,
         user,
         amount,
@@ -719,10 +719,10 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async repay(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('onBehalfOf')
     {
       user,
       reserve,
@@ -733,7 +733,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     }: LPRepayParamsType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
-      return this.wethGatewayService.repayETH({
+      return this.wbnbGatewayService.repayBNB({
         lendingPool: this.poolAddress,
         user,
         amount,
@@ -825,10 +825,10 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async repayWithPermit(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
-    @isEthAddress('onBehalfOf')
+    @isBnbAddress('onBehalfOf')
     {
       user,
       reserve,
@@ -914,8 +914,8 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async swapBorrowRateMode(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     { user, reserve, interestRateMode, useOptimizedPath }: LPSwapBorrowRateMode,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const numericRateMode = interestRateMode === InterestRate.Variable ? 2 : 1;
@@ -949,8 +949,8 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async setUsageAsCollateral(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     {
       user,
       reserve,
@@ -988,10 +988,10 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async liquidationCall(
-    @isEthAddress('liquidator')
-    @isEthAddress('liquidatedUser')
-    @isEthAddress('debtReserve')
-    @isEthAddress('collateralReserve')
+    @isBnbAddress('liquidator')
+    @isBnbAddress('liquidatedUser')
+    @isBnbAddress('debtReserve')
+    @isBnbAddress('collateralReserve')
     @isPositiveAmount('purchaseAmount')
     {
       liquidator,
@@ -999,7 +999,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       debtReserve,
       collateralReserve,
       purchaseAmount,
-      getAToken,
+      getLBToken,
       liquidateAll,
       useOptimizedPath,
     }: LPLiquidationCall,
@@ -1040,7 +1040,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
           debtReserve,
           collateralReserve,
           debtToCover: convertedAmount,
-          getAToken,
+          getLBToken,
         },
         txs,
       );
@@ -1055,7 +1055,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
           debtReserve,
           liquidatedUser,
           convertedAmount,
-          getAToken ?? false,
+          getLBToken ?? false,
         ),
       from: liquidator,
       value: getTxValue(debtReserve, convertedAmount),
@@ -1076,18 +1076,18 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPSwapCollateralValidatorV3
   public async swapCollateral(
-    @isEthAddress('user')
-    @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
-    @isEthAddress('toAsset')
-    @isEthAddress('augustus')
+    @isBnbAddress('user')
+    @isBnbAddress('fromAsset')
+    @isBnbAddress('fromLBToken')
+    @isBnbAddress('toAsset')
+    @isBnbAddress('augustus')
     @isPositiveAmount('fromAmount')
     @isPositiveAmount('minToAmount')
     {
       user,
       flash,
       fromAsset,
-      fromAToken,
+      fromLBToken,
       toAsset,
       fromAmount,
       minToAmount,
@@ -1109,7 +1109,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromLBToken,
       user,
       spender: this.swapCollateralAddress,
       amount: fromAmount,
@@ -1119,7 +1119,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromLBToken,
           spender: this.swapCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -1215,17 +1215,17 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPRepayWithCollateralValidatorV3
   public async paraswapRepayWithCollateral(
-    @isEthAddress('user')
-    @isEthAddress('fromAsset')
-    @isEthAddress('fromAToken')
-    @isEthAddress('assetToRepay')
+    @isBnbAddress('user')
+    @isBnbAddress('fromAsset')
+    @isBnbAddress('fromLBToken')
+    @isBnbAddress('assetToRepay')
     @isPositiveAmount('repayWithAmount')
     @isPositiveAmount('repayAmount')
-    @isEthAddress('augustus')
+    @isBnbAddress('augustus')
     {
       user,
       fromAsset,
-      fromAToken,
+      fromLBToken,
       assetToRepay,
       repayWithAmount,
       repayAmount,
@@ -1249,7 +1249,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
     };
 
     const approved: boolean = await this.erc20Service.isApproved({
-      token: fromAToken,
+      token: fromLBToken,
       user,
       spender: this.repayWithCollateralAddress,
       amount: repayWithAmount,
@@ -1259,7 +1259,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       const approveTx: EthereumTransactionTypeExtended =
         this.erc20Service.approve({
           user,
-          token: fromAToken,
+          token: fromLBToken,
           spender: this.repayWithCollateralAddress,
           amount: constants.MaxUint256.toString(),
         });
@@ -1378,11 +1378,11 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPFlashLiquidationValidatorV3
   public async flashLiquidation(
-    @isEthAddress('user')
-    @isEthAddress('collateralAsset')
-    @isEthAddress('borrowedAsset')
+    @isBnbAddress('user')
+    @isBnbAddress('collateralAsset')
+    @isBnbAddress('borrowedAsset')
     @isPositiveAmount('debtTokenCover')
-    @isEthAddress('initiator')
+    @isBnbAddress('initiator')
     {
       user,
       collateralAsset,
@@ -1454,9 +1454,9 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
   }
 
   @LPValidatorV3
-  public async repayWithATokens(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+  public async repayWithLBTokens(
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveOrMinusOneAmount('amount')
     {
       user,
@@ -1464,11 +1464,11 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
       reserve,
       rateMode,
       useOptimizedPath,
-    }: LPRepayWithATokensType,
+    }: LPRepayWithLBTokensType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       throw new Error(
-        'Can not repay with aTokens with eth. Should be WETH instead',
+        'Can not repay with lbTokens with bnb. Should be WETH instead',
       );
     }
 
@@ -1486,7 +1486,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
         : valueToWei(amount, decimals);
 
     if (useOptimizedPath) {
-      return this.l2PoolService.repayWithATokens(
+      return this.l2PoolService.repayWithLBTokens(
         {
           user,
           reserve,
@@ -1499,7 +1499,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        populateTransaction.repayWithATokens(
+        populateTransaction.repayWithLBTokens(
           reserve,
           convertedAmount,
           numericRateMode,
@@ -1523,7 +1523,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public setUserEMode(
-    @isEthAddress('user')
+    @isBnbAddress('user')
     @is0OrPositiveAmount('categoryId')
     { user, categoryId }: LPSetUserEModeType,
   ): EthereumTransactionTypeExtended[] {
@@ -1549,9 +1549,9 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
   @LPValidatorV3
   public async migrateV3(
-    @isEthAddress('migrator')
-    @isEthAddress('user')
-    @isEthAddressArray('borrowedAssets')
+    @isBnbAddress('migrator')
+    @isBnbAddress('user')
+    @isBnbAddressArray('borrowedAssets')
     {
       migrator,
       borrowedAssets,
@@ -1573,7 +1573,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
 
     const mappedPermits = permits.map(
       (permit: IMigrationHelper.PermitInputStruct) => [
-        permit.aToken,
+        permit.lbToken,
         permit.value,
         permit.deadline,
         permit.v,

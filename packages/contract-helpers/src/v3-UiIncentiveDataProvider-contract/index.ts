@@ -8,7 +8,7 @@ import {
 import { Denominations } from '../cl-feed-registry/types/ChainlinkFeedsRegistryTypes';
 import BaseService from '../commons/BaseService';
 import { UiIncentiveDataProviderValidator } from '../commons/validators/methodValidators';
-import { isEthAddress } from '../commons/validators/paramValidators';
+import { isBnbAddress } from '../commons/validators/paramValidators';
 import { ReservesHelperInput, UserReservesHelperInput } from '../index';
 import { IUiIncentiveDataProviderV3 } from './typechain/IUiIncentiveDataProviderV3';
 import { IUiIncentiveDataProviderV3__factory } from './typechain/IUiIncentiveDataProviderV3__factory';
@@ -99,8 +99,8 @@ export class UiIncentiveDataProvider
    */
   @UiIncentiveDataProviderValidator
   public async getFullReservesIncentiveData(
-    @isEthAddress('user')
-    @isEthAddress('lendingPoolAddressProvider')
+    @isBnbAddress('user')
+    @isBnbAddress('lendingPoolAddressProvider')
     { user, lendingPoolAddressProvider }: UserReservesHelperInput,
   ): Promise<FullReservesIncentiveDataResponse> {
     const uiIncentiveContract = this.getContractInstance(
@@ -118,7 +118,7 @@ export class UiIncentiveDataProvider
    */
   @UiIncentiveDataProviderValidator
   public async getReservesIncentivesData(
-    @isEthAddress('lendingPoolAddressProvider')
+    @isBnbAddress('lendingPoolAddressProvider')
     { lendingPoolAddressProvider }: ReservesHelperInput,
   ): Promise<ReservesIncentiveData[]> {
     const uiIncentiveContract = this.getContractInstance(
@@ -136,8 +136,8 @@ export class UiIncentiveDataProvider
    */
   @UiIncentiveDataProviderValidator
   public async getUserReservesIncentivesData(
-    @isEthAddress('user')
-    @isEthAddress('lendingPoolAddressProvider')
+    @isBnbAddress('user')
+    @isBnbAddress('lendingPoolAddressProvider')
     { user, lendingPoolAddressProvider }: UserReservesHelperInput,
   ): Promise<UserReservesIncentivesData[]> {
     const uiIncentiveContract = this.getContractInstance(
@@ -152,7 +152,7 @@ export class UiIncentiveDataProvider
 
   @UiIncentiveDataProviderValidator
   public async getReservesIncentivesDataHumanized(
-    @isEthAddress('lendingPoolAddressProvider')
+    @isBnbAddress('lendingPoolAddressProvider')
     { lendingPoolAddressProvider }: ReservesHelperInput,
   ): Promise<ReservesIncentiveDataHumanized[]> {
     const response: ReservesIncentiveData[] =
@@ -169,8 +169,8 @@ export class UiIncentiveDataProvider
 
   @UiIncentiveDataProviderValidator
   public async getUserReservesIncentivesDataHumanized(
-    @isEthAddress('user')
-    @isEthAddress('lendingPoolAddressProvider')
+    @isBnbAddress('user')
+    @isBnbAddress('lendingPoolAddressProvider')
     { user, lendingPoolAddressProvider }: UserReservesHelperInput,
   ): Promise<UserReservesIncentivesDataHumanized[]> {
     const response: UserReservesIncentivesData[] =
@@ -182,8 +182,8 @@ export class UiIncentiveDataProvider
     return response.map(r => ({
       id: `${this.chainId}-${user}-${r.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
       underlyingAsset: r.underlyingAsset.toLowerCase(),
-      aTokenIncentivesUserData: this._formatUserIncentiveData(
-        r.aTokenIncentivesUserData,
+      lbTokenIncentivesUserData: this._formatUserIncentiveData(
+        r.lbTokenIncentivesUserData,
       ),
       vTokenIncentivesUserData: this._formatUserIncentiveData(
         r.vTokenIncentivesUserData,
@@ -196,12 +196,12 @@ export class UiIncentiveDataProvider
 
   @UiIncentiveDataProviderValidator
   public async getIncentivesDataWithPriceLegacy(
-    @isEthAddress('lendingPoolAddressProvider')
-    @isEthAddress('chainlinkFeedsRegistry')
+    @isBnbAddress('lendingPoolAddressProvider')
+    @isBnbAddress('chainlinkFeedsRegistry')
     {
       lendingPoolAddressProvider,
       chainlinkFeedsRegistry,
-      quote = Denominations.eth,
+      quote = Denominations.bnb,
     }: GetIncentivesDataWithPriceType,
   ): Promise<ReservesIncentiveDataHumanized[]> {
     const incentives: ReservesIncentiveDataHumanized[] =

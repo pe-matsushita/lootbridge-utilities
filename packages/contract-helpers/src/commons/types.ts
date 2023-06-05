@@ -2,7 +2,7 @@ import { BigNumber, BytesLike, PopulatedTransaction } from 'ethers';
 import { LPBorrowParamsType } from '../v3-pool-contract/lendingPoolTypes';
 
 export type tEthereumAddress = string;
-export type ENS = string; // something.eth
+export type ENS = string; // something.bnb
 
 /** InterestRate options */
 export enum InterestRate {
@@ -71,12 +71,12 @@ export type ConstantAddressesByNetwork = Record<
 >;
 
 export type MigratorConfig = {
-  LEND_TO_AAVE_MIGRATOR: tEthereumAddress;
+  LEND_TO_LOOTBRIDGE_MIGRATOR: tEthereumAddress;
 };
 
 export type LendingPoolMarketConfig = {
   LENDING_POOL: tEthereumAddress;
-  WETH_GATEWAY?: tEthereumAddress;
+  WBNB_GATEWAY?: tEthereumAddress;
   FLASH_LIQUIDATION_ADAPTER?: tEthereumAddress;
   REPAY_WITH_COLLATERAL_ADAPTER?: tEthereumAddress;
   SWAP_COLLATERAL_ADAPTER?: tEthereumAddress;
@@ -93,7 +93,7 @@ export enum eEthereumTxType {
   GOVERNANCE_ACTION = 'GOVERNANCE_ACTION',
   GOV_DELEGATION_ACTION = 'GOV_DELEGATION_ACTION',
   STAKE_ACTION = 'STAKE_ACTION',
-  MIGRATION_LEND_AAVE = 'MIGRATION_LEND_AAVE',
+  MIGRATION_LEND_LOOTBRIDGE = 'MIGRATION_LEND_LOOTBRIDGE',
   FAUCET_MINT = 'FAUCET_MINT',
   REWARD_ACTION = 'REWARD_ACTION',
   V3_MIGRATION_ACTION = 'V3_MIGRATION_ACTION',
@@ -111,8 +111,8 @@ export enum ProtocolAction {
   repay = 'repay',
   swapCollateral = 'swapCollateral',
   repayCollateral = 'repayCollateral',
-  withdrawETH = 'withdrawETH',
-  borrowETH = 'borrwoETH',
+  withdrawBNB = 'withdrawBNB',
+  borrowBNB = 'borrowBNB',
   migrateV3 = 'migrateV3',
   supplyWithPermit = 'supplyWithPermit',
   repayWithPermit = 'repayWithPermit',
@@ -128,7 +128,7 @@ export enum GovernanceVote {
 }
 
 export enum Stake {
-  aave = 'aave',
+  lootbridge = 'lootbridge',
   bpt = 'bpt',
 }
 
@@ -165,15 +165,15 @@ export type AddressModel = {
   LENDINGPOOL_CORE_ADDRESS: tEthereumAddress;
   SYNTHETIX_PROXY_ADDRESS: tEthereumAddress;
   GOVERNANCE_PROTO_CONTRACT: tEthereumAddress;
-  LEND_TO_AAVE_MIGRATOR: tEthereumAddress;
-  WETH_GATEWAY: tEthereumAddress;
+  LEND_TO_LOOTBRIDGE_MIGRATOR: tEthereumAddress;
+  WBNB_GATEWAY: tEthereumAddress;
   FAUCET: tEthereumAddress;
   SWAP_COLLATERAL_ADAPTER: tEthereumAddress;
   REPAY_WITH_COLLATERAL_ADAPTER: tEthereumAddress;
-  AAVE_GOVERNANCE_V2: tEthereumAddress;
-  AAVE_GOVERNANCE_V2_EXECUTOR_SHORT: tEthereumAddress;
-  AAVE_GOVERNANCE_V2_EXECUTOR_LONG: tEthereumAddress;
-  AAVE_GOVERNANCE_V2_HELPER: tEthereumAddress;
+  LOOTBRIDGE_GOVERNANCE_V2: tEthereumAddress;
+  LOOTBRIDGE_GOVERNANCE_V2_EXECUTOR_SHORT: tEthereumAddress;
+  LOOTBRIDGE_GOVERNANCE_V2_EXECUTOR_LONG: tEthereumAddress;
+  LOOTBRIDGE_GOVERNANCE_V2_HELPER: tEthereumAddress;
   FLASHLIQUIDATION: tEthereumAddress;
   INCENTIVES_CONTROLLER: tEthereumAddress;
   INCENTIVES_CONTROLLER_REWARD_TOKEN: tEthereumAddress;
@@ -183,8 +183,8 @@ export type tCommonContractAddressBetweenMarkets = Pick<
   AddressModel,
   | 'SYNTHETIX_PROXY_ADDRESS'
   | 'GOVERNANCE_PROTO_CONTRACT'
-  | 'LEND_TO_AAVE_MIGRATOR'
-  | 'WETH_GATEWAY'
+  | 'LEND_TO_LOOTBRIDGE_MIGRATOR'
+  | 'WBNB_GATEWAY'
   | 'FAUCET'
   | 'SWAP_COLLATERAL_ADAPTER'
   | 'REPAY_WITH_COLLATERAL_ADAPTER'
@@ -207,10 +207,10 @@ export type tDistinctContractAddressBetweenMarketsV2 = Pick<
 
 export type tDistinctGovernanceV2Addresses = Pick<
   AddressModel,
-  | 'AAVE_GOVERNANCE_V2'
-  | 'AAVE_GOVERNANCE_V2_EXECUTOR_SHORT'
-  | 'AAVE_GOVERNANCE_V2_EXECUTOR_LONG'
-  | 'AAVE_GOVERNANCE_V2_HELPER'
+  | 'LOOTBRIDGE_GOVERNANCE_V2'
+  | 'LOOTBRIDGE_GOVERNANCE_V2_EXECUTOR_SHORT'
+  | 'LOOTBRIDGE_GOVERNANCE_V2_EXECUTOR_LONG'
+  | 'LOOTBRIDGE_GOVERNANCE_V2_HELPER'
 >;
 
 export type tdistinctStakingAddressesBetweenTokens = {

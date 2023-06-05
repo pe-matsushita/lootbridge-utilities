@@ -4,7 +4,7 @@ import { InterestRate, tEthereumAddress } from '../commons/types';
 
 export type V3MigrationHelperSignedPermit = {
   deadline: BigNumberish;
-  aToken: tEthereumAddress;
+  lbToken: tEthereumAddress;
   value: BigNumberish;
   signedPermit: SignatureLike;
 };
@@ -17,7 +17,7 @@ export type V3MigrationHelperSignedCreditDelegationPermit = {
 };
 
 export type MigrationSupplyAsset = {
-  aToken: tEthereumAddress;
+  lbToken: tEthereumAddress;
   underlyingAsset: tEthereumAddress;
   deadline: number;
   amount: string;

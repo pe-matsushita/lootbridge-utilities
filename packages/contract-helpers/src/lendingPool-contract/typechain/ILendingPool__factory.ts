@@ -160,7 +160,7 @@ const _abi = [
       },
       {
         internalType: 'bool',
-        name: 'receiveAToken',
+        name: 'receiveLBToken',
         type: 'bool',
       },
     ],

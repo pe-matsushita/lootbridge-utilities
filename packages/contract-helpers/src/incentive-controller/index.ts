@@ -7,11 +7,11 @@ import {
 } from '../commons/types';
 import { IncentivesValidator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
-  isEthAddressArray,
+  isBnbAddress,
+  isBnbAddressArray,
 } from '../commons/validators/paramValidators';
-import { IAaveIncentivesController } from './typechain/IAaveIncentivesController';
-import { IAaveIncentivesController__factory } from './typechain/IAaveIncentivesController__factory';
+import { ILootBridgeIncentivesController } from './typechain/ILootBridgeIncentivesController';
+import { ILootBridgeIncentivesController__factory } from './typechain/ILootBridgeIncentivesController__factory';
 
 export type ClaimRewardsMethodType = {
   user: string;
@@ -27,22 +27,22 @@ export interface IncentivesControllerInterface {
 }
 
 export class IncentivesController
-  extends BaseService<IAaveIncentivesController>
+  extends BaseService<ILootBridgeIncentivesController>
   implements IncentivesControllerInterface
 {
   constructor(provider: providers.Provider) {
-    super(provider, IAaveIncentivesController__factory);
+    super(provider, ILootBridgeIncentivesController__factory);
   }
 
   @IncentivesValidator
   public claimRewards(
-    @isEthAddress('user')
-    @isEthAddress('incentivesControllerAddress')
-    @isEthAddress('to')
-    @isEthAddressArray('assets')
+    @isBnbAddress('user')
+    @isBnbAddress('incentivesControllerAddress')
+    @isBnbAddress('to')
+    @isBnbAddressArray('assets')
     { user, assets, to, incentivesControllerAddress }: ClaimRewardsMethodType,
   ): EthereumTransactionTypeExtended[] {
-    const incentivesContract: IAaveIncentivesController =
+    const incentivesContract: ILootBridgeIncentivesController =
       this.getContractInstance(incentivesControllerAddress);
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>

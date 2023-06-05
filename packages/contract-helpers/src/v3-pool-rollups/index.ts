@@ -17,7 +17,7 @@ import {
   LPBorrowParamsType,
   LPLiquidationCall,
   LPRepayParamsType,
-  LPRepayWithATokensType,
+  LPRepayWithLBTokensType,
   LPSetUsageAsCollateral,
   LPSupplyWithPermitType,
   LPSwapBorrowRateMode,
@@ -71,8 +71,8 @@ export interface L2PoolInterface {
     args: LPRepayWithPermitParamsType,
     txs: EthereumTransactionTypeExtended[],
   ) => Promise<EthereumTransactionTypeExtended[]>;
-  repayWithATokens: (
-    args: LPRepayWithATokensType,
+  repayWithLBTokens: (
+    args: LPRepayWithLBTokensType,
     txs: EthereumTransactionTypeExtended[],
   ) => Promise<EthereumTransactionTypeExtended[]>;
   swapBorrowRateMode: (
@@ -536,12 +536,12 @@ export class L2Pool extends BaseService<IL2Pool> implements L2PoolInterface {
   }
 
   @L2PValidator
-  public async repayWithATokens(
+  public async repayWithLBTokens(
     { reserve, user, amount, numericRateMode }: LPRepayParamsType,
     txs: EthereumTransactionTypeExtended[],
   ): Promise<EthereumTransactionTypeExtended[]> {
     const encoder = this.getEncoder();
-    const encodedParams: string = await encoder.encodeRepayWithATokensParams(
+    const encodedParams: string = await encoder.encodeRepayWithLBTokensParams(
       reserve,
       amount,
       numericRateMode,
@@ -552,7 +552,7 @@ export class L2Pool extends BaseService<IL2Pool> implements L2PoolInterface {
 
     const txCallback: () => Promise<transactionType> = this.generateTxCallback({
       rawTxMethod: async () =>
-        l2PoolContract.populateTransaction.repayWithATokens(encodedParams),
+        l2PoolContract.populateTransaction.repayWithLBTokens(encodedParams),
       from: user,
       value: getTxValue(reserve, amount),
     });
@@ -645,7 +645,7 @@ export class L2Pool extends BaseService<IL2Pool> implements L2PoolInterface {
       debtReserve,
       collateralReserve,
       debtToCover,
-      getAToken,
+      getLBToken,
     }: LPLiquidationCall,
     txs: EthereumTransactionTypeExtended[],
   ): Promise<EthereumTransactionTypeExtended[]> {
@@ -656,7 +656,7 @@ export class L2Pool extends BaseService<IL2Pool> implements L2PoolInterface {
       debtReserve,
       liquidatedUser,
       debtToCover,
-      getAToken ?? false,
+      getLBToken ?? false,
     );
 
     const l2PoolContract: IL2Pool = this.getContractInstance(

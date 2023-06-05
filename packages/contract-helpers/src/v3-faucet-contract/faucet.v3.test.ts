@@ -148,14 +148,14 @@ describe('V3FaucetService', () => {
 
       expect(faucetTxObj).toEqual([]);
     });
-    it('Expects to fail if userAddress not eth address', () => {
+    it('Expects to fail if userAddress not bnb address', () => {
       const userAddress = 'asdf';
       const instance = new V3FaucetService(provider, faucetAddress);
       expect(() =>
         instance.mint({ userAddress, reserve, tokenSymbol }),
       ).toThrowError(`Address: ${userAddress} is not a valid ethereum Address`);
     });
-    it('Expects to fail if reserve not eth address', () => {
+    it('Expects to fail if reserve not bnb address', () => {
       const reserve = 'asdf';
       const instance = new V3FaucetService(provider, faucetAddress);
       expect(() =>

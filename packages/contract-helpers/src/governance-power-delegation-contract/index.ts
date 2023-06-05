@@ -12,8 +12,8 @@ import { canBeEnsAddress } from '../commons/utils';
 import { GovDelegationValidator } from '../commons/validators/methodValidators';
 import {
   is0OrPositiveAmount,
-  isEthAddress,
-  isEthAddressOrENS,
+  isBnbAddress,
+  isBnbAddressOrENS,
   isPositiveAmount,
 } from '../commons/validators/paramValidators';
 import { IGovernancePowerDelegationToken } from './typechain/IGovernancePowerDelegationToken';
@@ -121,9 +121,9 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async delegate(
-    @isEthAddress('user')
-    @isEthAddressOrENS('delegatee')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('user')
+    @isBnbAddressOrENS('delegatee')
+    @isBnbAddress('governanceToken')
     { user, delegatee, governanceToken }: GovDelegate,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
@@ -151,9 +151,9 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async delegateByType(
-    @isEthAddress('user')
-    @isEthAddressOrENS('delegatee')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('user')
+    @isBnbAddressOrENS('delegatee')
+    @isBnbAddress('governanceToken')
     { user, delegatee, delegationType, governanceToken }: GovDelegateByType,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
@@ -182,9 +182,9 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async delegateBySig(
-    @isEthAddress('user')
-    @isEthAddressOrENS('delegatee')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('user')
+    @isBnbAddressOrENS('delegatee')
+    @isBnbAddress('governanceToken')
     { user, delegatee, expiry, signature, governanceToken }: GovDelegateBySig,
   ): Promise<EthereumTransactionTypeExtended[]> {
     const txs: EthereumTransactionTypeExtended[] = [];
@@ -219,9 +219,9 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async delegateByTypeBySig(
-    @isEthAddress('user')
-    @isEthAddressOrENS('delegatee')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('user')
+    @isBnbAddressOrENS('delegatee')
+    @isBnbAddress('governanceToken')
     {
       user,
       delegatee,
@@ -264,8 +264,8 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async prepareDelegateSignature(
-    @isEthAddressOrENS('delegatee')
-    @isEthAddress('governanceToken')
+    @isBnbAddressOrENS('delegatee')
+    @isBnbAddress('governanceToken')
     @is0OrPositiveAmount('nonce')
     {
       delegatee,
@@ -311,8 +311,8 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async prepareDelegateByTypeSignature(
-    @isEthAddressOrENS('delegatee')
-    @isEthAddress('governanceToken')
+    @isBnbAddressOrENS('delegatee')
+    @isBnbAddress('governanceToken')
     @is0OrPositiveAmount('nonce')
     {
       delegatee,
@@ -361,8 +361,8 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async getDelegateeByType(
-    @isEthAddress('delegator')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('delegator')
+    @isBnbAddress('governanceToken')
     { delegator, delegationType, governanceToken }: GovGetDelegateeByType,
   ): Promise<tEthereumAddress> {
     const governanceDelegationToken: IGovernancePowerDelegationToken =
@@ -375,8 +375,8 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async getPowerCurrent(
-    @isEthAddress('user')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('user')
+    @isBnbAddress('governanceToken')
     { user, delegationType, governanceToken }: GovGetPowerCurrent,
   ): Promise<string> {
     const governanceDelegationToken: IGovernancePowerDelegationToken =
@@ -388,8 +388,8 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async getPowerAtBlock(
-    @isEthAddress('user')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('user')
+    @isBnbAddress('governanceToken')
     @isPositiveAmount('blockNumber')
     { user, blockNumber, delegationType, governanceToken }: GovGetPowerAtBlock,
   ): Promise<string> {
@@ -406,8 +406,8 @@ export class GovernancePowerDelegationTokenService
 
   @GovDelegationValidator
   public async getNonce(
-    @isEthAddress('user')
-    @isEthAddress('governanceToken')
+    @isBnbAddress('user')
+    @isBnbAddress('governanceToken')
     { user, governanceToken }: GovGetNonce,
   ): Promise<string> {
     const governanceDelegationToken: IGovernancePowerDelegationToken =

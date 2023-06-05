@@ -30,7 +30,7 @@ describe('Utils', () => {
       expect(isEns).toEqual(false);
     });
     it('Expects not to be ens address', () => {
-      const isEns = canBeEnsAddress('0x0asdf.eth');
+      const isEns = canBeEnsAddress('0x0asdf.bnb');
       expect(isEns).toEqual(true);
     });
   });

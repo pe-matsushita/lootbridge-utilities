@@ -61,7 +61,7 @@ describe('L2Pool', () => {
     encodeRepayParams: async () => Promise.resolve(encodedArg),
     encodeRepayWithPermitParams: async () =>
       Promise.resolve([encodedArg, permitR, permitS]),
-    encodeRepayWithATokensParams: async () => Promise.resolve(encodedArg),
+    encodeRepayWithLBTokensParams: async () => Promise.resolve(encodedArg),
     encodeSwapBorrowRateMode: async () => Promise.resolve(encodedArg),
     encodeSetUserUseReserveAsCollateral: async () =>
       Promise.resolve(encodedArg),
@@ -897,13 +897,13 @@ describe('L2Pool', () => {
       ).rejects.toThrowError(`Deadline: ${deadline} is bigger than 32 bytes`);
     });
   });
-  describe('repayWithATokens', () => {
+  describe('repayWithLBTokens', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
     it('Expects tx object with optimized args', async () => {
       const instance: L2PoolInterface = new L2Pool(provider, config);
-      const repayWithATokensTxObj = await instance.repayWithATokens(
+      const repayWithLBTokensTxObj = await instance.repayWithLBTokens(
         {
           user,
           reserve,
@@ -914,8 +914,8 @@ describe('L2Pool', () => {
       );
 
       expect(encoderSpy).toHaveBeenCalled();
-      expect(repayWithATokensTxObj.length).toEqual(1);
-      const txObj = repayWithATokensTxObj[0];
+      expect(repayWithLBTokensTxObj.length).toEqual(1);
+      const txObj = repayWithLBTokensTxObj[0];
       expect(txObj.txType).toEqual(eEthereumTxType.DLP_ACTION);
 
       const tx: transactionType = await txObj.tx();
@@ -940,7 +940,7 @@ describe('L2Pool', () => {
       const instance: L2PoolInterface = new L2Pool(provider, {
         encoderAddress,
       });
-      const repayWithATokensTxObj = await instance.repayWithATokens(
+      const repayWithLBTokensTxObj = await instance.repayWithLBTokens(
         {
           user,
           reserve,
@@ -949,13 +949,13 @@ describe('L2Pool', () => {
         },
         [],
       );
-      expect(repayWithATokensTxObj).toEqual([]);
+      expect(repayWithLBTokensTxObj).toEqual([]);
     });
     it('Expects to error out when encoder address not correct', async () => {
       const instance: L2PoolInterface = new L2Pool(provider, {
         l2PoolAddress,
       });
-      const repayWithATokensTxObj = await instance.repayWithATokens(
+      const repayWithLBTokensTxObj = await instance.repayWithLBTokens(
         {
           user,
           reserve,
@@ -964,7 +964,7 @@ describe('L2Pool', () => {
         },
         [],
       );
-      expect(repayWithATokensTxObj).toEqual([]);
+      expect(repayWithLBTokensTxObj).toEqual([]);
     });
   });
   describe('swapBorrowRateMode', () => {
@@ -1095,7 +1095,7 @@ describe('L2Pool', () => {
     const debtReserve = '0x0000000000000000000000000000000000000007';
     const collateralReserve = '0x0000000000000000000000000000000000000008';
     const debtToCover = '1000000000000000000';
-    const getAToken = true;
+    const getLBToken = true;
 
     afterEach(() => {
       jest.clearAllMocks();
@@ -1109,7 +1109,7 @@ describe('L2Pool', () => {
           debtReserve,
           collateralReserve,
           debtToCover,
-          getAToken,
+          getLBToken,
         },
         [],
       );
@@ -1138,7 +1138,7 @@ describe('L2Pool', () => {
       expect(gasPrice?.gasLimit).toEqual('1');
       expect(gasPrice?.gasPrice).toEqual('1');
     });
-    it('Expects tx object with optimized args with getAToken false', async () => {
+    it('Expects tx object with optimized args with getLBToken false', async () => {
       const instance: L2PoolInterface = new L2Pool(provider, config);
       const liquidationCallTxObj = await instance.liquidationCall(
         {

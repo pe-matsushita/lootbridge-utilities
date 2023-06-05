@@ -163,8 +163,8 @@ export class UiIncentiveDataProvider
     return response.map(r => ({
       id: `${this.chainId}-${user}-${r.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
       underlyingAsset: r.underlyingAsset.toLowerCase(),
-      aTokenIncentivesUserData: this._formatUserIncentiveData(
-        r.aTokenIncentivesUserData,
+      lbTokenIncentivesUserData: this._formatUserIncentiveData(
+        r.lbTokenIncentivesUserData,
       ),
       vTokenIncentivesUserData: this._formatUserIncentiveData(
         r.vTokenIncentivesUserData,
@@ -200,7 +200,7 @@ export class UiIncentiveDataProvider
   public async getIncentivesDataWithPrice({
     lendingPoolAddressProvider,
     chainlinkFeedsRegistry,
-    quote = Denominations.eth,
+    quote = Denominations.bnb,
   }: GetIncentivesDataWithPriceType): Promise<
     ReserveIncentiveWithFeedsResponse[]
   > {

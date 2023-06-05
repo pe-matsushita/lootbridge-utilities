@@ -11,118 +11,121 @@ import {
   Contract,
   ContractTransaction,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers';
+import { BytesLike } from '@ethersproject/bytes';
+import { Listener, Provider } from '@ethersproject/providers';
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi';
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons';
 
 interface StakedTokenDataProviderInterface extends ethers.utils.Interface {
   functions: {
-    "AAVE()": FunctionFragment;
-    "AAVE_PRICE_FEED()": FunctionFragment;
-    "BPT()": FunctionFragment;
-    "BPT_PRICE_FEED()": FunctionFragment;
-    "ETH_USD_PRICE_FEED()": FunctionFragment;
-    "STAKED_AAVE()": FunctionFragment;
-    "STAKED_BPT()": FunctionFragment;
-    "getAllStakedTokenData()": FunctionFragment;
-    "getAllStakedTokenUserData(address)": FunctionFragment;
-    "getStkAaveData()": FunctionFragment;
-    "getStkAaveUserData(address)": FunctionFragment;
-    "getStkBptAaveUserData(address)": FunctionFragment;
-    "getStkBptData()": FunctionFragment;
+    'LOOTBRIDGE()': FunctionFragment;
+    'LOOTBRIDGE_PRICE_FEED()': FunctionFragment;
+    'BPT()': FunctionFragment;
+    'BPT_PRICE_FEED()': FunctionFragment;
+    'ETH_USD_PRICE_FEED()': FunctionFragment;
+    'STAKED_LOOTBRIDGE()': FunctionFragment;
+    'STAKED_BPT()': FunctionFragment;
+    'getAllStakedTokenData()': FunctionFragment;
+    'getAllStakedTokenUserData(address)': FunctionFragment;
+    'getStkLootBridgeData()': FunctionFragment;
+    'getStkLootBridgeUserData(address)': FunctionFragment;
+    'getStkBptLootBridgeUserData(address)': FunctionFragment;
+    'getStkBptData()': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "AAVE", values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "AAVE_PRICE_FEED",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "BPT", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "BPT_PRICE_FEED",
-    values?: undefined
+    functionFragment: 'LOOTBRIDGE',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "ETH_USD_PRICE_FEED",
-    values?: undefined
+    functionFragment: 'LOOTBRIDGE_PRICE_FEED',
+    values?: undefined,
+  ): string;
+  encodeFunctionData(functionFragment: 'BPT', values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: 'BPT_PRICE_FEED',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "STAKED_AAVE",
-    values?: undefined
+    functionFragment: 'ETH_USD_PRICE_FEED',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "STAKED_BPT",
-    values?: undefined
+    functionFragment: 'STAKED_LOOTBRIDGE',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "getAllStakedTokenData",
-    values?: undefined
+    functionFragment: 'STAKED_BPT',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "getAllStakedTokenUserData",
-    values: [string]
+    functionFragment: 'getAllStakedTokenData',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "getStkAaveData",
-    values?: undefined
+    functionFragment: 'getAllStakedTokenUserData',
+    values: [string],
   ): string;
   encodeFunctionData(
-    functionFragment: "getStkAaveUserData",
-    values: [string]
+    functionFragment: 'getStkLootBridgeData',
+    values?: undefined,
   ): string;
   encodeFunctionData(
-    functionFragment: "getStkBptAaveUserData",
-    values: [string]
+    functionFragment: 'getStkLootBridgeUserData',
+    values: [string],
   ): string;
   encodeFunctionData(
-    functionFragment: "getStkBptData",
-    values?: undefined
+    functionFragment: 'getStkBptLootBridgeUserData',
+    values: [string],
+  ): string;
+  encodeFunctionData(
+    functionFragment: 'getStkBptData',
+    values?: undefined,
   ): string;
 
-  decodeFunctionResult(functionFragment: "AAVE", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'LOOTBRIDGE', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "AAVE_PRICE_FEED",
-    data: BytesLike
+    functionFragment: 'LOOTBRIDGE_PRICE_FEED',
+    data: BytesLike,
   ): Result;
-  decodeFunctionResult(functionFragment: "BPT", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'BPT', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "BPT_PRICE_FEED",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "ETH_USD_PRICE_FEED",
-    data: BytesLike
+    functionFragment: 'BPT_PRICE_FEED',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "STAKED_AAVE",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "STAKED_BPT", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getAllStakedTokenData",
-    data: BytesLike
+    functionFragment: 'ETH_USD_PRICE_FEED',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getAllStakedTokenUserData",
-    data: BytesLike
+    functionFragment: 'STAKED_LOOTBRIDGE',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(functionFragment: 'STAKED_BPT', data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: 'getAllStakedTokenData',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getStkAaveData",
-    data: BytesLike
+    functionFragment: 'getAllStakedTokenUserData',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getStkAaveUserData",
-    data: BytesLike
+    functionFragment: 'getStkLootBridgeData',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getStkBptAaveUserData",
-    data: BytesLike
+    functionFragment: 'getStkLootBridgeUserData',
+    data: BytesLike,
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getStkBptData",
-    data: BytesLike
+    functionFragment: 'getStkBptLootBridgeUserData',
+    data: BytesLike,
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: 'getStkBptData',
+    data: BytesLike,
   ): Result;
 
   events: {};
@@ -134,26 +137,26 @@ export class StakedTokenDataProvider extends Contract {
   deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
-    listener: TypedListener<EventArgsArray, EventArgsObject>
+    listener: TypedListener<EventArgsArray, EventArgsObject>,
   ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
-    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
+    eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
   ): this;
 
   listeners(eventName?: string): Array<Listener>;
@@ -166,43 +169,41 @@ export class StakedTokenDataProvider extends Contract {
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
   interface: StakedTokenDataProviderInterface;
 
   functions: {
-    AAVE(overrides?: CallOverrides): Promise<[string]>;
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<[string]>;
 
-    "AAVE()"(overrides?: CallOverrides): Promise<[string]>;
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<[string]>;
 
-    AAVE_PRICE_FEED(overrides?: CallOverrides): Promise<[string]>;
+    LOOTBRIDGE_PRICE_FEED(overrides?: CallOverrides): Promise<[string]>;
 
-    "AAVE_PRICE_FEED()"(overrides?: CallOverrides): Promise<[string]>;
+    'LOOTBRIDGE_PRICE_FEED()'(overrides?: CallOverrides): Promise<[string]>;
 
     BPT(overrides?: CallOverrides): Promise<[string]>;
 
-    "BPT()"(overrides?: CallOverrides): Promise<[string]>;
+    'BPT()'(overrides?: CallOverrides): Promise<[string]>;
 
     BPT_PRICE_FEED(overrides?: CallOverrides): Promise<[string]>;
 
-    "BPT_PRICE_FEED()"(overrides?: CallOverrides): Promise<[string]>;
+    'BPT_PRICE_FEED()'(overrides?: CallOverrides): Promise<[string]>;
 
     ETH_USD_PRICE_FEED(overrides?: CallOverrides): Promise<[string]>;
 
-    "ETH_USD_PRICE_FEED()"(overrides?: CallOverrides): Promise<[string]>;
+    'ETH_USD_PRICE_FEED()'(overrides?: CallOverrides): Promise<[string]>;
 
-    STAKED_AAVE(overrides?: CallOverrides): Promise<[string]>;
+    STAKED_LOOTBRIDGE(overrides?: CallOverrides): Promise<[string]>;
 
-    "STAKED_AAVE()"(overrides?: CallOverrides): Promise<[string]>;
+    'STAKED_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<[string]>;
 
     STAKED_BPT(overrides?: CallOverrides): Promise<[string]>;
 
-    "STAKED_BPT()"(overrides?: CallOverrides): Promise<[string]>;
+    'STAKED_BPT()'(overrides?: CallOverrides): Promise<[string]>;
 
-    getAllStakedTokenData(
-      overrides?: CallOverrides
-    ): Promise<
+    getAllStakedTokenData(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -213,14 +214,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -234,21 +235,21 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -257,14 +258,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -278,25 +279,23 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
-    "getAllStakedTokenData()"(
-      overrides?: CallOverrides
-    ): Promise<
+    'getAllStakedTokenData()'(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -307,14 +306,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -328,21 +327,21 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -351,14 +350,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -372,25 +371,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
     getAllStakedTokenUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -402,14 +401,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -431,14 +430,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -451,9 +450,9 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -462,25 +461,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -498,14 +497,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -516,7 +515,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -525,13 +524,13 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
-    "getAllStakedTokenUserData(address)"(
+    'getAllStakedTokenUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -543,14 +542,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -572,14 +571,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -592,9 +591,9 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -603,25 +602,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -639,14 +638,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -657,7 +656,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -666,13 +665,11 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
-    getStkAaveData(
-      overrides?: CallOverrides
-    ): Promise<
+    getStkLootBridgeData(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -683,20 +680,20 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
-        }
+        },
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -705,14 +702,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -720,9 +717,7 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    "getStkAaveData()"(
-      overrides?: CallOverrides
-    ): Promise<
+    'getStkLootBridgeData()'(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -733,20 +728,20 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
-        }
+        },
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -755,14 +750,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -770,9 +765,9 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    getStkAaveUserData(
+    getStkLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -784,14 +779,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -803,9 +798,9 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -814,25 +809,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -844,9 +839,9 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    "getStkAaveUserData(address)"(
+    'getStkLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -858,14 +853,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -877,9 +872,9 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -888,25 +883,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -918,9 +913,9 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    getStkBptAaveUserData(
+    getStkBptLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -932,14 +927,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -951,7 +946,7 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
         stkBptData: [
           BigNumber,
@@ -962,14 +957,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -980,7 +975,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -992,9 +987,9 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    "getStkBptAaveUserData(address)"(
+    'getStkBptLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -1006,14 +1001,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -1025,7 +1020,7 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
         stkBptData: [
           BigNumber,
@@ -1036,14 +1031,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -1054,7 +1049,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -1066,9 +1061,7 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    getStkBptData(
-      overrides?: CallOverrides
-    ): Promise<
+    getStkBptData(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -1079,18 +1072,18 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
-        }
+        },
       ] & {
         stkBptData: [
           BigNumber,
@@ -1101,14 +1094,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -1116,9 +1109,7 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    "getStkBptData()"(
-      overrides?: CallOverrides
-    ): Promise<
+    'getStkBptData()'(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -1129,18 +1120,18 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
-        }
+        },
       ] & {
         stkBptData: [
           BigNumber,
@@ -1151,14 +1142,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -1167,37 +1158,35 @@ export class StakedTokenDataProvider extends Contract {
     >;
   };
 
-  AAVE(overrides?: CallOverrides): Promise<string>;
+  LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-  "AAVE()"(overrides?: CallOverrides): Promise<string>;
+  'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
-  AAVE_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
+  LOOTBRIDGE_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
 
-  "AAVE_PRICE_FEED()"(overrides?: CallOverrides): Promise<string>;
+  'LOOTBRIDGE_PRICE_FEED()'(overrides?: CallOverrides): Promise<string>;
 
   BPT(overrides?: CallOverrides): Promise<string>;
 
-  "BPT()"(overrides?: CallOverrides): Promise<string>;
+  'BPT()'(overrides?: CallOverrides): Promise<string>;
 
   BPT_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
 
-  "BPT_PRICE_FEED()"(overrides?: CallOverrides): Promise<string>;
+  'BPT_PRICE_FEED()'(overrides?: CallOverrides): Promise<string>;
 
   ETH_USD_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
 
-  "ETH_USD_PRICE_FEED()"(overrides?: CallOverrides): Promise<string>;
+  'ETH_USD_PRICE_FEED()'(overrides?: CallOverrides): Promise<string>;
 
-  STAKED_AAVE(overrides?: CallOverrides): Promise<string>;
+  STAKED_LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-  "STAKED_AAVE()"(overrides?: CallOverrides): Promise<string>;
+  'STAKED_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
   STAKED_BPT(overrides?: CallOverrides): Promise<string>;
 
-  "STAKED_BPT()"(overrides?: CallOverrides): Promise<string>;
+  'STAKED_BPT()'(overrides?: CallOverrides): Promise<string>;
 
-  getAllStakedTokenData(
-    overrides?: CallOverrides
-  ): Promise<
+  getAllStakedTokenData(overrides?: CallOverrides): Promise<
     [
       [
         BigNumber,
@@ -1208,14 +1197,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1229,21 +1218,21 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       },
-      BigNumber
+      BigNumber,
     ] & {
-      stkAaveData: [
+      stkLootBridgeData: [
         BigNumber,
         BigNumber,
         BigNumber,
@@ -1252,14 +1241,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1273,25 +1262,23 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       };
-      ethPrice: BigNumber;
+      bnbPrice: BigNumber;
     }
   >;
 
-  "getAllStakedTokenData()"(
-    overrides?: CallOverrides
-  ): Promise<
+  'getAllStakedTokenData()'(overrides?: CallOverrides): Promise<
     [
       [
         BigNumber,
@@ -1302,14 +1289,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1323,21 +1310,21 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       },
-      BigNumber
+      BigNumber,
     ] & {
-      stkAaveData: [
+      stkLootBridgeData: [
         BigNumber,
         BigNumber,
         BigNumber,
@@ -1346,14 +1333,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1367,25 +1354,25 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       };
-      ethPrice: BigNumber;
+      bnbPrice: BigNumber;
     }
   >;
 
   getAllStakedTokenUserData(
     user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [
       [
@@ -1397,14 +1384,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1426,14 +1413,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1446,9 +1433,9 @@ export class StakedTokenDataProvider extends Contract {
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
       },
-      BigNumber
+      BigNumber,
     ] & {
-      stkAaveData: [
+      stkLootBridgeData: [
         BigNumber,
         BigNumber,
         BigNumber,
@@ -1457,25 +1444,25 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       };
-      stkAaveUserData: [
+      stkLootBridgeUserData: [
         BigNumber,
         BigNumber,
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -1493,14 +1480,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1511,7 +1498,7 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -1520,13 +1507,13 @@ export class StakedTokenDataProvider extends Contract {
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
       };
-      ethPrice: BigNumber;
+      bnbPrice: BigNumber;
     }
   >;
 
-  "getAllStakedTokenUserData(address)"(
+  'getAllStakedTokenUserData(address)'(
     user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [
       [
@@ -1538,14 +1525,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1567,14 +1554,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1587,9 +1574,9 @@ export class StakedTokenDataProvider extends Contract {
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
       },
-      BigNumber
+      BigNumber,
     ] & {
-      stkAaveData: [
+      stkLootBridgeData: [
         BigNumber,
         BigNumber,
         BigNumber,
@@ -1598,25 +1585,25 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       };
-      stkAaveUserData: [
+      stkLootBridgeUserData: [
         BigNumber,
         BigNumber,
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -1634,14 +1621,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1652,7 +1639,7 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -1661,13 +1648,11 @@ export class StakedTokenDataProvider extends Contract {
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
       };
-      ethPrice: BigNumber;
+      bnbPrice: BigNumber;
     }
   >;
 
-  getStkAaveData(
-    overrides?: CallOverrides
-  ): Promise<
+  getStkLootBridgeData(overrides?: CallOverrides): Promise<
     [
       BigNumber,
       BigNumber,
@@ -1677,23 +1662,21 @@ export class StakedTokenDataProvider extends Contract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber
+      BigNumber,
     ] & {
       stakedTokenTotalSupply: BigNumber;
       stakedTokenTotalRedeemableAmount: BigNumber;
       stakeCooldownSeconds: BigNumber;
       stakeUnstakeWindow: BigNumber;
       stakedTokenPriceEth: BigNumber;
-      rewardTokenPriceEth: BigNumber;
+      rewardTokenPriceBnb: BigNumber;
       stakeApy: BigNumber;
       distributionPerSecond: BigNumber;
       distributionEnd: BigNumber;
     }
   >;
 
-  "getStkAaveData()"(
-    overrides?: CallOverrides
-  ): Promise<
+  'getStkLootBridgeData()'(overrides?: CallOverrides): Promise<
     [
       BigNumber,
       BigNumber,
@@ -1703,23 +1686,23 @@ export class StakedTokenDataProvider extends Contract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber
+      BigNumber,
     ] & {
       stakedTokenTotalSupply: BigNumber;
       stakedTokenTotalRedeemableAmount: BigNumber;
       stakeCooldownSeconds: BigNumber;
       stakeUnstakeWindow: BigNumber;
       stakedTokenPriceEth: BigNumber;
-      rewardTokenPriceEth: BigNumber;
+      rewardTokenPriceBnb: BigNumber;
       stakeApy: BigNumber;
       distributionPerSecond: BigNumber;
       distributionEnd: BigNumber;
     }
   >;
 
-  getStkAaveUserData(
+  getStkLootBridgeUserData(
     user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [
       [
@@ -1731,14 +1714,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1750,9 +1733,9 @@ export class StakedTokenDataProvider extends Contract {
         rewardsToClaim: BigNumber;
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
-      }
+      },
     ] & {
-      stkAaveData: [
+      stkLootBridgeData: [
         BigNumber,
         BigNumber,
         BigNumber,
@@ -1761,25 +1744,25 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       };
-      stkAaveUserData: [
+      stkLootBridgeUserData: [
         BigNumber,
         BigNumber,
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -1791,9 +1774,9 @@ export class StakedTokenDataProvider extends Contract {
     }
   >;
 
-  "getStkAaveUserData(address)"(
+  'getStkLootBridgeUserData(address)'(
     user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [
       [
@@ -1805,14 +1788,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1824,9 +1807,9 @@ export class StakedTokenDataProvider extends Contract {
         rewardsToClaim: BigNumber;
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
-      }
+      },
     ] & {
-      stkAaveData: [
+      stkLootBridgeData: [
         BigNumber,
         BigNumber,
         BigNumber,
@@ -1835,25 +1818,25 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       };
-      stkAaveUserData: [
+      stkLootBridgeUserData: [
         BigNumber,
         BigNumber,
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -1865,9 +1848,9 @@ export class StakedTokenDataProvider extends Contract {
     }
   >;
 
-  getStkBptAaveUserData(
+  getStkBptLootBridgeUserData(
     user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [
       [
@@ -1879,14 +1862,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1898,7 +1881,7 @@ export class StakedTokenDataProvider extends Contract {
         rewardsToClaim: BigNumber;
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
-      }
+      },
     ] & {
       stkBptData: [
         BigNumber,
@@ -1909,14 +1892,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1927,7 +1910,7 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -1939,9 +1922,9 @@ export class StakedTokenDataProvider extends Contract {
     }
   >;
 
-  "getStkBptAaveUserData(address)"(
+  'getStkBptLootBridgeUserData(address)'(
     user: string,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<
     [
       [
@@ -1953,14 +1936,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -1972,7 +1955,7 @@ export class StakedTokenDataProvider extends Contract {
         rewardsToClaim: BigNumber;
         userCooldownTimestamp: number;
         userCooldownAmount: BigNumber;
-      }
+      },
     ] & {
       stkBptData: [
         BigNumber,
@@ -1983,14 +1966,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -2001,7 +1984,7 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         number,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenUserBalance: BigNumber;
         stakedTokenRedeemableAmount: BigNumber;
@@ -2013,9 +1996,7 @@ export class StakedTokenDataProvider extends Contract {
     }
   >;
 
-  getStkBptData(
-    overrides?: CallOverrides
-  ): Promise<
+  getStkBptData(overrides?: CallOverrides): Promise<
     [
       BigNumber,
       BigNumber,
@@ -2025,23 +2006,21 @@ export class StakedTokenDataProvider extends Contract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber
+      BigNumber,
     ] & {
       stakedTokenTotalSupply: BigNumber;
       stakedTokenTotalRedeemableAmount: BigNumber;
       stakeCooldownSeconds: BigNumber;
       stakeUnstakeWindow: BigNumber;
       stakedTokenPriceEth: BigNumber;
-      rewardTokenPriceEth: BigNumber;
+      rewardTokenPriceBnb: BigNumber;
       stakeApy: BigNumber;
       distributionPerSecond: BigNumber;
       distributionEnd: BigNumber;
     }
   >;
 
-  "getStkBptData()"(
-    overrides?: CallOverrides
-  ): Promise<
+  'getStkBptData()'(overrides?: CallOverrides): Promise<
     [
       BigNumber,
       BigNumber,
@@ -2051,14 +2030,14 @@ export class StakedTokenDataProvider extends Contract {
       BigNumber,
       BigNumber,
       BigNumber,
-      BigNumber
+      BigNumber,
     ] & {
       stakedTokenTotalSupply: BigNumber;
       stakedTokenTotalRedeemableAmount: BigNumber;
       stakeCooldownSeconds: BigNumber;
       stakeUnstakeWindow: BigNumber;
       stakedTokenPriceEth: BigNumber;
-      rewardTokenPriceEth: BigNumber;
+      rewardTokenPriceBnb: BigNumber;
       stakeApy: BigNumber;
       distributionPerSecond: BigNumber;
       distributionEnd: BigNumber;
@@ -2066,37 +2045,35 @@ export class StakedTokenDataProvider extends Contract {
   >;
 
   callStatic: {
-    AAVE(overrides?: CallOverrides): Promise<string>;
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-    "AAVE()"(overrides?: CallOverrides): Promise<string>;
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
-    AAVE_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
+    LOOTBRIDGE_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
 
-    "AAVE_PRICE_FEED()"(overrides?: CallOverrides): Promise<string>;
+    'LOOTBRIDGE_PRICE_FEED()'(overrides?: CallOverrides): Promise<string>;
 
     BPT(overrides?: CallOverrides): Promise<string>;
 
-    "BPT()"(overrides?: CallOverrides): Promise<string>;
+    'BPT()'(overrides?: CallOverrides): Promise<string>;
 
     BPT_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
 
-    "BPT_PRICE_FEED()"(overrides?: CallOverrides): Promise<string>;
+    'BPT_PRICE_FEED()'(overrides?: CallOverrides): Promise<string>;
 
     ETH_USD_PRICE_FEED(overrides?: CallOverrides): Promise<string>;
 
-    "ETH_USD_PRICE_FEED()"(overrides?: CallOverrides): Promise<string>;
+    'ETH_USD_PRICE_FEED()'(overrides?: CallOverrides): Promise<string>;
 
-    STAKED_AAVE(overrides?: CallOverrides): Promise<string>;
+    STAKED_LOOTBRIDGE(overrides?: CallOverrides): Promise<string>;
 
-    "STAKED_AAVE()"(overrides?: CallOverrides): Promise<string>;
+    'STAKED_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<string>;
 
     STAKED_BPT(overrides?: CallOverrides): Promise<string>;
 
-    "STAKED_BPT()"(overrides?: CallOverrides): Promise<string>;
+    'STAKED_BPT()'(overrides?: CallOverrides): Promise<string>;
 
-    getAllStakedTokenData(
-      overrides?: CallOverrides
-    ): Promise<
+    getAllStakedTokenData(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -2107,14 +2084,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2128,21 +2105,21 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -2151,14 +2128,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2172,25 +2149,23 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
-    "getAllStakedTokenData()"(
-      overrides?: CallOverrides
-    ): Promise<
+    'getAllStakedTokenData()'(overrides?: CallOverrides): Promise<
       [
         [
           BigNumber,
@@ -2201,14 +2176,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2222,21 +2197,21 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -2245,14 +2220,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2266,25 +2241,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
     getAllStakedTokenUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -2296,14 +2271,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2325,14 +2300,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2345,9 +2320,9 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -2356,25 +2331,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2392,14 +2367,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2410,7 +2385,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2419,13 +2394,13 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
-    "getAllStakedTokenUserData(address)"(
+    'getAllStakedTokenUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -2437,14 +2412,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2466,14 +2441,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2486,9 +2461,9 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         },
-        BigNumber
+        BigNumber,
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -2497,25 +2472,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2533,14 +2508,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2551,7 +2526,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2560,13 +2535,11 @@ export class StakedTokenDataProvider extends Contract {
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
         };
-        ethPrice: BigNumber;
+        bnbPrice: BigNumber;
       }
     >;
 
-    getStkAaveData(
-      overrides?: CallOverrides
-    ): Promise<
+    getStkLootBridgeData(overrides?: CallOverrides): Promise<
       [
         BigNumber,
         BigNumber,
@@ -2576,23 +2549,21 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       }
     >;
 
-    "getStkAaveData()"(
-      overrides?: CallOverrides
-    ): Promise<
+    'getStkLootBridgeData()'(overrides?: CallOverrides): Promise<
       [
         BigNumber,
         BigNumber,
@@ -2602,23 +2573,23 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       }
     >;
 
-    getStkAaveUserData(
+    getStkLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -2630,14 +2601,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2649,9 +2620,9 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -2660,25 +2631,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2690,9 +2661,9 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    "getStkAaveUserData(address)"(
+    'getStkLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -2704,14 +2675,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2723,9 +2694,9 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
-        stkAaveData: [
+        stkLootBridgeData: [
           BigNumber,
           BigNumber,
           BigNumber,
@@ -2734,25 +2705,25 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
         };
-        stkAaveUserData: [
+        stkLootBridgeUserData: [
           BigNumber,
           BigNumber,
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2764,9 +2735,9 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    getStkBptAaveUserData(
+    getStkBptLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -2778,14 +2749,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2797,7 +2768,7 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
         stkBptData: [
           BigNumber,
@@ -2808,14 +2779,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2826,7 +2797,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2838,9 +2809,9 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    "getStkBptAaveUserData(address)"(
+    'getStkBptLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [
         [
@@ -2852,14 +2823,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2871,7 +2842,7 @@ export class StakedTokenDataProvider extends Contract {
           rewardsToClaim: BigNumber;
           userCooldownTimestamp: number;
           userCooldownAmount: BigNumber;
-        }
+        },
       ] & {
         stkBptData: [
           BigNumber,
@@ -2882,14 +2853,14 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           BigNumber,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenTotalSupply: BigNumber;
           stakedTokenTotalRedeemableAmount: BigNumber;
           stakeCooldownSeconds: BigNumber;
           stakeUnstakeWindow: BigNumber;
           stakedTokenPriceEth: BigNumber;
-          rewardTokenPriceEth: BigNumber;
+          rewardTokenPriceBnb: BigNumber;
           stakeApy: BigNumber;
           distributionPerSecond: BigNumber;
           distributionEnd: BigNumber;
@@ -2900,7 +2871,7 @@ export class StakedTokenDataProvider extends Contract {
           BigNumber,
           BigNumber,
           number,
-          BigNumber
+          BigNumber,
         ] & {
           stakedTokenUserBalance: BigNumber;
           stakedTokenRedeemableAmount: BigNumber;
@@ -2912,9 +2883,7 @@ export class StakedTokenDataProvider extends Contract {
       }
     >;
 
-    getStkBptData(
-      overrides?: CallOverrides
-    ): Promise<
+    getStkBptData(overrides?: CallOverrides): Promise<
       [
         BigNumber,
         BigNumber,
@@ -2924,23 +2893,21 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
       }
     >;
 
-    "getStkBptData()"(
-      overrides?: CallOverrides
-    ): Promise<
+    'getStkBptData()'(overrides?: CallOverrides): Promise<
       [
         BigNumber,
         BigNumber,
@@ -2950,14 +2917,14 @@ export class StakedTokenDataProvider extends Contract {
         BigNumber,
         BigNumber,
         BigNumber,
-        BigNumber
+        BigNumber,
       ] & {
         stakedTokenTotalSupply: BigNumber;
         stakedTokenTotalRedeemableAmount: BigNumber;
         stakeCooldownSeconds: BigNumber;
         stakeUnstakeWindow: BigNumber;
         stakedTokenPriceEth: BigNumber;
-        rewardTokenPriceEth: BigNumber;
+        rewardTokenPriceBnb: BigNumber;
         stakeApy: BigNumber;
         distributionPerSecond: BigNumber;
         distributionEnd: BigNumber;
@@ -2968,160 +2935,166 @@ export class StakedTokenDataProvider extends Contract {
   filters: {};
 
   estimateGas: {
-    AAVE(overrides?: CallOverrides): Promise<BigNumber>;
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "AAVE()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<BigNumber>;
 
-    AAVE_PRICE_FEED(overrides?: CallOverrides): Promise<BigNumber>;
+    LOOTBRIDGE_PRICE_FEED(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "AAVE_PRICE_FEED()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'LOOTBRIDGE_PRICE_FEED()'(overrides?: CallOverrides): Promise<BigNumber>;
 
     BPT(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "BPT()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'BPT()'(overrides?: CallOverrides): Promise<BigNumber>;
 
     BPT_PRICE_FEED(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "BPT_PRICE_FEED()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'BPT_PRICE_FEED()'(overrides?: CallOverrides): Promise<BigNumber>;
 
     ETH_USD_PRICE_FEED(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "ETH_USD_PRICE_FEED()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'ETH_USD_PRICE_FEED()'(overrides?: CallOverrides): Promise<BigNumber>;
 
-    STAKED_AAVE(overrides?: CallOverrides): Promise<BigNumber>;
+    STAKED_LOOTBRIDGE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "STAKED_AAVE()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'STAKED_LOOTBRIDGE()'(overrides?: CallOverrides): Promise<BigNumber>;
 
     STAKED_BPT(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "STAKED_BPT()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'STAKED_BPT()'(overrides?: CallOverrides): Promise<BigNumber>;
 
     getAllStakedTokenData(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "getAllStakedTokenData()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'getAllStakedTokenData()'(overrides?: CallOverrides): Promise<BigNumber>;
 
     getAllStakedTokenUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    "getAllStakedTokenUserData(address)"(
+    'getAllStakedTokenUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    getStkAaveData(overrides?: CallOverrides): Promise<BigNumber>;
+    getStkLootBridgeData(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "getStkAaveData()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'getStkLootBridgeData()'(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getStkAaveUserData(
+    getStkLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    "getStkAaveUserData(address)"(
+    'getStkLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    getStkBptAaveUserData(
+    getStkBptLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    "getStkBptAaveUserData(address)"(
+    'getStkBptLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getStkBptData(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "getStkBptData()"(overrides?: CallOverrides): Promise<BigNumber>;
+    'getStkBptData()'(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    AAVE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    LOOTBRIDGE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "AAVE()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    'LOOTBRIDGE()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    AAVE_PRICE_FEED(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    LOOTBRIDGE_PRICE_FEED(
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
 
-    "AAVE_PRICE_FEED()"(
-      overrides?: CallOverrides
+    'LOOTBRIDGE_PRICE_FEED()'(
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     BPT(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "BPT()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    'BPT()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     BPT_PRICE_FEED(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "BPT_PRICE_FEED()"(
-      overrides?: CallOverrides
+    'BPT_PRICE_FEED()'(
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     ETH_USD_PRICE_FEED(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    "ETH_USD_PRICE_FEED()"(
-      overrides?: CallOverrides
+    'ETH_USD_PRICE_FEED()'(
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    STAKED_AAVE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    STAKED_LOOTBRIDGE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "STAKED_AAVE()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    'STAKED_LOOTBRIDGE()'(
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
 
     STAKED_BPT(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "STAKED_BPT()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    'STAKED_BPT()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getAllStakedTokenData(
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    "getAllStakedTokenData()"(
-      overrides?: CallOverrides
+    'getAllStakedTokenData()'(
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getAllStakedTokenUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    "getAllStakedTokenUserData(address)"(
+    'getAllStakedTokenUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    getStkAaveData(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "getStkAaveData()"(
-      overrides?: CallOverrides
+    getStkLootBridgeData(
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    getStkAaveUserData(
+    'getStkLootBridgeData()'(
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
+
+    getStkLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    "getStkAaveUserData(address)"(
+    'getStkLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    getStkBptAaveUserData(
+    getStkBptLootBridgeUserData(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    "getStkBptAaveUserData(address)"(
+    'getStkBptLootBridgeUserData(address)'(
       user: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getStkBptData(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    "getStkBptData()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    'getStkBptData()'(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

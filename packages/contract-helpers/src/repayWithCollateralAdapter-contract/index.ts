@@ -11,7 +11,7 @@ import {
 } from '../commons/types';
 import { RepayWithCollateralValidator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
 } from '../commons/validators/paramValidators';
 import { IRepayWithCollateral } from './typechain/IRepayWithCollateral';
@@ -53,9 +53,9 @@ export class RepayWithCollateralAdapterService
 
   @RepayWithCollateralValidator
   public swapAndRepay(
-    @isEthAddress('user')
-    @isEthAddress('collateralAsset')
-    @isEthAddress('debtAsset')
+    @isBnbAddress('user')
+    @isBnbAddress('collateralAsset')
+    @isBnbAddress('debtAsset')
     @isPositiveAmount('collateralAmount')
     @isPositiveAmount('debtRepayAmount')
     {

@@ -26,9 +26,9 @@ describe('GovernancePowerDelegationService', () => {
     }),
   );
 
-  const AAVE = '0x000000000000000000000000000000000000000e';
+  const LOOTBRIDGE = '0x000000000000000000000000000000000000000e';
   jest.spyOn(provider, 'resolveName').mockImplementation(async name => {
-    if (name === 'aave.eth') return Promise.resolve(AAVE);
+    if (name === 'lootbridge.bnb') return Promise.resolve(LOOTBRIDGE);
     return '';
   });
   const NONCE = '0x000000000000000000000000000000000000000f';
@@ -74,12 +74,12 @@ describe('GovernancePowerDelegationService', () => {
       const txs = await service.delegate({
         user,
         governanceToken: GOVERNANCE_TOKEN,
-        delegatee: 'aave.eth',
+        delegatee: 'lootbridge.bnb',
       });
       expect(txs.length).toBe(1);
       const result = await txs[0].tx();
       // ens should be resolved which means the address will appear int he data payloads
-      expect(result.data).toContain(AAVE.replace('0x', ''));
+      expect(result.data).toContain(LOOTBRIDGE.replace('0x', ''));
     });
 
     it('should error on invalid ens', async () => {
@@ -87,19 +87,19 @@ describe('GovernancePowerDelegationService', () => {
         service.delegate({
           user,
           governanceToken: GOVERNANCE_TOKEN,
-          delegatee: 'bla.eth',
+          delegatee: 'bla.bnb',
         }),
-      ).rejects.toThrowError(`Address: bla.eth is not a valid ENS address`);
+      ).rejects.toThrowError(`Address: bla.bnb is not a valid ENS address`);
     });
     it('should error on malformed ens', async () => {
       await expect(async () =>
         service.delegate({
           user,
           governanceToken: GOVERNANCE_TOKEN,
-          delegatee: 'aave',
+          delegatee: 'lootbridge',
         }),
       ).rejects.toThrowError(
-        `Address aave is not valid ENS format or a valid ethereum Addres`,
+        `Address lootbridge is not valid ENS format or a valid ethereum Addres`,
       );
     });
   });
@@ -158,7 +158,7 @@ describe('GovernancePowerDelegationService', () => {
         governanceToken: GOVERNANCE_TOKEN,
         delegatee,
         expiry: '10',
-        governanceTokenName: 'stkAave',
+        governanceTokenName: 'stkLootBridge',
         nonce: '0',
       });
       expect(JSON.parse(txs).domain.verifyingContract).toBe(GOVERNANCE_TOKEN);
@@ -171,7 +171,7 @@ describe('GovernancePowerDelegationService', () => {
         governanceToken: GOVERNANCE_TOKEN,
         delegatee,
         expiry: '10',
-        governanceTokenName: 'stkAave',
+        governanceTokenName: 'stkLootBridge',
         nonce: '0',
         type: '10',
       });

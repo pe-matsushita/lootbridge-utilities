@@ -44,11 +44,11 @@ describe('UiStakeDataProvider', () => {
     });
     it('Expects to get user raw data', async () => {
       const rawData = await instance.getUserStakeUIData({ user });
-      expect(rawData.stkAaveData.stakedTokenUserBalance).toEqual(
+      expect(rawData.stkLootBridgeData.stakedTokenUserBalance).toEqual(
         BigNumber.from(0),
       );
     });
-    it('Expects to fail if user not eth address', async () => {
+    it('Expects to fail if user not bnb address', async () => {
       const user = 'asdf';
       await expect(async () =>
         instance.getUserStakeUIData({ user }),
@@ -76,7 +76,7 @@ describe('UiStakeDataProvider', () => {
       const rawData = await instance.getUserStakeUIDataHumanized({ user });
       expect(rawData).toEqual(GetUserStakeUIDataHumanized);
     });
-    it('Expects to fail if user not eth address', async () => {
+    it('Expects to fail if user not bnb address', async () => {
       const user = 'asdf';
       await expect(async () =>
         instance.getUserStakeUIDataHumanized({ user }),

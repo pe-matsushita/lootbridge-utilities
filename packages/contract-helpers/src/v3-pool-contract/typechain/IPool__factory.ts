@@ -196,7 +196,7 @@ const _abi = [
       {
         indexed: false,
         internalType: 'bool',
-        name: 'receiveAToken',
+        name: 'receiveLBToken',
         type: 'bool',
       },
     ],
@@ -308,7 +308,7 @@ const _abi = [
       {
         indexed: false,
         internalType: 'bool',
-        name: 'useATokens',
+        name: 'useLBTokens',
         type: 'bool',
       },
     ],
@@ -975,7 +975,7 @@ const _abi = [
           },
           {
             internalType: 'address',
-            name: 'aTokenAddress',
+            name: 'lbTokenAddress',
             type: 'address',
           },
           {
@@ -1166,7 +1166,7 @@ const _abi = [
       },
       {
         internalType: 'address',
-        name: 'aTokenAddress',
+        name: 'lbTokenAddress',
         type: 'address',
       },
       {
@@ -1214,7 +1214,7 @@ const _abi = [
       },
       {
         internalType: 'bool',
-        name: 'receiveAToken',
+        name: 'receiveLBToken',
         type: 'bool',
       },
     ],
@@ -1334,7 +1334,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'repayWithATokens',
+    name: 'repayWithLBTokens',
     outputs: [
       {
         internalType: 'uint256',

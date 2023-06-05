@@ -3,7 +3,7 @@ import BaseService from '../commons/BaseService';
 import { ChainId } from '../commons/types';
 import { SynthetixValidator } from '../commons/validators/methodValidators';
 import {
-  isEthAddress,
+  isBnbAddress,
   isPositiveAmount,
 } from '../commons/validators/paramValidators';
 import { ISynthetix } from './typechain/ISynthetix';
@@ -35,8 +35,8 @@ export class SynthetixService
 
   @SynthetixValidator
   public async synthetixValidation(
-    @isEthAddress('user')
-    @isEthAddress('reserve')
+    @isBnbAddress('user')
+    @isBnbAddress('reserve')
     @isPositiveAmount('amount')
     {
       user,

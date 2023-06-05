@@ -35,7 +35,7 @@ export function calculateUserReserveIncentives({
 }: CalculateUserReserveIncentivesRequest): UserReserveIncentive[] {
   const calculatedUserIncentives: UserReserveIncentive[] = [];
   // Compute incentive data for each reward linked to supply of this reserve
-  userIncentives.aTokenIncentivesUserData.userRewardsInformation.forEach(
+  userIncentives.lbTokenIncentivesUserData.userRewardsInformation.forEach(
     userReserveIncentive => {
       const reserveIncentive =
         reserveIncentives.aIncentiveData.rewardsTokenInformation.find(
@@ -44,11 +44,11 @@ export function calculateUserReserveIncentives({
             userReserveIncentive.rewardTokenAddress,
         );
       if (reserveIncentive) {
-        // Calculating accrued rewards is only required if user has an active aToken balance
+        // Calculating accrued rewards is only required if user has an active lbToken balance
         const accruedRewards = userReserveData
           ? calculateAccruedIncentives({
               principalUserBalance: new BigNumber(
-                userReserveData.scaledATokenBalance,
+                userReserveData.scaledLBTokenBalance,
               ),
               reserveIndex: new BigNumber(
                 reserveIncentive.tokenIncentivesIndex,
@@ -74,9 +74,9 @@ export function calculateUserReserveIncentives({
           : new BigNumber('0');
 
         calculatedUserIncentives.push({
-          tokenAddress: userIncentives.aTokenIncentivesUserData.tokenAddress,
+          tokenAddress: userIncentives.lbTokenIncentivesUserData.tokenAddress,
           incentiveController:
-            userIncentives.aTokenIncentivesUserData.incentiveControllerAddress,
+            userIncentives.lbTokenIncentivesUserData.incentiveControllerAddress,
           rewardTokenAddress: userReserveIncentive.rewardTokenAddress,
           rewardTokenDecimals: userReserveIncentive.rewardTokenDecimals,
           accruedRewards,

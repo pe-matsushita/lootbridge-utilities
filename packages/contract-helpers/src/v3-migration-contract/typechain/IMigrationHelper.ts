@@ -34,7 +34,7 @@ export declare namespace IMigrationHelper {
   };
 
   export type PermitInputStruct = {
-    aToken: PromiseOrValue<string>;
+    lbToken: PromiseOrValue<string>;
     value: PromiseOrValue<BigNumberish>;
     deadline: PromiseOrValue<BigNumberish>;
     v: PromiseOrValue<BigNumberish>;
@@ -50,7 +50,7 @@ export declare namespace IMigrationHelper {
     string,
     string,
   ] & {
-    aToken: string;
+    lbToken: string;
     value: BigNumber;
     deadline: BigNumber;
     v: number;
@@ -101,7 +101,7 @@ export interface IMigrationHelperInterface extends utils.Interface {
     'ADDRESSES_PROVIDER()': FunctionFragment;
     'POOL()': FunctionFragment;
     'V2_POOL()': FunctionFragment;
-    'cacheATokens()': FunctionFragment;
+    'cacheLBTokens()': FunctionFragment;
     'executeOperation(address[],uint256[],uint256[],address,bytes)': FunctionFragment;
     'getMigrationSupply(address,uint256)': FunctionFragment;
     'migrate(address[],(address,uint256)[],(address,uint256,uint256,uint8,bytes32,bytes32)[],(address,uint256,uint256,uint8,bytes32,bytes32)[])': FunctionFragment;
@@ -113,7 +113,7 @@ export interface IMigrationHelperInterface extends utils.Interface {
       | 'ADDRESSES_PROVIDER'
       | 'POOL'
       | 'V2_POOL'
-      | 'cacheATokens'
+      | 'cacheLBTokens'
       | 'executeOperation'
       | 'getMigrationSupply'
       | 'migrate'
@@ -127,7 +127,7 @@ export interface IMigrationHelperInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'POOL', values?: undefined): string;
   encodeFunctionData(functionFragment: 'V2_POOL', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: 'cacheATokens',
+    functionFragment: 'cacheLBTokens',
     values?: undefined,
   ): string;
   encodeFunctionData(
@@ -165,7 +165,7 @@ export interface IMigrationHelperInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'POOL', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'V2_POOL', data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: 'cacheATokens',
+    functionFragment: 'cacheLBTokens',
     data: BytesLike,
   ): Result;
   decodeFunctionResult(
@@ -220,7 +220,7 @@ export interface IMigrationHelper extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
-    cacheATokens(
+    cacheLBTokens(
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
@@ -261,7 +261,7 @@ export interface IMigrationHelper extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  cacheATokens(
+  cacheLBTokens(
     overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
@@ -300,7 +300,7 @@ export interface IMigrationHelper extends BaseContract {
 
     V2_POOL(overrides?: CallOverrides): Promise<string>;
 
-    cacheATokens(overrides?: CallOverrides): Promise<void>;
+    cacheLBTokens(overrides?: CallOverrides): Promise<void>;
 
     executeOperation(
       assets: PromiseOrValue<string>[],
@@ -342,7 +342,7 @@ export interface IMigrationHelper extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    cacheATokens(
+    cacheLBTokens(
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
@@ -386,7 +386,7 @@ export interface IMigrationHelper extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    cacheATokens(
+    cacheLBTokens(
       overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 

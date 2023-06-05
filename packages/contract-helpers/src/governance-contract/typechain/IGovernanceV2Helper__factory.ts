@@ -136,7 +136,7 @@ const _abi = [
         type: 'uint256',
       },
       {
-        internalType: 'contract IAaveGovernanceV2',
+        internalType: 'contract ILootBridgeGovernanceV2',
         name: 'governance',
         type: 'address',
       },
@@ -256,7 +256,7 @@ const _abi = [
             type: 'bytes32',
           },
           {
-            internalType: 'enum IAaveGovernanceV2.ProposalState',
+            internalType: 'enum ILootBridgeGovernanceV2.ProposalState',
             name: 'proposalState',
             type: 'uint8',
           },
@@ -282,7 +282,7 @@ const _abi = [
         type: 'uint256',
       },
       {
-        internalType: 'contract IAaveGovernanceV2',
+        internalType: 'contract ILootBridgeGovernanceV2',
         name: 'governance',
         type: 'address',
       },
@@ -402,7 +402,7 @@ const _abi = [
             type: 'bytes32',
           },
           {
-            internalType: 'enum IAaveGovernanceV2.ProposalState',
+            internalType: 'enum ILootBridgeGovernanceV2.ProposalState',
             name: 'proposalState',
             type: 'uint8',
           },

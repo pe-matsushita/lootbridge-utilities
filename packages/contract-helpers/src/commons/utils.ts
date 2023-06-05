@@ -11,7 +11,7 @@ export const valueToWei = (value: string, decimals: number): string => {
 };
 
 export const canBeEnsAddress = (ensAddress: string): boolean => {
-  return ensAddress.toLowerCase().endsWith('.eth');
+  return ensAddress.toLowerCase().endsWith('.bnb');
 };
 
 export const decimalsToCurrencyUnits = (
@@ -78,11 +78,11 @@ export const gasLimitRecommendations: GasRecommendationType = {
     limit: '300000',
     recommended: '300000',
   },
-  [ProtocolAction.borrowETH]: {
+  [ProtocolAction.borrowBNB]: {
     limit: '450000',
     recommended: '450000',
   },
-  [ProtocolAction.withdrawETH]: {
+  [ProtocolAction.withdrawBNB]: {
     limit: '640000',
     recommended: '640000',
   },
@@ -113,7 +113,7 @@ export const gasLimitRecommendations: GasRecommendationType = {
 };
 
 export const mintAmountsPerToken: Record<string, string> = {
-  AAVE: valueToWei('100', 18),
+  LOOTBRIDGE: valueToWei('100', 18),
   BAT: valueToWei('100000', 18),
   BUSD: valueToWei('10000', 18),
   DAI: valueToWei('10000', 18),
@@ -124,6 +124,7 @@ export const mintAmountsPerToken: Record<string, string> = {
   MANA: valueToWei('100000', 18),
   MKR: valueToWei('10', 18),
   WETH: valueToWei('10', 18),
+  WBNB: valueToWei('10', 18),
   REN: valueToWei('10000', 18),
   REP: valueToWei('1000', 18),
   SNX: valueToWei('100', 18),

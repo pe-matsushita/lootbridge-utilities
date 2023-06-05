@@ -177,7 +177,7 @@ export class IUiPoolDataProviderV3 extends BaseContract {
           variableBorrowRate: BigNumber;
           stableBorrowRate: BigNumber;
           lastUpdateTimestamp: number;
-          aTokenAddress: string;
+          lbTokenAddress: string;
           stableDebtTokenAddress: string;
           variableDebtTokenAddress: string;
           interestRateStrategyAddress: string;
@@ -243,7 +243,7 @@ export class IUiPoolDataProviderV3 extends BaseContract {
           BigNumber,
         ] & {
           underlyingAsset: string;
-          scaledATokenBalance: BigNumber;
+          scaledLBTokenBalance: BigNumber;
           usageAsCollateralEnabledOnUser: boolean;
           stableBorrowRate: BigNumber;
           scaledVariableDebt: BigNumber;
@@ -335,7 +335,7 @@ export class IUiPoolDataProviderV3 extends BaseContract {
         variableBorrowRate: BigNumber;
         stableBorrowRate: BigNumber;
         lastUpdateTimestamp: number;
-        aTokenAddress: string;
+        lbTokenAddress: string;
         stableDebtTokenAddress: string;
         variableDebtTokenAddress: string;
         interestRateStrategyAddress: string;
@@ -401,7 +401,7 @@ export class IUiPoolDataProviderV3 extends BaseContract {
         BigNumber,
       ] & {
         underlyingAsset: string;
-        scaledATokenBalance: BigNumber;
+        scaledLBTokenBalance: BigNumber;
         usageAsCollateralEnabledOnUser: boolean;
         stableBorrowRate: BigNumber;
         scaledVariableDebt: BigNumber;
@@ -493,7 +493,7 @@ export class IUiPoolDataProviderV3 extends BaseContract {
           variableBorrowRate: BigNumber;
           stableBorrowRate: BigNumber;
           lastUpdateTimestamp: number;
-          aTokenAddress: string;
+          lbTokenAddress: string;
           stableDebtTokenAddress: string;
           variableDebtTokenAddress: string;
           interestRateStrategyAddress: string;
@@ -559,7 +559,7 @@ export class IUiPoolDataProviderV3 extends BaseContract {
           BigNumber,
         ] & {
           underlyingAsset: string;
-          scaledATokenBalance: BigNumber;
+          scaledLBTokenBalance: BigNumber;
           usageAsCollateralEnabledOnUser: boolean;
           stableBorrowRate: BigNumber;
           scaledVariableDebt: BigNumber;

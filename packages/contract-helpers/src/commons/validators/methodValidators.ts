@@ -10,10 +10,10 @@ import {
   amountGtThan0OrMinus1,
   amountGtThan0Validator,
   isDeadline32BytesValidator,
-  isEthAddressArrayValidator,
-  // isEthAddressArrayValidatorNotEmpty,
-  isEthAddressOrEnsValidator,
-  isEthAddressValidator,
+  isBnbAddressArrayValidator,
+  // isBnbAddressArrayValidatorNotEmpty,
+  isBnbAddressOrEnsValidator,
+  isBnbAddressValidator,
   // optionalValidator,
 } from './validations';
 
@@ -36,7 +36,7 @@ export function LPFlashLiquidationValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -65,7 +65,7 @@ export function LPFlashLiquidationValidatorV3(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -94,7 +94,7 @@ export function LPRepayWithCollateralValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -121,7 +121,7 @@ export function LPSwapCollateralValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -148,7 +148,7 @@ export function LPRepayWithCollateralValidatorV3(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -175,7 +175,7 @@ export function LPSwapCollateralValidatorV3(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -196,7 +196,7 @@ export function LPValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -228,7 +228,7 @@ export function L2PValidator(
       return [];
     }
 
-    // isEthAddressValidator(target, propertyName, arguments);
+    // isBnbAddressValidator(target, propertyName, arguments);
     isDeadline32BytesValidator(target, propertyName, arguments);
 
     return method.apply(this, arguments);
@@ -248,7 +248,7 @@ export function LPValidatorV3(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -256,7 +256,7 @@ export function LPValidatorV3(
 
     amount0OrPositiveValidator(target, propertyName, arguments);
 
-    isEthAddressArrayValidator(target, propertyName, arguments);
+    isBnbAddressArrayValidator(target, propertyName, arguments);
 
     return method.apply(this, arguments);
   };
@@ -275,11 +275,11 @@ export function UiIncentiveDataProviderValidator(
         `[UiIncentiveDataProviderValidator] You need to pass valid addresses`,
       );
       throw new Error(
-        'UiIncentiveDataProviderAddress must be an eth valid address',
+        'UiIncentiveDataProviderAddress must be an bnb valid address',
       );
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     return method.apply(this, arguments);
   };
@@ -292,16 +292,16 @@ export function UiIncentiveDataProviderValidator(
 // ): any {
 //   const method = descriptor.value;
 //   descriptor.value = function () {
-//     const LEND_TO_AAVE_MIGRATOR =
+//     const LEND_TO_LOOTBRIDGE_MIGRATOR =
 //       // @ts-expect-error todo: check why this ignore is needed
-//       this.migratorConfig?.LEND_TO_AAVE_MIGRATOR || '';
+//       this.migratorConfig?.LEND_TO_LOOTBRIDGE_MIGRATOR || '';
 
-//     if (!utils.isAddress(LEND_TO_AAVE_MIGRATOR)) {
+//     if (!utils.isAddress(LEND_TO_LOOTBRIDGE_MIGRATOR)) {
 //       console.error(`[MigratorValidator] You need to pass valid addresses`);
 //       return [];
 //     }
 
-//     isEthAddressValidator(target, propertyName, arguments);
+//     isBnbAddressValidator(target, propertyName, arguments);
 
 //     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -316,9 +316,9 @@ export function IncentivesValidator(
 ): any {
   const method = descriptor.value;
   descriptor.value = function () {
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
-    isEthAddressArrayValidator(target, propertyName, arguments);
+    isBnbAddressArrayValidator(target, propertyName, arguments);
 
     return method.apply(this, arguments);
   };
@@ -331,7 +331,7 @@ export function DebtTokenValidator(
 ): any {
   const method = descriptor.value;
   descriptor.value = function () {
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -346,7 +346,7 @@ export function SynthetixValidator(
 ): any {
   const method = descriptor.value;
   descriptor.value = function () {
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -361,7 +361,7 @@ export function ERC20Validator(
 ): any {
   const method = descriptor.value;
   descriptor.value = function () {
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -386,7 +386,7 @@ export function LiquiditySwapValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -411,7 +411,7 @@ export function RepayWithCollateralValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -436,7 +436,7 @@ export function StakingValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -463,7 +463,7 @@ export function SignStakingValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -486,7 +486,7 @@ export function FaucetValidator(
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -494,7 +494,7 @@ export function FaucetValidator(
   };
 }
 
-export function WETHValidator(
+export function WBNBValidator(
   target: any,
   propertyName: string,
   descriptor: TypedPropertyDescriptor<any>,
@@ -502,12 +502,12 @@ export function WETHValidator(
   const method = descriptor.value;
   descriptor.value = function () {
     // @ts-expect-error todo: check why this ignore is needed
-    if (!utils.isAddress(this.wethGatewayAddress)) {
+    if (!utils.isAddress(this.wbnbGatewayAddress)) {
       console.error(`[WethGatewayValidator] You need to pass valid addresses`);
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amountGtThan0Validator(target, propertyName, arguments);
 
@@ -528,19 +528,19 @@ export function GovHelperValidator(
   descriptor.value = function () {
     if (
       // @ts-expect-error todo: check why this ignore is needed
-      !utils.isAddress(this.aaveGovernanceV2Address) ||
+      !utils.isAddress(this.lootbridgeGovernanceV2Address) ||
       // @ts-expect-error todo: check why this ignore is needed
-      !utils.isAddress(this.aaveGovernanceV2HelperAddress)
+      !utils.isAddress(this.lootbridgeGovernanceV2HelperAddress)
     ) {
       console.error(`[GovernanceValidator] You need to pass valid addresses`);
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amount0OrPositiveValidator(target, propertyName, arguments);
 
-    isEthAddressArrayValidator(target, propertyName, arguments);
+    isBnbAddressArrayValidator(target, propertyName, arguments);
 
     return method.apply(this, arguments);
   };
@@ -555,13 +555,13 @@ export function GovValidator(
   descriptor.value = function () {
     if (
       // @ts-expect-error todo: check why this ignore is needed
-      !utils.isAddress(this.aaveGovernanceV2Address)
+      !utils.isAddress(this.lootbridgeGovernanceV2Address)
     ) {
       console.error(`[GovernanceValidator] You need to pass valid addresses`);
       return [];
     }
 
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     amount0OrPositiveValidator(target, propertyName, arguments);
 
@@ -576,8 +576,8 @@ export function GovDelegationValidator(
 ): any {
   const method = descriptor.value;
   descriptor.value = function () {
-    isEthAddressValidator(target, propertyName, arguments);
-    isEthAddressOrEnsValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
+    isBnbAddressOrEnsValidator(target, propertyName, arguments);
     amountGtThan0Validator(target, propertyName, arguments);
     amount0OrPositiveValidator(target, propertyName, arguments);
 
@@ -592,7 +592,7 @@ export function StakeUiDataProviderValidator(
 ): any {
   const method = descriptor.value;
   descriptor.value = function () {
-    isEthAddressValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
 
     return method.apply(this, arguments);
   };
@@ -605,8 +605,8 @@ export function V3MigratorValidator(
 ): any {
   const method = descriptor.value;
   descriptor.value = function () {
-    isEthAddressValidator(target, propertyName, arguments);
-    isEthAddressArrayValidator(target, propertyName, arguments);
+    isBnbAddressValidator(target, propertyName, arguments);
+    isBnbAddressArrayValidator(target, propertyName, arguments);
 
     return method.apply(this, arguments);
   };

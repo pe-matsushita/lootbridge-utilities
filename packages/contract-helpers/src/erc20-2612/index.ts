@@ -1,7 +1,7 @@
 import { BigNumber, providers } from 'ethers';
 import BaseService from '../commons/BaseService';
 import { ERC20Validator } from '../commons/validators/methodValidators';
-import { isEthAddress } from '../commons/validators/paramValidators';
+import { isBnbAddress } from '../commons/validators/paramValidators';
 import { IERC202612 } from './typechain/IERC202612';
 import { IERC202612__factory } from './typechain/IERC202612__factory';
 
@@ -23,8 +23,8 @@ export class ERC20_2612Service
 
   @ERC20Validator
   public async getNonce(
-    @isEthAddress('token')
-    @isEthAddress('owner')
+    @isBnbAddress('token')
+    @isBnbAddress('owner')
     { token, owner }: GetNonceType,
   ): Promise<number | null> {
     const tokenContract = this.getContractInstance(token);

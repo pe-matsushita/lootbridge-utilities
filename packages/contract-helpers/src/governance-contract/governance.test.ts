@@ -6,14 +6,14 @@ import {
   transactionType,
 } from '../commons/types';
 import { gasLimitRecommendations } from '../commons/utils';
-import { IAaveGovernanceV2 } from './typechain/IAaveGovernanceV2';
-import { IAaveGovernanceV2__factory } from './typechain/IAaveGovernanceV2__factory';
 import { IGovernanceStrategy } from './typechain/IGovernanceStrategy';
 import { IGovernanceStrategy__factory } from './typechain/IGovernanceStrategy__factory';
 import { IGovernanceV2Helper } from './typechain/IGovernanceV2Helper';
 import { IGovernanceV2Helper__factory } from './typechain/IGovernanceV2Helper__factory';
+import { ILootBridgeGovernanceV2 } from './typechain/ILootBridgeGovernanceV2';
+import { ILootBridgeGovernanceV2__factory } from './typechain/ILootBridgeGovernanceV2__factory';
 import { ProposalState } from './types';
-import { AaveGovernanceService } from './index';
+import { LootBridgeGovernanceService } from './index';
 
 jest.mock('../commons/gasStation', () => {
   return {
@@ -110,17 +110,17 @@ describe('GovernanceService', () => {
       jest.clearAllMocks();
     });
     it('Expects to initialize with all params', () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
-      expect(instance instanceof AaveGovernanceService).toEqual(true);
+      expect(instance instanceof LootBridgeGovernanceService).toEqual(true);
     });
     it('Expects to initialize without helper address', () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
-      expect(instance instanceof AaveGovernanceService).toEqual(true);
+      expect(instance instanceof LootBridgeGovernanceService).toEqual(true);
     });
   });
 
@@ -129,12 +129,14 @@ describe('GovernanceService', () => {
       jest.clearAllMocks();
     });
     it('returns a number', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
-      jest.spyOn(IAaveGovernanceV2__factory, 'connect').mockReturnValueOnce({
-        getProposalsCount: async () => Promise.resolve(BigNumber.from(1)),
-      } as unknown as IAaveGovernanceV2);
+      jest
+        .spyOn(ILootBridgeGovernanceV2__factory, 'connect')
+        .mockReturnValueOnce({
+          getProposalsCount: async () => Promise.resolve(BigNumber.from(1)),
+        } as unknown as ILootBridgeGovernanceV2);
 
       const result = await instance.getProposalsCount();
       expect(result).toBe(1);
@@ -147,7 +149,7 @@ describe('GovernanceService', () => {
     });
     const support = true;
     it('Expects the tx object when passing all params', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
 
@@ -181,15 +183,15 @@ describe('GovernanceService', () => {
       );
       expect(gasPrice?.gasPrice).toEqual('1');
     });
-    it('Expects to fail when gov address not eth address', () => {
-      const instance = new AaveGovernanceService(provider, {
+    it('Expects to fail when gov address not bnb address', () => {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
       });
       const voteTxObj = instance.submitVote({ user, proposalId, support });
       expect(voteTxObj).toEqual([]);
     });
     it('Expects to fail when user not eht address', () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
       const user = 'asdf';
@@ -198,7 +200,7 @@ describe('GovernanceService', () => {
       ).toThrowError(`Address: ${user} is not a valid ethereum Address`);
     });
     it('Expects to fail when proposalId not positive or 0', () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
       const proposalId = -1;
@@ -214,7 +216,7 @@ describe('GovernanceService', () => {
       jest.clearAllMocks();
     });
     it('Expects a proposal parsed if all params passed correctly', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
@@ -263,7 +265,7 @@ describe('GovernanceService', () => {
     const skip = 1;
     const limit = 2;
     it('Expects a proposal parsed if all params passed correctly', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
@@ -305,7 +307,7 @@ describe('GovernanceService', () => {
       });
     });
     it('Expects to fail if gov address not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
         ipfsGateway: 'https://cloudflare-ipfs.com/ipfs',
       });
@@ -313,7 +315,7 @@ describe('GovernanceService', () => {
       expect(getProposals).toEqual([]);
     });
     it('Expects to fail if gov helper not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS: 'asdf',
       });
@@ -328,7 +330,7 @@ describe('GovernanceService', () => {
     const block = 1234;
     const strategy = '0xb7e383ef9b1e9189fc0f71fb30af8aa14377429e';
     it('Expects to get voting power at block', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
 
@@ -349,7 +351,7 @@ describe('GovernanceService', () => {
       expect(power).toEqual('0.01');
     });
     it('Expects to fail if gov address not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
       });
       const power = await instance.getVotingPowerAt({
@@ -360,7 +362,7 @@ describe('GovernanceService', () => {
       expect(power).toEqual([]);
     });
     it('Expects to fail when user not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
       const user = 'asdf';
@@ -381,7 +383,7 @@ describe('GovernanceService', () => {
     });
     const tokens = ['0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9'];
     it('Expects token power obj for each token asked', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
@@ -401,7 +403,7 @@ describe('GovernanceService', () => {
       expect(power[0]).toEqual(userPowerMock);
     });
     it('Expects to fail if gov address not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
       });
       const power = await instance.getTokensPower({
@@ -411,7 +413,7 @@ describe('GovernanceService', () => {
       expect(power).toEqual([]);
     });
     it('Expects to fail if gov helper not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS: 'asfd',
       });
@@ -422,7 +424,7 @@ describe('GovernanceService', () => {
       expect(power).toEqual([]);
     });
     it('Expects to fail when user not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
@@ -437,7 +439,7 @@ describe('GovernanceService', () => {
       );
     });
     it('Expects to fail when tokens are not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
@@ -455,16 +457,16 @@ describe('GovernanceService', () => {
       jest.clearAllMocks();
     });
     it('Expects to get vote info for proposalId', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
 
       const spy = jest
-        .spyOn(IAaveGovernanceV2__factory, 'connect')
+        .spyOn(ILootBridgeGovernanceV2__factory, 'connect')
         .mockReturnValue({
           getVoteOnProposal: async () => Promise.resolve(voteMock),
-        } as unknown as IAaveGovernanceV2);
+        } as unknown as ILootBridgeGovernanceV2);
 
       const vote = await instance.getVoteOnProposal({
         user,
@@ -475,7 +477,7 @@ describe('GovernanceService', () => {
       expect(vote).toEqual(voteMock);
     });
     it('Expects to fail if gov address not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
       });
       const power = await instance.getVoteOnProposal({
@@ -485,7 +487,7 @@ describe('GovernanceService', () => {
       expect(power).toEqual([]);
     });
     it('Expects to fail when user not eth address', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
@@ -500,7 +502,7 @@ describe('GovernanceService', () => {
       );
     });
     it('Expects to fail when proposalId not positive or 0', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
       const proposalId = -1;
@@ -520,7 +522,7 @@ describe('GovernanceService', () => {
     });
 
     it('should populate the correct tx', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });
@@ -558,7 +560,7 @@ describe('GovernanceService', () => {
 
   describe('delegateTokensByTypeBySig', () => {
     it('should work if correct parameters are supplied', async () => {
-      const instance = new AaveGovernanceService(provider, {
+      const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
       });

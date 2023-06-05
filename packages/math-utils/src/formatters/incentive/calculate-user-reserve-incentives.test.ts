@@ -42,7 +42,7 @@ describe('calculateUserReserveIncentives', () => {
       currentTimestamp,
     };
 
-  it('should calculate the correct aWETH incentives', () => {
+  it('should calculate the correct aWBNB incentives', () => {
     const result = calculateUserReserveIncentives(
       userETHReserveIncentiveRequest,
     );

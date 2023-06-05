@@ -1,10 +1,10 @@
 import { constants } from 'ethers';
 import {
   is0OrPositiveMetadataKey,
-  isEthAddressArrayMetadataKey,
-  isEthAddressArrayMetadataKeyNotEmpty,
-  isEthAddressMetadataKey,
-  isEthAddressOrENSMetadataKey,
+  isBnbAddressArrayMetadataKey,
+  isBnbAddressArrayMetadataKeyNotEmpty,
+  isBnbAddressMetadataKey,
+  isBnbAddressOrENSMetadataKey,
   isPermitDeadline32Bytes,
   isPositiveMetadataKey,
   isPositiveOrMinusOneMetadataKey,
@@ -14,10 +14,10 @@ import {
   amountGtThan0OrMinus1,
   amountGtThan0Validator,
   isDeadline32BytesValidator,
-  isEthAddressArrayValidator,
-  isEthAddressArrayValidatorNotEmpty,
-  isEthAddressOrEnsValidator,
-  isEthAddressValidator,
+  isBnbAddressArrayValidator,
+  isBnbAddressArrayValidatorNotEmpty,
+  isBnbAddressOrEnsValidator,
+  isBnbAddressValidator,
 } from './validations';
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -233,7 +233,7 @@ describe('validators', () => {
       );
     });
   });
-  describe('isEthAddressValidator', () => {
+  describe('isBnbAddressValidator', () => {
     it('Expects to run with correct address', () => {
       const methodArguments = {
         '0': {
@@ -248,17 +248,17 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressMetadataKey,
+        isBnbAddressMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressValidator(target, propertyName, methodArguments);
+        isBnbAddressValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
-    it('Expects to run with no field: @isEthAddress()', () => {
+    it('Expects to run with no field: @isBnbAddress()', () => {
       const methodArguments = {
         '0': '0x0000000000000000000000000000000000000001',
       };
@@ -270,14 +270,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressMetadataKey,
+        isBnbAddressMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressValidator(target, propertyName, methodArguments);
+        isBnbAddressValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run with no params', () => {
@@ -288,13 +288,13 @@ describe('validators', () => {
       };
 
       Reflect.defineMetadata(
-        isEthAddressMetadataKey,
+        isBnbAddressMetadataKey,
         undefined,
         target,
         propertyKey,
       );
       expect(() => {
-        isEthAddressValidator(target, propertyName, methodArguments);
+        isBnbAddressValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run with no address if optional', () => {
@@ -309,14 +309,14 @@ describe('validators', () => {
       ];
       const isParamOptional = [true];
       Reflect.defineMetadata(
-        isEthAddressMetadataKey,
+        isBnbAddressMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressValidator(
+        isBnbAddressValidator(
           target,
           propertyName,
           methodArguments,
@@ -338,14 +338,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressMetadataKey,
+        isBnbAddressMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressValidator(target, propertyName, methodArguments);
+        isBnbAddressValidator(target, propertyName, methodArguments);
       }).toThrowError(
         `Address: ${methodArguments[0].to} is not a valid ethereum Address`,
       );
@@ -362,14 +362,14 @@ describe('validators', () => {
       ];
       const isParamOptional = [false];
       Reflect.defineMetadata(
-        isEthAddressMetadataKey,
+        isBnbAddressMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressValidator(
+        isBnbAddressValidator(
           target,
           propertyName,
           methodArguments,
@@ -390,20 +390,20 @@ describe('validators', () => {
         },
       ];
       Reflect.defineMetadata(
-        isEthAddressMetadataKey,
+        isBnbAddressMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressValidator(target, propertyName, methodArguments);
+        isBnbAddressValidator(target, propertyName, methodArguments);
       }).toThrowError(
         new Error(`Address: [object Object] is not a valid ethereum Address`),
       );
     });
   });
-  describe('isEthAddressArrayValidatorNotEmpty', () => {
+  describe('isBnbAddressArrayValidatorNotEmpty', () => {
     it('Expects to run with correct address', () => {
       const methodArguments = {
         '0': {
@@ -418,14 +418,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -444,14 +444,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -472,14 +472,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -494,14 +494,14 @@ describe('validators', () => {
       };
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         undefined,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -520,14 +520,14 @@ describe('validators', () => {
       ];
       const isParamOptional = [true];
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -549,14 +549,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -577,14 +577,14 @@ describe('validators', () => {
       ];
       const isParamOptional = [false];
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -608,14 +608,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -635,14 +635,14 @@ describe('validators', () => {
         },
       ];
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKeyNotEmpty,
+        isBnbAddressArrayMetadataKeyNotEmpty,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidatorNotEmpty(
+        isBnbAddressArrayValidatorNotEmpty(
           target,
           propertyName,
           methodArguments,
@@ -650,7 +650,7 @@ describe('validators', () => {
       }).toThrowError(new Error(`Addresses Array should not be empty`));
     });
   });
-  describe('isEthAddressArrayValidator', () => {
+  describe('isBnbAddressArrayValidator', () => {
     it('Expects to run with correct address', () => {
       const methodArguments = {
         '0': {
@@ -665,14 +665,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(target, propertyName, methodArguments);
+        isBnbAddressArrayValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run when empty array', () => {
@@ -688,14 +688,14 @@ describe('validators', () => {
         },
       ];
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(target, propertyName, methodArguments);
+        isBnbAddressArrayValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run when empty array and no field', () => {
@@ -709,14 +709,14 @@ describe('validators', () => {
         },
       ];
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(target, propertyName, methodArguments);
+        isBnbAddressArrayValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run with correct address when no field passed ()', () => {
@@ -731,14 +731,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(target, propertyName, methodArguments);
+        isBnbAddressArrayValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run with correct address but in other field', () => {
@@ -755,14 +755,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(target, propertyName, methodArguments);
+        isBnbAddressArrayValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run with no params', () => {
@@ -773,14 +773,14 @@ describe('validators', () => {
       };
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         undefined,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(target, propertyName, methodArguments);
+        isBnbAddressArrayValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('Expects to run with no address if optional', () => {
@@ -795,14 +795,14 @@ describe('validators', () => {
       ];
       const isParamOptional = [true];
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(
+        isBnbAddressArrayValidator(
           target,
           propertyName,
           methodArguments,
@@ -824,14 +824,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(target, propertyName, methodArguments);
+        isBnbAddressArrayValidator(target, propertyName, methodArguments);
       }).toThrowError(
         `Address: ${methodArguments[0].to[0]} is not a valid ethereum Address`,
       );
@@ -848,14 +848,14 @@ describe('validators', () => {
       ];
       const isParamOptional = [false];
       Reflect.defineMetadata(
-        isEthAddressArrayMetadataKey,
+        isBnbAddressArrayMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressArrayValidator(
+        isBnbAddressArrayValidator(
           target,
           propertyName,
           methodArguments,
@@ -866,10 +866,10 @@ describe('validators', () => {
       );
     });
   });
-  describe('isEthAddressOrEnsValidator', () => {
+  describe('isBnbAddressOrEnsValidator', () => {
     it('should not throw for valid ens with isParaOptional omitted', () => {
       const methodArguments = {
-        '0': 'aave.eth',
+        '0': 'lootbridge.bnb',
       };
       const existingPossibleAddresses = [
         {
@@ -879,19 +879,19 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressOrENSMetadataKey,
+        isBnbAddressOrENSMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressOrEnsValidator(target, propertyName, methodArguments);
+        isBnbAddressOrEnsValidator(target, propertyName, methodArguments);
       }).not.toThrow();
     });
     it('should not throw for valid ens with isParaOptional truthy', () => {
       const methodArguments = {
-        '0': 'aave.eth',
+        '0': 'lootbridge.bnb',
       };
       const existingPossibleAddresses = [
         {
@@ -901,21 +901,21 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressOrENSMetadataKey,
+        isBnbAddressOrENSMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressOrEnsValidator(target, propertyName, methodArguments, [
+        isBnbAddressOrEnsValidator(target, propertyName, methodArguments, [
           true,
         ]);
       }).not.toThrow();
     });
     it('should not throw for valid ens with isParaOptional falsy', () => {
       const methodArguments = {
-        '0': 'aave.eth',
+        '0': 'lootbridge.bnb',
       };
       const existingPossibleAddresses = [
         {
@@ -925,21 +925,21 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressOrENSMetadataKey,
+        isBnbAddressOrENSMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressOrEnsValidator(target, propertyName, methodArguments, [
+        isBnbAddressOrEnsValidator(target, propertyName, methodArguments, [
           false,
         ]);
       }).not.toThrow();
     });
     it('should throw for invalid address', () => {
       const methodArguments = {
-        '0': 'aave',
+        '0': 'lootbridge',
       };
       const existingPossibleAddresses = [
         {
@@ -949,14 +949,14 @@ describe('validators', () => {
       ];
 
       Reflect.defineMetadata(
-        isEthAddressOrENSMetadataKey,
+        isBnbAddressOrENSMetadataKey,
         existingPossibleAddresses,
         target,
         propertyKey,
       );
 
       expect(() => {
-        isEthAddressOrEnsValidator(target, propertyName, methodArguments, [
+        isBnbAddressOrEnsValidator(target, propertyName, methodArguments, [
           false,
         ]);
       }).toThrow();

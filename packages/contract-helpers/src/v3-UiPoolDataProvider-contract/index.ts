@@ -19,7 +19,7 @@ const ammSymbolMap: Record<string, string> = {
   '0x004375dff511095cc5a197a54140a24efef3a416': 'UNIWBTCUSDC',
   '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11': 'UNIDAIWETH',
   '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc': 'UNIUSDCWETH',
-  '0xdfc14d2af169b0d36c4eff567ada9b2e0cae044f': 'UNIAAVEWETH',
+  '0xdfc14d2af169b0d36c4eff567ada9b2e0cae044f': 'UNILOOTBRIDGEWETH',
   '0xb6909b960dbbe7392d405429eb2b3649752b4838': 'UNIBATWETH',
   '0x3da1313ae46132a397d90d95b1424a9a7e3e0fce': 'UNICRVWETH',
   '0xa2107fa5b38d9bbd2c461d6edf11b11a50f6b974': 'UNILINKWETH',
@@ -149,7 +149,7 @@ export class UiPoolDataProvider implements UiPoolDataProviderInterface {
         variableBorrowRate: reserveRaw.variableBorrowRate.toString(),
         stableBorrowRate: reserveRaw.stableBorrowRate.toString(),
         lastUpdateTimestamp: reserveRaw.lastUpdateTimestamp,
-        aTokenAddress: reserveRaw.aTokenAddress.toString(),
+        lbTokenAddress: reserveRaw.lbTokenAddress.toString(),
         stableDebtTokenAddress: reserveRaw.stableDebtTokenAddress.toString(),
         variableDebtTokenAddress:
           reserveRaw.variableDebtTokenAddress.toString(),
@@ -225,7 +225,7 @@ export class UiPoolDataProvider implements UiPoolDataProviderInterface {
       userReserves: userReservesRaw.map(userReserveRaw => ({
         id: `${this.chainId}-${user}-${userReserveRaw.underlyingAsset}-${lendingPoolAddressProvider}`.toLowerCase(),
         underlyingAsset: userReserveRaw.underlyingAsset.toLowerCase(),
-        scaledATokenBalance: userReserveRaw.scaledATokenBalance.toString(),
+        scaledLBTokenBalance: userReserveRaw.scaledLBTokenBalance.toString(),
         usageAsCollateralEnabledOnUser:
           userReserveRaw.usageAsCollateralEnabledOnUser,
         stableBorrowRate: userReserveRaw.stableBorrowRate.toString(),
