@@ -26,7 +26,7 @@ parameter inputs. Can be used to read and write data on the protocol contracts.
 
 ```sh
 // with npm
-npm install @aave/contract-helpers @aave/math-utils
+npm install @platinum-egg/contract-helpers @platinum-egg/math-utils
 
 // with yarn
 yarn add @aave/contract-helpers @aave/math-utils

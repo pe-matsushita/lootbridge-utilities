@@ -1,10 +1,9 @@
 {
-  "name": "@lootbridge/lootbridge-utilities",
+  "name": "@platinum-egg/lootbridge-utilities",
   "repository": {
     "type": "git",
     "url": "https://github.com/pe-matsushita/lootbridge-utilities.git"
   },
-  "private": true,
   "license": "MIT",
   "scripts": {
     "postinstall": "lerna bootstrap",
