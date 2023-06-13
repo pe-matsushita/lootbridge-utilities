@@ -1537,7 +1537,7 @@ describe('Pool', () => {
           onBehalfOf,
         }),
       ).rejects.toThrowError(
-        'To withdraw ETH you need to pass the aWETH token address',
+        'To withdraw BNB you need to pass the aWETH token address',
       );
     });
     it('Expects to fail when PoolAddress not provided', async () => {
@@ -1857,7 +1857,7 @@ describe('Pool', () => {
           referralCode,
         }),
       ).rejects.toThrowError(
-        `To borrow ETH you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+        `To borrow BNB you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
       );
     });
     it('Expects to fail when PoolAddress not provided', async () => {

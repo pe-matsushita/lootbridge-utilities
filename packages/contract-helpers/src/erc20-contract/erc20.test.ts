@@ -461,7 +461,7 @@ describe('ERC20Service', () => {
     it('Expects to get ethereum data with mock address', async () => {
       const tokenData = await erc20Service.getTokenData(API_ETH_MOCK_ADDRESS);
       expect(tokenData.name).toEqual('Ethereum');
-      expect(tokenData.symbol).toEqual('ETH');
+      expect(tokenData.symbol).toEqual('BNB');
       expect(tokenData.decimals).toEqual(18);
       expect(tokenData.address).toEqual(API_ETH_MOCK_ADDRESS);
     });

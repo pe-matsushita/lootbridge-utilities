@@ -12,7 +12,7 @@ export interface CalculateReserveIncentivesRequest {
   totalVariableDebt: string;
   totalStableDebt: string;
   decimals: number;
-  priceInMarketReferenceCurrency: string; // Can be priced in ETH or USD depending on market
+  priceInMarketReferenceCurrency: string; // Can be priced in BNB or USD depending on market
   marketReferenceCurrencyDecimals: number;
 }
 

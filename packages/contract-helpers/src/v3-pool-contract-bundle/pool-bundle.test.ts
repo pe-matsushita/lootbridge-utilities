@@ -395,7 +395,7 @@ describe('PoolBundle', () => {
           referralCode: '0',
         }),
       ).rejects.toThrowError(
-        `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
+        `To borrow BNB you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
       );
 
       const result = instance.borrowTxBuilder.generateTxData({

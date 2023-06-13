@@ -3,9 +3,9 @@ import { SECONDS_PER_YEAR, WEI_DECIMALS } from '../../constants';
 
 export interface CalculateIncentiveAPRRequest {
   emissionPerSecond: string;
-  rewardTokenPriceInMarketReferenceCurrency: string; // Can be priced in ETH or USD depending on market
+  rewardTokenPriceInMarketReferenceCurrency: string; // Can be priced in BNB or USD depending on market
   totalTokenSupply: string;
-  priceInMarketReferenceCurrency: string; // Can be priced in ETH or USD depending on market
+  priceInMarketReferenceCurrency: string; // Can be priced in BNB or USD depending on market
   decimals: number;
   rewardTokenDecimals: number;
 }

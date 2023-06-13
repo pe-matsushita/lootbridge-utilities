@@ -558,7 +558,7 @@ describe('LendingPool', () => {
           onBehalfOf,
         }),
       ).rejects.toThrowError(
-        'To withdraw ETH you need to pass the aWBNB token address',
+        'To withdraw BNB you need to pass the aWBNB token address',
       );
     });
     it('Expects to fail when lendingPoolAddress not provided', async () => {
@@ -854,7 +854,7 @@ describe('LendingPool', () => {
           referralCode,
         }),
       ).rejects.toThrowError(
-        `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
+        `To borrow BNB you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
       );
     });
     it('Expects to fail when lendingPoolAddress not provided', async () => {

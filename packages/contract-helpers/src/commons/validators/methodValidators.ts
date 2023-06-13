@@ -503,7 +503,7 @@ export function WBNBValidator(
   descriptor.value = function () {
     // @ts-expect-error todo: check why this ignore is needed
     if (!utils.isAddress(this.wbnbGatewayAddress)) {
-      console.error(`[WethGatewayValidator] You need to pass valid addresses`);
+      console.error(`[WbnbGatewayValidator] You need to pass valid addresses`);
       return [];
     }
 

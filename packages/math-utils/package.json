@@ -1,6 +1,6 @@
 {
-  "name": "@lootbridge/math-utils",
-  "version": "1.17.5",
+  "name": "@platinum-egg/math-utils",
+  "version": "1.17.6",
   "license": "MIT",
   "description": "",
   "scripts": {

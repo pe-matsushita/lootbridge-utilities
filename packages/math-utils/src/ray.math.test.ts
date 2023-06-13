@@ -165,7 +165,7 @@ describe('ray math', () => {
         const rate = valueToZDBigNumber(
           Number.parseFloat(interest) * 1000000000000000000000000,
         );
-        const balance = '100000000000000000000000000'; // 100M ETH
+        const balance = '100000000000000000000000000'; // 100M BNB
         const accurateInterest = legacyCalculateCompoundedInterest(
           rate,
           timeSpan,

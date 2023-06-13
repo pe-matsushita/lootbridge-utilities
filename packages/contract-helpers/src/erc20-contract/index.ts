@@ -240,7 +240,7 @@ export class ERC20Service
     if (token.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       return {
         name: 'Ethereum',
-        symbol: 'ETH',
+        symbol: 'BNB',
         decimals: 18,
         address: token,
       };

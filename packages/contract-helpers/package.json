@@ -1,6 +1,6 @@
 {
-  "name": "@lootbridge/contract-helpers",
-  "version": "1.17.5",
+  "name": "@platinum-egg/contract-helpers",
+  "version": "1.17.6",
   "sideEffects": false,
   "license": "MIT",
   "description": "",

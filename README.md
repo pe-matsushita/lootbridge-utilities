@@ -156,7 +156,7 @@ import * as markets from '@bgd-labs/aave-address-book';
 //  const markets = require('@bgd-labs/aave-address-book');
 //  const ethers = require('ethers');
 
-// Sample RPC address for querying ETH mainnet
+// Sample RPC address for querying BNB mainnet
 const provider = new ethers.providers.JsonRpcProvider(
   'https://eth-mainnet.public.blastapi.io',
 );
@@ -1010,7 +1010,7 @@ const pool = new Pool(provider, {
 - @param `swapAll` Bool indicating if the user wants to swap all the current collateral 
 - @param @optional `onBehalfOf` The ethereum address for which user is swapping. It will default to the user address 
 - @param @optional `referralCode` Integrators are assigned a referral code and can potentially receive rewards. It defaults to 0 (no referrer) 
-- @param @optional `useEthPath` Boolean to indicate if the swap will use an ETH path. Defaults to false
+- @param @optional `useEthPath` Boolean to indicate if the swap will use an BNB path. Defaults to false
 */
 const txs: EthereumTransactionTypeExtended[] = await lendingPool.swapCollateral(
   {
@@ -1066,7 +1066,7 @@ const pool = new Pool(provider, {
 - @param @optional `onBehalfOf` The ethereum address for which user is swapping. It will default to the user address 
 - @param @optional `referralCode` Integrators are assigned a referral code and can potentially receive rewards. It defaults to 0 (no referrer) 
 - @param @optional `flash` If the transaction will be executed through a flashloan(true) or will be done directly through the adapters(false). Defaults to false 
-- @param @optional `useEthPath` Boolean to indicate if the swap will use an ETH path. Defaults to false
+- @param @optional `useEthPath` Boolean to indicate if the swap will use an BNB path. Defaults to false
 */
 const txs: EthereumTransactionTypeExtended[] =
   await lendingPool.repayWithCollateral({
@@ -1230,9 +1230,9 @@ const lendingPool = new LendingPool(provider, {
 /*
 - @param `user` The ethereum address that will receive the borrowed amount 
 - @param `reserve` The ethereum address of the reserve asset 
-- @param `amount` The amount to be borrowed, in human readable units (e.g. 2.5 ETH)
+- @param `amount` The amount to be borrowed, in human readable units (e.g. 2.5 BNB)
 - @param `interestRateMode`//Whether the borrow will incur a stable (InterestRate.Stable) or variable (InterestRate.Variable) interest rate
-- @param @optional `debtTokenAddress` The ethereum address of the debt token of the asset you want to borrow. Only needed if the reserve is ETH mock address 
+- @param @optional `debtTokenAddress` The ethereum address of the debt token of the asset you want to borrow. Only needed if the reserve is BNB mock address 
 - @param @optional `onBehalfOf` The ethereum address for which user is borrowing. It will default to the user address 
 */
 const txs: EthereumTransactionTypeExtended[] = await lendingPool.borrow({
@@ -1313,7 +1313,7 @@ const lendingPool = new LendingPool(provider, {
 - @param `user` The ethereum address that will receive the aTokens 
 - @param `reserve` The ethereum address of the reserve asset 
 - @param `amount` The amount of aToken being redeemed 
-- @param @optional `aTokenAddress` The ethereum address of the aToken. Only needed if the reserve is ETH mock address 
+- @param @optional `aTokenAddress` The ethereum address of the aToken. Only needed if the reserve is BNB mock address 
 - @param @optional `onBehalfOf` The amount of aToken being redeemed. It will default to the user address
 */
 const txs: EthereumTransactionTypeExtended[] = lendingPool.withdraw({
@@ -1472,7 +1472,7 @@ const lendingPool = new LendingPool(provider, {
 - @param `swapAll` Bool indicating if the user wants to swap all the current collateral
 - @param @optional `onBehalfOf` The ethereum address for which user is swapping. It will default to the user address
 - @param @optional `referralCode` Integrators are assigned a referral code and can potentially receive rewards. It defaults to 0 (no referrer)
-- @param @optional `useEthPath` Boolean to indicate if the swap will use an ETH path. Defaults to false
+- @param @optional `useEthPath` Boolean to indicate if the swap will use an BNB path. Defaults to false
 */
 const txs: EthereumTransactionTypeExtended[] = await lendingPool.swapCollateral(
   {
@@ -1532,7 +1532,7 @@ const lendingPool = new LendingPool(provider, {
 - @param @optional `onBehalfOf` The ethereum address for which user is swapping. It will default to the user address
 - @param @optional `referralCode` Integrators are assigned a referral code and can potentially receive rewards. It defaults to 0 (no referrer)
 - @param @optional `flash` If the transaction will be executed through a flashloan(true) or will be done directly through the adapters(false). Defaults to false
-- @param @optional `useEthPath` Boolean to indicate if the swap will use an ETH path. Defaults to false
+- @param @optional `useEthPath` Boolean to indicate if the swap will use an BNB path. Defaults to false
 */
 const txs: EthereumTransactionTypeExtended[] =
   await lendingPool.repayWithCollateral({

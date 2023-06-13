@@ -281,7 +281,7 @@ export class PoolBundle
         if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
           if (!debtTokenAddress) {
             throw new Error(
-              `To borrow ETH you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
+              `To borrow BNB you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
             );
           }
 

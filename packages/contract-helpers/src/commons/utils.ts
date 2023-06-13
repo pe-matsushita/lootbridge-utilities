@@ -113,7 +113,7 @@ export const gasLimitRecommendations: GasRecommendationType = {
 };
 
 export const mintAmountsPerToken: Record<string, string> = {
-  LOOTBRIDGE: valueToWei('100', 18),
+  AAVE: valueToWei('100', 18),
   BAT: valueToWei('100000', 18),
   BUSD: valueToWei('10000', 18),
   DAI: valueToWei('10000', 18),
@@ -131,8 +131,8 @@ export const mintAmountsPerToken: Record<string, string> = {
   SUSD: valueToWei('10000', 18),
   TUSD: '0', // The TusdMinter contract already mints the maximum
   UNI: valueToWei('1000', 18),
-  USDC: valueToWei('10000', 6),
-  USDT: valueToWei('10000', 6),
+  USDC: valueToWei('10000', 18),
+  USDT: valueToWei('10000', 18),
   WBTC: valueToWei('1', 8),
   YFI: valueToWei('1', 18),
   ZRX: valueToWei('100000', 18),
