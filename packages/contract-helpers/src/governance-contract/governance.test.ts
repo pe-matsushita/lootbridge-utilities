@@ -306,7 +306,7 @@ describe('GovernanceService', () => {
         totalVotingSupply: proposalMock.totalVotingSupply.toString(),
       });
     });
-    it('Expects to fail if gov address not eth address', async () => {
+    it('Expects to fail if gov address not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
         ipfsGateway: 'https://cloudflare-ipfs.com/ipfs',
@@ -314,7 +314,7 @@ describe('GovernanceService', () => {
       const getProposals = instance.getProposals({ skip, limit });
       expect(getProposals).toEqual([]);
     });
-    it('Expects to fail if gov helper not eth address', async () => {
+    it('Expects to fail if gov helper not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS: 'asdf',
@@ -350,7 +350,7 @@ describe('GovernanceService', () => {
       expect(spy).toHaveBeenCalled();
       expect(power).toEqual('0.01');
     });
-    it('Expects to fail if gov address not eth address', async () => {
+    it('Expects to fail if gov address not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
       });
@@ -361,7 +361,7 @@ describe('GovernanceService', () => {
       });
       expect(power).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
       });
@@ -402,7 +402,7 @@ describe('GovernanceService', () => {
       expect(spy).toHaveBeenCalled();
       expect(power[0]).toEqual(userPowerMock);
     });
-    it('Expects to fail if gov address not eth address', async () => {
+    it('Expects to fail if gov address not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
       });
@@ -412,7 +412,7 @@ describe('GovernanceService', () => {
       });
       expect(power).toEqual([]);
     });
-    it('Expects to fail if gov helper not eth address', async () => {
+    it('Expects to fail if gov helper not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS: 'asfd',
@@ -423,7 +423,7 @@ describe('GovernanceService', () => {
       });
       expect(power).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
@@ -438,7 +438,7 @@ describe('GovernanceService', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when tokens are not eth address', async () => {
+    it('Expects to fail when tokens are not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,
@@ -476,7 +476,7 @@ describe('GovernanceService', () => {
       expect(spy).toHaveBeenCalled();
       expect(vote).toEqual(voteMock);
     });
-    it('Expects to fail if gov address not eth address', async () => {
+    it('Expects to fail if gov address not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS: 'asdf',
       });
@@ -486,7 +486,7 @@ describe('GovernanceService', () => {
       });
       expect(power).toEqual([]);
     });
-    it('Expects to fail when user not eth address', async () => {
+    it('Expects to fail when user not bnb address', async () => {
       const instance = new LootBridgeGovernanceService(provider, {
         GOVERNANCE_ADDRESS,
         GOVERNANCE_HELPER_ADDRESS,

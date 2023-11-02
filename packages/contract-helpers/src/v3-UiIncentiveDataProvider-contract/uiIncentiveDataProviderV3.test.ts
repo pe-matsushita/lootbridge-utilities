@@ -54,7 +54,7 @@ describe('UiIncentiveDataProvider', () => {
           lendingPoolAddressProvider,
         }),
       ).rejects.toThrowError(
-        'UiIncentiveDataProviderAddress must be an eth valid address',
+        'UiIncentiveDataProviderAddress must be an bnb valid address',
       );
     });
     it('should throw if user is not a valid ethereum address', async () => {
@@ -112,7 +112,7 @@ describe('UiIncentiveDataProvider', () => {
       await expect(async () =>
         instance.getReservesIncentivesData({ lendingPoolAddressProvider }),
       ).rejects.toThrowError(
-        'UiIncentiveDataProviderAddress must be an eth valid address',
+        'UiIncentiveDataProviderAddress must be an bnb valid address',
       );
     });
     it('should throw if lending pool address is not a valid ethereum address', async () => {
@@ -156,7 +156,7 @@ describe('UiIncentiveDataProvider', () => {
           user,
         }),
       ).rejects.toThrowError(
-        'UiIncentiveDataProviderAddress must be an eth valid address',
+        'UiIncentiveDataProviderAddress must be an bnb valid address',
       );
     });
     it('should throw if lending pool address provider is not a valid ethereum address', async () => {
@@ -214,10 +214,10 @@ describe('UiIncentiveDataProvider', () => {
           lendingPoolAddressProvider,
         }),
       ).rejects.toThrowError(
-        'UiIncentiveDataProviderAddress must be an eth valid address',
+        'UiIncentiveDataProviderAddress must be an bnb valid address',
       );
     });
-    it('Expects to fail if lendingPoolAddressProvider not an eth address', async () => {
+    it('Expects to fail if lendingPoolAddressProvider not an bnb address', async () => {
       const lendingPoolAddressProvider = 'asdf';
       await expect(async () =>
         instance.getReservesIncentivesDataHumanized({
@@ -380,10 +380,10 @@ describe('UiIncentiveDataProvider', () => {
           user,
         }),
       ).rejects.toThrowError(
-        'UiIncentiveDataProviderAddress must be an eth valid address',
+        'UiIncentiveDataProviderAddress must be an bnb valid address',
       );
     });
-    it('Expects to fail if lendingPoolAddressProvider not an eth address', async () => {
+    it('Expects to fail if lendingPoolAddressProvider not an bnb address', async () => {
       const lendingPoolAddressProvider = 'asdf';
       await expect(async () =>
         instance.getUserReservesIncentivesDataHumanized({
@@ -394,7 +394,7 @@ describe('UiIncentiveDataProvider', () => {
         `Address: ${lendingPoolAddressProvider} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail if user not an eth address', async () => {
+    it('Expects to fail if user not an bnb address', async () => {
       const user = 'asdf';
       await expect(async () =>
         instance.getUserReservesIncentivesDataHumanized({
@@ -509,10 +509,10 @@ describe('UiIncentiveDataProvider', () => {
           lendingPoolAddressProvider,
         }),
       ).rejects.toThrowError(
-        'UiIncentiveDataProviderAddress must be an eth valid address',
+        'UiIncentiveDataProviderAddress must be an bnb valid address',
       );
     });
-    it('Expects to fail if lendingPoolAddressProvider not an eth address', async () => {
+    it('Expects to fail if lendingPoolAddressProvider not an bnb address', async () => {
       const lendingPoolAddressProvider = 'asdf';
       await expect(async () =>
         instance.getIncentivesDataWithPriceLegacy({

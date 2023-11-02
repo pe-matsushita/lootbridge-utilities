@@ -158,7 +158,7 @@ import * as markets from '@bgd-labs/aave-address-book';
 
 // Sample RPC address for querying BNB mainnet
 const provider = new ethers.providers.JsonRpcProvider(
-  'https://eth-mainnet.public.blastapi.io',
+  'https://bnb-mainnet.public.blastapi.io',
 );
 
 // User address to fetch data for, insert address here

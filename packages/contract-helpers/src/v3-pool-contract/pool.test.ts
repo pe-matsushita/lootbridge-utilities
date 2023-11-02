@@ -1537,7 +1537,7 @@ describe('Pool', () => {
           onBehalfOf,
         }),
       ).rejects.toThrowError(
-        'To withdraw BNB you need to pass the aWETH token address',
+        'To withdraw BNB you need to pass the aWBNB token address',
       );
     });
     it('Expects to fail when PoolAddress not provided', async () => {
@@ -1653,7 +1653,7 @@ describe('Pool', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects the tx object passing all parameters with borrow eth', async () => {
+    it('Expects the tx object passing all parameters with borrow bnb', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const poolInstance = new Pool(provider, config);
       const borrowEthSpy = jest
@@ -1843,7 +1843,7 @@ describe('Pool', () => {
       );
       expect(gasPrice?.gasPrice).toEqual('1');
     });
-    it('Expects to fail when borrowing eth and not passing debtTokenAddress', async () => {
+    it('Expects to fail when borrowing bnb and not passing debtTokenAddress', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const poolInstance = new Pool(provider, config);
 
@@ -1857,7 +1857,7 @@ describe('Pool', () => {
           referralCode,
         }),
       ).rejects.toThrowError(
-        `To borrow BNB you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+        `To borrow BNB you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
       );
     });
     it('Expects to fail when PoolAddress not provided', async () => {
@@ -1874,7 +1874,7 @@ describe('Pool', () => {
       });
       expect(txs).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -1891,7 +1891,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -1908,7 +1908,7 @@ describe('Pool', () => {
         `Address: ${reserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -1925,7 +1925,7 @@ describe('Pool', () => {
         `Address: ${onBehalfOf} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when debtTokenAddress not and eth address', async () => {
+    it('Expects to fail when debtTokenAddress not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const debtTokenAddress = 'asdf';
       await expect(async () =>
@@ -1986,7 +1986,7 @@ describe('Pool', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects the tx object passing all params with repay eth', async () => {
+    it('Expects the tx object passing all params with repay bnb', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const poolInstance = new Pool(provider, config);
       const repayEthSpy = jest
@@ -2257,7 +2257,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -2272,7 +2272,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -2287,7 +2287,7 @@ describe('Pool', () => {
         `Address: ${reserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -2628,7 +2628,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -2645,7 +2645,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -2662,7 +2662,7 @@ describe('Pool', () => {
         `Address: ${reserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -2844,7 +2844,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -2857,7 +2857,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -2979,7 +2979,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -2992,7 +2992,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -3211,7 +3211,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when liquidator not and eth address', async () => {
+    it('Expects to fail when liquidator not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const liquidator = 'asdf';
       await expect(async () =>
@@ -3228,7 +3228,7 @@ describe('Pool', () => {
         `Address: ${liquidator} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when liquidatedUser not and eth address', async () => {
+    it('Expects to fail when liquidatedUser not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const liquidatedUser = 'asdf';
       await expect(async () =>
@@ -3245,7 +3245,7 @@ describe('Pool', () => {
         `Address: ${liquidatedUser} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when debtReserve not and eth address', async () => {
+    it('Expects to fail when debtReserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const debtReserve = 'asdf';
       await expect(async () =>
@@ -3262,7 +3262,7 @@ describe('Pool', () => {
         `Address: ${debtReserve} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when collateralReserve not and eth address', async () => {
+    it('Expects to fail when collateralReserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const collateralReserve = 'asdf';
       await expect(async () =>
@@ -3776,7 +3776,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -3798,7 +3798,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAsset not and eth address', async () => {
+    it('Expects to fail when fromAsset not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const fromAsset = 'asdf';
       await expect(async () =>
@@ -3820,7 +3820,7 @@ describe('Pool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromLBToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const fromLBToken = 'asdf';
       await expect(async () =>
@@ -3842,7 +3842,7 @@ describe('Pool', () => {
         `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when toAsset not and eth address', async () => {
+    it('Expects to fail when toAsset not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const toAsset = 'asdf';
       await expect(async () =>
@@ -3864,7 +3864,7 @@ describe('Pool', () => {
         `Address: ${toAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when augustus not and eth address', async () => {
+    it('Expects to fail when augustus not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const augustus = 'asdf';
       await expect(async () =>
@@ -4683,7 +4683,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -4706,7 +4706,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAsset not and eth address', async () => {
+    it('Expects to fail when fromAsset not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const fromAsset = 'asdf';
       await expect(async () =>
@@ -4729,7 +4729,7 @@ describe('Pool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when augustus not and eth address', async () => {
+    it('Expects to fail when augustus not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const augustus = 'asdf';
       await expect(async () =>
@@ -4752,7 +4752,7 @@ describe('Pool', () => {
         `Address: ${augustus} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromLBToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const fromLBToken = 'asdf';
       await expect(async () =>
@@ -4775,7 +4775,7 @@ describe('Pool', () => {
         `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when assetToRepay not and eth address', async () => {
+    it('Expects to fail when assetToRepay not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const assetToRepay = 'asdf';
       await expect(async () =>
@@ -5114,7 +5114,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -5131,7 +5131,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when collateralAsset not and eth address', async () => {
+    it('Expects to fail when collateralAsset not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const collateralAsset = 'asdf';
       await expect(async () =>
@@ -5148,7 +5148,7 @@ describe('Pool', () => {
         `Address: ${collateralAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when borrowedAsset not and eth address', async () => {
+    it('Expects to fail when borrowedAsset not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const borrowedAsset = 'asdf';
       await expect(async () =>
@@ -5165,7 +5165,7 @@ describe('Pool', () => {
         `Address: ${borrowedAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when initiator not and eth address', async () => {
+    it('Expects to fail when initiator not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const initiator = 'asdf';
       await expect(async () =>
@@ -5229,7 +5229,7 @@ describe('Pool', () => {
     afterEach(() => {
       jest.clearAllMocks();
     });
-    it('Expects to fail if passing all params with repay eth address', async () => {
+    it('Expects to fail if passing all params with repay bnb address', async () => {
       const reserve = API_ETH_MOCK_ADDRESS;
       const poolInstance = new Pool(provider, config);
 
@@ -5241,7 +5241,7 @@ describe('Pool', () => {
           rateMode,
         }),
       ).rejects.toThrowError(
-        'Can not repay with lbTokens with eth. Should be WETH instead',
+        'Can not repay with lbTokens with bnb. Should be WBNB instead',
       );
     });
     it('Expects the tx object passing all params with amount -1 with rate stable', async () => {
@@ -5369,7 +5369,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -5383,7 +5383,7 @@ describe('Pool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when reserve not and eth address', async () => {
+    it('Expects to fail when reserve not and bnb address', async () => {
       const poolInstance = new Pool(provider, config);
       const reserve = 'asdf';
       await expect(async () =>
@@ -5470,7 +5470,7 @@ describe('Pool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', () => {
+    it('Expects to fail when user not and bnb address', () => {
       const poolInstance = new Pool(provider, config);
       const user = 'asdf';
       expect(() =>

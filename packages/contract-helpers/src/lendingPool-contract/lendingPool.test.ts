@@ -2348,7 +2348,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -2371,7 +2371,7 @@ describe('LendingPool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAsset not and eth address', async () => {
+    it('Expects to fail when fromAsset not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const fromAsset = 'asdf';
       await expect(async () =>
@@ -2394,7 +2394,7 @@ describe('LendingPool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromLBToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const fromLBToken = 'asdf';
       await expect(async () =>
@@ -2417,7 +2417,7 @@ describe('LendingPool', () => {
         `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when toAsset not and eth address', async () => {
+    it('Expects to fail when toAsset not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const toAsset = 'asdf';
       await expect(async () =>
@@ -2440,7 +2440,7 @@ describe('LendingPool', () => {
         `Address: ${toAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -2463,7 +2463,7 @@ describe('LendingPool', () => {
         `Address: ${onBehalfOf} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when augustus not and eth address', async () => {
+    it('Expects to fail when augustus not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const augustus = 'asdf';
       await expect(async () =>
@@ -3394,7 +3394,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -3417,7 +3417,7 @@ describe('LendingPool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAsset not and eth address', async () => {
+    it('Expects to fail when fromAsset not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const fromAsset = 'asdf';
       await expect(async () =>
@@ -3440,7 +3440,7 @@ describe('LendingPool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromLBToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const fromLBToken = 'asdf';
       await expect(async () =>
@@ -3463,7 +3463,7 @@ describe('LendingPool', () => {
         `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when assetToRepay not and eth address', async () => {
+    it('Expects to fail when assetToRepay not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const assetToRepay = 'asdf';
       await expect(async () =>
@@ -3486,7 +3486,7 @@ describe('LendingPool', () => {
         `Address: ${assetToRepay} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>
@@ -3855,7 +3855,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -3872,7 +3872,7 @@ describe('LendingPool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when collateralAsset not and eth address', async () => {
+    it('Expects to fail when collateralAsset not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const collateralAsset = 'asdf';
       await expect(async () =>
@@ -3889,7 +3889,7 @@ describe('LendingPool', () => {
         `Address: ${collateralAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when borrowedAsset not and eth address', async () => {
+    it('Expects to fail when borrowedAsset not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const borrowedAsset = 'asdf';
       await expect(async () =>
@@ -3906,7 +3906,7 @@ describe('LendingPool', () => {
         `Address: ${borrowedAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when initiator not and eth address', async () => {
+    it('Expects to fail when initiator not and bnb address', async () => {
       const lendingPoolInstance = new LendingPool(provider, config);
       const initiator = 'asdf';
       await expect(async () =>
@@ -4737,7 +4737,7 @@ describe('LendingPool', () => {
       });
       expect(txObj).toEqual([]);
     });
-    it('Expects to fail when user not and eth address', async () => {
+    it('Expects to fail when user not and bnb address', async () => {
       const poolInstance = new LendingPool(provider, config);
       const user = 'asdf';
       await expect(async () =>
@@ -4761,7 +4761,7 @@ describe('LendingPool', () => {
         `Address: ${user} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when augustus not and eth address', async () => {
+    it('Expects to fail when augustus not and bnb address', async () => {
       const poolInstance = new LendingPool(provider, config);
       const augustus = 'asdf';
       await expect(async () =>
@@ -4785,7 +4785,7 @@ describe('LendingPool', () => {
         `Address: ${augustus} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromAsset not and eth address', async () => {
+    it('Expects to fail when fromAsset not and bnb address', async () => {
       const poolInstance = new LendingPool(provider, config);
       const fromAsset = 'asdf';
       await expect(async () =>
@@ -4809,7 +4809,7 @@ describe('LendingPool', () => {
         `Address: ${fromAsset} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when fromLBToken not and eth address', async () => {
+    it('Expects to fail when fromLBToken not and bnb address', async () => {
       const poolInstance = new LendingPool(provider, config);
       const fromLBToken = 'asdf';
       await expect(async () =>
@@ -4833,7 +4833,7 @@ describe('LendingPool', () => {
         `Address: ${fromLBToken} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when assetToRepay not and eth address', async () => {
+    it('Expects to fail when assetToRepay not and bnb address', async () => {
       const poolInstance = new LendingPool(provider, config);
       const assetToRepay = 'asdf';
       await expect(async () =>
@@ -4857,7 +4857,7 @@ describe('LendingPool', () => {
         `Address: ${assetToRepay} is not a valid ethereum Address`,
       );
     });
-    it('Expects to fail when onBehalfOf not and eth address', async () => {
+    it('Expects to fail when onBehalfOf not and bnb address', async () => {
       const poolInstance = new LendingPool(provider, config);
       const onBehalfOf = 'asdf';
       await expect(async () =>

@@ -216,7 +216,7 @@ export class WBNBGatewayService
     const numericRateMode = interestRateMode === InterestRate.Variable ? 2 : 1;
     if (!debtTokenAddress) {
       throw new Error(
-        `To borrow BNB you need to pass the stable or variable WETH debt Token Address corresponding the interestRateMode`,
+        `To borrow BNB you need to pass the stable or variable WBNB debt Token Address corresponding the interestRateMode`,
       );
     }
 

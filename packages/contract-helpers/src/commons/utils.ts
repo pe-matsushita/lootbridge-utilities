@@ -153,6 +153,12 @@ export const mintAmountsPerToken: Record<string, string> = {
   GHST: valueToWei('10000', 18),
   JEUR: valueToWei('10000', 18),
   SUSHI: valueToWei('10000', 18),
+  GAN: valueToWei('10000', 18),
+  GQ: valueToWei('10000', 18),
+  MBOX: valueToWei('10000', 18),
+  PEEL: valueToWei('10000', 18),
+  TINC: valueToWei('10000', 18),
+  TLM: valueToWei('10000', 4),
 };
 
 export const augustusToAmountOffsetFromCalldata = (

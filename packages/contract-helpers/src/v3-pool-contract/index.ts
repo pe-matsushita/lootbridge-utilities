@@ -1468,7 +1468,7 @@ export class Pool extends BaseService<IPool> implements PoolInterface {
   ): Promise<EthereumTransactionTypeExtended[]> {
     if (reserve.toLowerCase() === API_ETH_MOCK_ADDRESS.toLowerCase()) {
       throw new Error(
-        'Can not repay with lbTokens with bnb. Should be WETH instead',
+        'Can not repay with lbTokens with bnb. Should be WBNB instead',
       );
     }
 
