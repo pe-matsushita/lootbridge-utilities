@@ -16,11 +16,13 @@ Aave Protocol, an upgrade to the existing
 
 Aave utilities are available as npm packages:
 
-The [`@aave/math-utils`](https://www.npmjs.com/package/@aave/math-utils) package
-contains methods for formatting raw contract data for usage on a frontend
+The
+[`@platinum-egg/math-utils`](https://www.npmjs.com/package/@platinum-egg/math-utils)
+package contains methods for formatting raw contract data for usage on a
+frontend
 
 The
-[`@aave/contract-helpers`](https://www.npmjs.com/package/@aave/contract-helpers)
+[`@platinum-egg/contract-helpers`](https://www.npmjs.com/package/@platinum-egg/contract-helpers)
 package contains methods for generating transactions based on method and
 parameter inputs. Can be used to read and write data on the protocol contracts.
 
@@ -29,7 +31,7 @@ parameter inputs. Can be used to read and write data on the protocol contracts.
 npm install @platinum-egg/contract-helpers @platinum-egg/math-utils
 
 // with yarn
-yarn add @aave/contract-helpers @aave/math-utils
+yarn add @platinum-egg/contract-helpers @platinum-egg/math-utils
 ```
 
 <br />
